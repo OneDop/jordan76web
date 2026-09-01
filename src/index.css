@@ -1,0 +1,263 @@
+/* Jordan 2076 Global CSS & Design System */
+
+:root {
+  /* Brand Color Palette */
+  --color-neon-cyan: #7EF3E8;
+  --color-deep-navy: #001B3A;
+  --color-bg-dark: #0A0A0A;
+  --color-steel-gray: #B7B9BD;
+  --color-off-white: #F5F7F8;
+
+  /* Derived Cyber Theme Colors */
+  --color-navy-card: rgba(0, 27, 58, 0.65);
+  --color-navy-solid: #001630;
+  --color-cyan-glow: rgba(126, 243, 232, 0.35);
+  --color-cyan-dim: rgba(126, 243, 232, 0.15);
+  --color-card-border: rgba(126, 243, 232, 0.22);
+  --color-border-muted: rgba(183, 185, 189, 0.2);
+
+  /* Typography */
+  --font-orbitron: 'Orbitron', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-rajdhani: 'Rajdhani', sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-hand: 'Caveat', 'Segoe Script', cursive;
+
+  /* Layout & Transitions */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-normal: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  
+  /* Box Shadows & Glows */
+  --glow-cyan-sm: 0 0 15px rgba(126, 243, 232, 0.3);
+  --glow-cyan-lg: 0 0 35px rgba(126, 243, 232, 0.45);
+  --glass-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* Reset & Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--color-bg-dark);
+  color: var(--color-off-white);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  overflow-x: hidden;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scrollbar Customization */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg-dark);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-deep-navy);
+  border: 1px solid var(--color-card-border);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-neon-cyan);
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6, .font-orbitron {
+  font-family: var(--font-orbitron);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-off-white);
+}
+
+/* Subheadings / Badges */
+.font-rajdhani {
+  font-family: var(--font-rajdhani);
+}
+
+/* Utility Classes */
+.text-cyan {
+  color: var(--color-neon-cyan) !important;
+}
+
+.text-gray {
+  color: var(--color-steel-gray) !important;
+}
+
+.bg-navy {
+  background-color: var(--color-deep-navy);
+}
+
+/* Futuristic Cyber Grid Background Overlay */
+.cyber-grid-overlay {
+  background-image: 
+    linear-gradient(to right, rgba(126, 243, 232, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(126, 243, 232, 0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Cyber Glass Card */
+.cyber-card {
+  background: linear-gradient(135deg, rgba(0, 27, 58, 0.7) 0%, rgba(10, 10, 10, 0.85) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--glass-shadow);
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.cyber-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-neon-cyan), transparent);
+  opacity: 0.4;
+  transition: opacity var(--transition-fast);
+}
+
+.cyber-card:hover {
+  border-color: var(--color-neon-cyan);
+  box-shadow: var(--glow-cyan-sm), var(--glass-shadow);
+  transform: translateY(-4px);
+}
+
+.cyber-card:hover::before {
+  opacity: 1;
+}
+
+/* Cyber Buttons */
+.btn-cyber-primary {
+  background: var(--color-neon-cyan);
+  color: var(--color-bg-dark);
+  font-family: var(--font-orbitron);
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 0.8rem 1.8rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-neon-cyan);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  transition: all var(--transition-fast);
+  box-shadow: 0 0 15px rgba(126, 243, 232, 0.3);
+  text-decoration: none;
+}
+
+.btn-cyber-primary:hover {
+  background: #60e3d7;
+  box-shadow: var(--glow-cyan-lg);
+  transform: translateY(-2px);
+}
+
+.btn-cyber-outline {
+  background: rgba(0, 27, 58, 0.5);
+  color: var(--color-neon-cyan);
+  font-family: var(--font-orbitron);
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0.8rem 1.8rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-neon-cyan);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  transition: all var(--transition-fast);
+  backdrop-filter: blur(8px);
+  text-decoration: none;
+}
+
+.btn-cyber-outline:hover {
+  background: rgba(126, 243, 232, 0.15);
+  box-shadow: var(--glow-cyan-sm);
+  color: var(--color-off-white);
+  transform: translateY(-2px);
+}
+
+/* Cyber Tag / Badge */
+.cyber-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.8rem;
+  border-radius: 4px;
+  background: rgba(0, 27, 58, 0.8);
+  border: 1px solid var(--color-neon-cyan);
+  color: var(--color-neon-cyan);
+  font-family: var(--font-orbitron);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Scanline / Pulsing Effect */
+@keyframes cyber-pulse {
+  0%, 100% { opacity: 0.8; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.02); }
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(1000%); }
+}
+
+.animate-pulse-glow {
+  animation: cyber-pulse 3s infinite ease-in-out;
+}
+
+/* Section Containers */
+.section-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 5rem 1.5rem;
+}
+
+.section-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  position: relative;
+  /* Shrink-wraps to the text like inline-block, but is block-level, so the
+     preceding .cyber-badge cannot share its line and overlap the heading. */
+  display: table;
+  margin-inline: auto;
+}
+
+.section-title::after {
+  content: '';
+  display: block;
+  width: 60%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-neon-cyan), transparent);
+  margin-top: 0.4rem;
+}
+
+.section-subtitle {
+  color: var(--color-steel-gray);
+  font-size: 1.1rem;
+  max-width: 650px;
+  margin-bottom: 3rem;
+}

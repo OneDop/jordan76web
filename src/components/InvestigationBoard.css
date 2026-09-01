@@ -1,0 +1,430 @@
+/* Hackathon investigation board.
+   A dark board holding six pinned artefacts — three intercepted photographs and
+   three notes — strung together with red thread. The scatter is art-directed
+   rather than random: each artefact sits in a responsive grid cell and is
+   nudged off it by a fixed offset, so the composition survives every viewport
+   width. Thread geometry is measured from the live DOM (see
+   InvestigationBoard.tsx) so it stays attached to the pins wherever they land. */
+
+.ib-board {
+  position: relative;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: clamp(2rem, 4vw, 3.25rem) clamp(1.25rem, 3vw, 2.5rem) clamp(2.5rem, 5vw, 4rem);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(126, 243, 232, 0.13);
+  background:
+    radial-gradient(120% 85% at 50% -10%, rgba(126, 243, 232, 0.06), transparent 62%),
+    linear-gradient(168deg, #12161d 0%, #0b0e13 58%, #080a0e 100%);
+  box-shadow:
+    0 40px 90px -32px rgba(0, 0, 0, 0.95),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Fine speckle so the surface reads as material rather than flat fill. */
+.ib-board::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 22px 22px;
+  -webkit-mask-image: radial-gradient(85% 75% at 50% 40%, #000 35%, transparent 100%);
+  mask-image: radial-gradient(85% 75% at 50% 40%, #000 35%, transparent 100%);
+}
+
+/* ---- stage: shared coordinate space for artefacts and thread ---- */
+
+.ib-stage {
+  position: relative;
+}
+
+/* Above the artefacts: the string crosses over the photographs. */
+.ib-threads {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.ib-thread {
+  fill: none;
+  stroke-linecap: round;
+}
+
+.ib-thread--cast {
+  stroke: rgba(0, 0, 0, 0.75);
+  stroke-width: 3.6;
+}
+
+.ib-thread--line {
+  stroke: #e23a35;
+  stroke-width: 2.1;
+}
+
+/* ---- artefact placement ---- */
+
+.ib-row {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+  gap: clamp(1rem, 2.4vw, 2rem);
+}
+
+.ib-row--notes {
+  margin-top: clamp(3rem, 6vw, 5.5rem);
+  gap: clamp(1rem, 3vw, 2.75rem);
+}
+
+/* The cell carries the scatter offset and the pin anchor; it never rotates, so
+   the pin stays put while the paper swings under it — as a real pin behaves. */
+.ib-cell {
+  position: relative;
+  padding-top: 10px;
+  transform: translate(var(--ib-dx, 0), var(--ib-dy, 0));
+  justify-self: var(--ib-justify, stretch);
+  width: var(--ib-w, auto);
+}
+
+/* Measurement anchor only. The visible pin head is drawn in the SVG overlay so
+   it sits above the thread; `visibility` keeps this box in layout. */
+.ib-pin {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 17px;
+  height: 17px;
+  margin-left: -8.5px;
+  visibility: hidden;
+}
+
+/* ---- pinned photographs ---- */
+
+.ib-evidence {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0.8rem 0.8rem 1rem;
+  border-radius: 3px;
+  background: linear-gradient(#fbf9f4, #ece6da);
+  box-shadow:
+    0 18px 34px -14px rgba(0, 0, 0, 0.9),
+    0 2px 6px rgba(0, 0, 0, 0.5);
+  transform: rotate(var(--ib-tilt));
+}
+
+/* A span, so it needs blockifying before aspect-ratio and box metrics apply. */
+.ib-evidence__photo {
+  display: block;
+  position: relative;
+  aspect-ratio: 5 / 4;
+  overflow: hidden;
+  background: #0a0d12;
+}
+
+.ib-evidence__photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--ib-focus, 50% 50%);
+}
+
+.ib-evidence__site {
+  display: block;
+  margin-top: 0.6rem;
+  font-family: var(--font-hand);
+  font-size: 1.65rem;
+  line-height: 1;
+  color: #16191e;
+}
+
+.ib-evidence__tagline {
+  display: block;
+  margin-top: 0.15rem;
+  font-family: var(--font-rajdhani);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #71767f;
+}
+
+/* ---- pinned notes ---- */
+
+/* Pinned at the top only: the sheet tips toward the viewer so the lower edge
+   lifts off the board, and one corner has curled away. */
+/* Pinned at the top only, so the sheet tips toward the viewer and its bottom
+   corner has peeled up off the board.
+   The paper lives on ::before rather than the note itself: that lets the corner
+   be clipped away so the board shows through the notch — the interrupted
+   silhouette is what reads as "lifted" — while the text stays unclipped above
+   it. drop-shadow (not box-shadow) is used because it follows that notched
+   silhouette instead of the original rectangle; the opaque paper defines the
+   shape, so the text casts nothing of its own. */
+.ib-note {
+  position: relative;
+  padding: 1.35rem 1.3rem 2.9rem;
+  transform-origin: 50% -10px;
+  transform: rotate(var(--ib-tilt)) perspective(700px) rotateX(var(--ib-lift, 6deg));
+  filter: drop-shadow(0 15px 15px rgba(0, 0, 0, 0.6));
+}
+
+.ib-note::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 2px;
+  background: var(--ib-paper);
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% calc(100% - var(--ib-curl, 38px)),
+    calc(100% - var(--ib-curl, 38px)) 100%,
+    0 100%
+  );
+}
+
+/* The flap itself: the corner folded back on top of the sheet, so it shows the
+   pale underside — dark at the crease, bright at the free edge. */
+.ib-note__curl {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: var(--ib-curl, 38px);
+  height: var(--ib-curl, 38px);
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+  background: linear-gradient(135deg, var(--ib-fold-a) 0%, var(--ib-fold-b) 88%);
+}
+
+/* Fold colours run darker at the crease to lighter at the free edge — a sheet's
+   underside is paler and less saturated than its printed face. */
+.ib-note--signal {
+  --ib-paper: linear-gradient(163deg, #fdf3a9 0%, #f4dd72 100%);
+  --ib-fold-a: #ddca75;
+  --ib-fold-b: #fefbe4;
+  color: #2a2410;
+}
+
+.ib-note--brief {
+  --ib-paper: linear-gradient(160deg, #f6f2e8 0%, #e7e0d0 100%);
+  --ib-fold-a: #cec6b1;
+  --ib-fold-b: #fdfbf5;
+  color: #24272c;
+}
+
+.ib-note--apply {
+  --ib-paper: linear-gradient(160deg, #ffe86b 0%, #f7c93f 100%);
+  --ib-fold-a: #e0b73a;
+  --ib-fold-b: #fff8d4;
+  color: #2a2008;
+  cursor: pointer;
+  filter: drop-shadow(0 15px 15px rgba(0, 0, 0, 0.62))
+    drop-shadow(0 0 16px rgba(247, 201, 63, 0.32));
+}
+
+/* Clicking the note sets it swinging from its pin. */
+@keyframes ib-swing {
+  0%,
+  100% {
+    transform: rotate(var(--ib-tilt)) perspective(760px) rotateX(var(--ib-lift, 4deg));
+  }
+  20% {
+    transform: rotate(calc(var(--ib-tilt) + 5.5deg)) perspective(760px)
+      rotateX(var(--ib-lift, 4deg));
+  }
+  45% {
+    transform: rotate(calc(var(--ib-tilt) - 3.6deg)) perspective(760px)
+      rotateX(var(--ib-lift, 4deg));
+  }
+  70% {
+    transform: rotate(calc(var(--ib-tilt) + 2deg)) perspective(760px) rotateX(var(--ib-lift, 4deg));
+  }
+  88% {
+    transform: rotate(calc(var(--ib-tilt) - 0.9deg)) perspective(760px)
+      rotateX(var(--ib-lift, 4deg));
+  }
+}
+
+.ib-note--apply.is-swinging {
+  animation: ib-swing 1.15s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+}
+
+.ib-note__kicker {
+  font-family: var(--font-orbitron);
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: #b3401c;
+}
+
+.ib-note--brief .ib-note__kicker {
+  color: #0f6d78;
+}
+
+.ib-note__quote {
+  margin: 0.75rem 0 0;
+  font-family: var(--font-hand);
+  font-size: 1.34rem;
+  line-height: 1.4;
+}
+
+.ib-note__sign {
+  margin-top: 0.85rem;
+  font-family: var(--font-hand);
+  font-size: 1.05rem;
+  text-align: right;
+  color: #6b5a1e;
+}
+
+.ib-note__title {
+  /* Global h1-h6 paint off-white, which vanishes on note paper. */
+  color: inherit;
+  margin: 0.6rem 0 0;
+  font-family: var(--font-orbitron);
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.ib-note__list {
+  margin: 0.85rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.ib-note__list li {
+  display: flex;
+  gap: 0.55rem;
+  font-family: var(--font-rajdhani);
+  font-size: 0.92rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.ib-note__list li::before {
+  content: '';
+  flex: none;
+  width: 6px;
+  height: 6px;
+  margin-top: 0.42rem;
+  border-radius: 50%;
+  background: #c0322e;
+}
+
+.ib-note__lead {
+  margin: 0.7rem 0 0;
+  font-family: var(--font-hand);
+  font-size: 1.42rem;
+  line-height: 1.3;
+}
+
+/* Stamped in the same red as the thread and the pins, rather than a dark tech
+   slab: it has to sit on paper. The hard offset shadow reads as ink-on-card and
+   lets the button physically press down, where a blurred glow would float. */
+.ib-apply {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  /* Not full-width: it would run into the peeled corner and read as clutter. */
+  margin-top: 1.15rem;
+  padding: 0.7rem 1.15rem;
+  border: none;
+  border-radius: 2px;
+  background: #c62f28;
+  color: #fff6e6;
+  font-family: var(--font-orbitron);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 3px 0 #8b1f1a;
+  transition: background var(--transition-fast), transform var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.ib-apply svg {
+  transition: transform var(--transition-fast);
+}
+
+.ib-apply:hover {
+  background: #b12822;
+  transform: translateY(1px);
+  box-shadow: 0 2px 0 #8b1f1a;
+}
+
+.ib-apply:hover svg {
+  transform: translateX(3px);
+}
+
+.ib-apply:active {
+  transform: translateY(3px);
+  box-shadow: 0 0 0 #8b1f1a;
+}
+
+.ib-apply:focus-visible {
+  outline: 2px solid #2a2008;
+  outline-offset: 3px;
+}
+
+/* ---- responsive ---- */
+
+@media (max-width: 900px) {
+  /* Stacked artefacts leave no sensible route for the thread to take. */
+  .ib-threads {
+    display: none;
+  }
+
+  .ib-row,
+  .ib-row--notes {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.25rem;
+  }
+
+  .ib-row--notes {
+    margin-top: 2.25rem;
+  }
+
+  /* The scatter offsets arrive as inline custom properties, which outrank any
+     rule that redeclares them — so neutralise what consumes them instead. */
+  .ib-cell {
+    transform: none;
+    width: auto;
+    justify-self: stretch;
+  }
+
+  .ib-pin {
+    visibility: visible;
+    border-radius: 50%;
+    background: radial-gradient(circle at 34% 30%, #ff9c94 0%, #d8332f 60%, #8a1a17 100%);
+    box-shadow: inset -2px -2px 4px rgba(0, 0, 0, 0.5), 0 3px 7px rgba(0, 0, 0, 0.75);
+    z-index: 4;
+  }
+}
+
+@media (max-width: 620px) {
+  .ib-evidence,
+  .ib-note {
+    --ib-tilt: 0deg;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ib-apply {
+    transition: none;
+  }
+
+  .ib-note--apply.is-swinging {
+    animation: none;
+  }
+}

@@ -1,0 +1,277 @@
+/* Congress Day roster.
+   Six speakers as stills from a camera feed. One idea only: pointing at a
+   subject brings it into focus and everything else falls out of it — the photo
+   resolves from grey to colour, a thin bracket closes on it, and their detail
+   unfolds under the name. No telemetry dressing; the speaker is the content.
+   The defocus runs on :has() rather than React state, so hovering never
+   re-renders the tree. */
+
+.cd-group + .cd-group {
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+}
+
+.cd-group__head {
+  display: flex;
+  align-items: baseline;
+  gap: clamp(0.8rem, 2vw, 1.25rem);
+  margin-bottom: clamp(1rem, 2vw, 1.4rem);
+}
+
+.cd-group__title {
+  font-family: var(--font-orbitron);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: var(--color-off-white);
+}
+
+.cd-group__rule {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(126, 243, 232, 0.28), rgba(126, 243, 232, 0.04));
+}
+
+.cd-group__count {
+  font-family: ui-monospace, 'Cascadia Mono', Menlo, Consolas, monospace;
+  font-size: 0.64rem;
+  letter-spacing: 0.08em;
+  color: rgba(126, 243, 232, 0.6);
+}
+
+.cd-grid {
+  display: grid;
+  gap: clamp(0.75rem, 1.6vw, 1.15rem);
+}
+
+.cd-grid--keynote {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.cd-grid--panel {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+/* ---- subject ---- */
+
+.cd-subject {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 3px;
+  background: #06090c;
+  transition:
+    border-color 0.4s ease,
+    filter 0.45s ease,
+    opacity 0.45s ease,
+    transform 0.45s ease;
+}
+
+.cd-subject:hover {
+  border-color: rgba(126, 243, 232, 0.5);
+}
+
+/* Whatever the camera isn't locked onto pulls out of focus. */
+.cd-roster:has(.cd-subject:hover) .cd-subject:not(:hover) {
+  filter: blur(2.5px) grayscale(1) brightness(0.45);
+  opacity: 0.5;
+  transform: scale(0.988);
+}
+
+.cd-subject__photo {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  background: #080c10;
+}
+
+.cd-subject--keynote .cd-subject__photo {
+  aspect-ratio: 4 / 5;
+}
+
+.cd-subject--panel .cd-subject__photo {
+  aspect-ratio: 3 / 4;
+}
+
+.cd-subject__photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Biased high: headshots put the face above centre, so varied crops stay
+     framed sensibly without per-image tuning. */
+  object-position: 50% 22%;
+  filter: grayscale(1) brightness(0.6) contrast(1.14);
+  transition: filter 0.55s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cd-subject:hover .cd-subject__photo img {
+  filter: grayscale(0) brightness(0.86) contrast(1.02);
+  transform: scale(1.04);
+}
+
+/* Floor gradient, so the name always has something solid under it. */
+.cd-subject__photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    0deg,
+    rgba(4, 7, 10, 0.97) 0%,
+    rgba(4, 7, 10, 0.72) 32%,
+    rgba(4, 7, 10, 0) 68%
+  );
+}
+
+/* ---- tracking bracket ---- */
+
+.cd-bracket {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border: 1.5px solid var(--color-neon-cyan);
+  opacity: 0;
+  transform: scale(1.6);
+  transition: opacity 0.32s ease, transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.cd-subject:hover .cd-bracket {
+  opacity: 0.9;
+  transform: scale(1);
+}
+
+.cd-bracket--tl { top: 9px; left: 9px; border-right: none; border-bottom: none; }
+.cd-bracket--tr { top: 9px; right: 9px; border-left: none; border-bottom: none; }
+.cd-bracket--bl { bottom: 9px; left: 9px; border-right: none; border-top: none; }
+.cd-bracket--br { bottom: 9px; right: 9px; border-left: none; border-top: none; }
+
+.cd-subject__no {
+  position: absolute;
+  top: 0.7rem;
+  left: 0.75rem;
+  font-family: ui-monospace, 'Cascadia Mono', Menlo, Consolas, monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: rgba(126, 243, 232, 0.5);
+  transition: color 0.35s ease;
+}
+
+.cd-subject:hover .cd-subject__no {
+  color: var(--color-neon-cyan);
+}
+
+/* ---- identity ---- */
+
+.cd-info {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: clamp(0.85rem, 1.6vw, 1.15rem);
+}
+
+/* The name is the content and stays put; hovering adds detail beneath it
+   rather than swapping it out. */
+.cd-info__name {
+  font-family: var(--font-orbitron);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.28;
+  color: var(--color-off-white);
+}
+
+.cd-subject--panel .cd-info__name {
+  font-size: 0.8rem;
+}
+
+.cd-info__role {
+  margin-top: 0.28rem;
+  font-family: var(--font-rajdhani);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: rgba(245, 247, 248, 0.58);
+}
+
+.cd-subject--panel .cd-info__role {
+  font-size: 0.72rem;
+}
+
+.cd-info__more {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.45s ease, opacity 0.3s ease, margin-top 0.45s ease;
+}
+
+.cd-subject:hover .cd-info__more {
+  max-height: 12rem;
+  opacity: 1;
+  margin-top: 0.7rem;
+}
+
+.cd-info__more p {
+  margin: 0;
+  padding-top: 0.6rem;
+  border-top: 1px solid rgba(126, 243, 232, 0.22);
+  font-family: var(--font-rajdhani);
+  font-size: 0.82rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--color-text-grey);
+}
+
+.cd-info__track {
+  display: block;
+  margin-top: 0.5rem;
+  font-family: var(--font-orbitron);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--color-neon-cyan);
+}
+
+/* ---- responsive ---- */
+
+@media (max-width: 900px) {
+  .cd-grid--panel {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .cd-grid--keynote,
+  .cd-grid--panel {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Without hover there is no way to reach the detail, so show it outright and
+   drop the defocus entirely. */
+@media (hover: none) {
+  .cd-info__more {
+    max-height: 12rem;
+    opacity: 1;
+    margin-top: 0.7rem;
+  }
+
+  .cd-roster:has(.cd-subject:hover) .cd-subject:not(:hover) {
+    filter: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cd-subject,
+  .cd-subject__photo img,
+  .cd-bracket,
+  .cd-info__more {
+    transition: none;
+  }
+
+  .cd-subject:hover .cd-subject__photo img {
+    transform: none;
+  }
+}

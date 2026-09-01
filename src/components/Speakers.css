@@ -1,0 +1,595 @@
+/* Modern Panel Speakers Card Stack Component */
+
+.rb-reactbits-section {
+  position: relative;
+  width: 100%;
+  padding: 6.5rem 2rem;
+  background-color: var(--color-bg-dark, #0A0A0A);
+  color: var(--color-off-white, #F5F7F8);
+  overflow: hidden;
+  background-image: 
+    linear-gradient(to right, rgba(126, 243, 232, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(126, 243, 232, 0.035) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Vignette Fades to blend into adjacent sections */
+.rb-reactbits-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 90px;
+  background: linear-gradient(to bottom, var(--color-bg-dark, #0A0A0A) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.rb-reactbits-section::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 90px;
+  background: linear-gradient(to top, var(--color-bg-dark, #0A0A0A) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.rb-reactbits-bg-glow {
+  position: absolute;
+  top: 50%;
+  right: 15%;
+  transform: translateY(-50%);
+  width: 580px;
+  height: 580px;
+  background: radial-gradient(ellipse at center, rgba(126, 243, 232, 0.12) 0%, rgba(0, 27, 58, 0.25) 50%, transparent 75%);
+  pointer-events: none;
+  filter: blur(75px);
+  z-index: 0;
+}
+
+.rb-reactbits-container {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  z-index: 2;
+}
+
+/* Left Column Text */
+.rb-reactbits-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.rb-panel-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  background: rgba(126, 243, 232, 0.08);
+  border: 1px solid rgba(126, 243, 232, 0.25);
+  color: var(--color-neon-cyan, #7EF3E8);
+  font-family: var(--font-orbitron);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin-bottom: 1.25rem;
+}
+
+.rb-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-neon-cyan, #7EF3E8);
+  box-shadow: 0 0 8px var(--color-neon-cyan, #7EF3E8);
+}
+
+.rb-reactbits-title {
+  font-family: var(--font-orbitron), system-ui, -apple-system, sans-serif;
+  font-size: 2.85rem;
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--color-off-white, #F5F7F8);
+  margin-bottom: 1.2rem;
+  letter-spacing: -0.01em;
+}
+
+.rb-reactbits-subtitle {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--color-steel-gray, #B7B9BD);
+  margin-bottom: 2.2rem;
+  max-width: 480px;
+}
+
+.rb-reactbits-subtitle strong {
+  color: var(--color-neon-cyan, #7EF3E8);
+  font-weight: 700;
+}
+
+.rb-reactbits-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.rb-reactbits-icon-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid rgba(126, 243, 232, 0.25);
+  background: rgba(10, 18, 30, 0.6);
+  color: var(--color-neon-cyan, #7EF3E8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(8px);
+}
+
+.rb-reactbits-icon-btn:hover {
+  background: var(--color-neon-cyan, #7EF3E8);
+  color: var(--color-bg-dark, #0A0A0A);
+  box-shadow: 0 0 15px rgba(126, 243, 232, 0.4);
+  transform: scale(1.05);
+}
+
+.rb-reactbits-swap-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.4rem;
+  border-radius: 999px;
+  background: var(--color-neon-cyan, #7EF3E8);
+  color: var(--color-bg-dark, #0A0A0A);
+  font-family: var(--font-orbitron);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 0 20px rgba(126, 243, 232, 0.3);
+}
+
+.rb-reactbits-swap-btn:hover {
+  box-shadow: 0 0 30px rgba(126, 243, 232, 0.55);
+  transform: translateY(-2px);
+  background: #60e3d7;
+}
+
+.spin-anim {
+  animation: spinFast 0.35s linear;
+}
+
+@keyframes spinFast {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(180deg); }
+}
+
+/* Right Side: Stack Stage Box */
+.rb-reactbits-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.rb-stack-stage-box {
+  position: relative;
+  width: 370px;
+  height: 480px;
+  perspective: 1200px;
+  transform-style: preserve-3d;
+  margin-bottom: 2rem;
+}
+
+/* Modern Card Frame - Glassmorphism Aesthetic */
+.rb-reactbits-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  background: #090E17;
+  border: 1px solid rgba(126, 243, 232, 0.2);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.4s cubic-bezier(0.2, 1, 0.3, 1), opacity 0.4s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  user-select: none;
+}
+
+.rb-card-active:hover {
+  border-color: rgba(126, 243, 232, 0.5);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 25px rgba(126, 243, 232, 0.2);
+}
+
+.rb-card-swapping {
+  pointer-events: none;
+}
+
+/* Floating Minimalist Tag at Card Top */
+.rb-modern-badge-row {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.rb-modern-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.28rem 0.65rem;
+  border-radius: 999px;
+  background: rgba(10, 16, 26, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(126, 243, 232, 0.3);
+  color: var(--color-neon-cyan, #7EF3E8);
+  font-family: var(--font-orbitron);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.rb-pill-indicator {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-neon-cyan, #7EF3E8);
+  box-shadow: 0 0 6px var(--color-neon-cyan, #7EF3E8);
+}
+
+/* Card Body */
+.rb-card-window-body {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #060A12;
+}
+
+.rb-speaker-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 15%;
+  transition: transform 0.6s cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+.rb-reactbits-card:hover .rb-speaker-img {
+  transform: scale(1.05);
+}
+
+.rb-speaker-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg, 
+    rgba(6, 10, 18, 0.15) 0%, 
+    rgba(6, 10, 18, 0.2) 35%, 
+    rgba(6, 10, 18, 0.8) 70%, 
+    rgba(6, 10, 18, 0.98) 95%
+  );
+}
+
+.rb-speaker-overlay-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.5rem;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.rb-speaker-name {
+  font-family: var(--font-orbitron);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--color-off-white, #F5F7F8);
+  margin-bottom: 0.25rem;
+  letter-spacing: 0.02em;
+}
+
+.rb-speaker-role {
+  font-size: 0.85rem;
+  color: var(--color-neon-cyan, #7EF3E8);
+  font-weight: 600;
+  margin-bottom: 0.15rem;
+}
+
+.rb-speaker-org {
+  font-size: 0.78rem;
+  color: var(--color-steel-gray, #B7B9BD);
+  margin-bottom: 1rem;
+}
+
+.rb-card-view-bio-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.38rem 0.85rem;
+  border-radius: 999px;
+  background: rgba(126, 243, 232, 0.1);
+  border: 1px solid rgba(126, 243, 232, 0.3);
+  color: var(--color-neon-cyan, #7EF3E8);
+  font-family: var(--font-orbitron);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.rb-card-view-bio-pill:hover {
+  background: var(--color-neon-cyan, #7EF3E8);
+  color: var(--color-bg-dark, #0A0A0A);
+  border-color: var(--color-neon-cyan, #7EF3E8);
+}
+
+/* Dots Indicator - Interactive & Fully Functional */
+.rb-reactbits-dots {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.4rem 0;
+  z-index: 10;
+}
+
+.rb-reactbits-dot-item {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.2, 1, 0.3, 1);
+  outline: none;
+}
+
+.rb-reactbits-dot-item:hover {
+  background: rgba(126, 243, 232, 0.7);
+  transform: scale(1.2);
+}
+
+.rb-reactbits-dot-item.active {
+  width: 26px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--color-neon-cyan, #7EF3E8);
+  box-shadow: 0 0 10px rgba(126, 243, 232, 0.8);
+}
+
+/* Modal */
+.rb-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 4500;
+  background: rgba(3, 6, 12, 0.88);
+  backdrop-filter: blur(18px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.rb-modal-card {
+  max-width: 560px;
+  width: 100%;
+  background: #0A101A;
+  border: 1px solid rgba(126, 243, 232, 0.35);
+  border-radius: 20px;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.85);
+  overflow: hidden;
+  max-height: 90vh;
+}
+
+.rb-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.1rem 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 27, 58, 0.3);
+}
+
+.rb-modal-tag {
+  font-family: var(--font-orbitron);
+  font-size: 0.78rem;
+  color: var(--color-neon-cyan, #7EF3E8);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.rb-modal-close {
+  background: transparent;
+  border: 1px solid rgba(126, 243, 232, 0.35);
+  color: var(--color-neon-cyan, #7EF3E8);
+  border-radius: 6px;
+  padding: 0.3rem;
+  cursor: pointer;
+  display: flex;
+}
+
+.rb-modal-close:hover {
+  background: rgba(126, 243, 232, 0.15);
+}
+
+.rb-modal-body {
+  padding: 1.6rem;
+  overflow-y: auto;
+  max-height: calc(90vh - 70px);
+}
+
+.rb-modal-hero {
+  display: flex;
+  gap: 1.2rem;
+  align-items: center;
+  margin-bottom: 1.4rem;
+}
+
+.rb-modal-avatar {
+  width: 105px;
+  height: 125px;
+  object-fit: cover;
+  border-radius: 14px;
+  border: 1px solid rgba(126, 243, 232, 0.3);
+}
+
+.rb-modal-hero-info {
+  flex: 1;
+}
+
+.rb-modal-name {
+  font-family: var(--font-orbitron);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--color-off-white, #F5F7F8);
+  margin-bottom: 0.2rem;
+}
+
+.rb-modal-role {
+  font-size: 0.88rem;
+  color: var(--color-neon-cyan, #7EF3E8);
+  font-weight: 700;
+  margin-bottom: 0.15rem;
+}
+
+.rb-modal-org {
+  font-size: 0.8rem;
+  color: var(--color-steel-gray, #B7B9BD);
+  margin-bottom: 0.6rem;
+}
+
+.rb-session-pill {
+  display: inline-block;
+  padding: 0.25rem 0.65rem;
+  border-radius: 4px;
+  background: rgba(126, 243, 232, 0.1);
+  border: 1px solid rgba(126, 243, 232, 0.3);
+  color: var(--color-neon-cyan, #7EF3E8);
+  font-family: var(--font-orbitron);
+  font-size: 0.64rem;
+  font-weight: 700;
+}
+
+.rb-modal-section {
+  margin-bottom: 1.2rem;
+}
+
+.rb-modal-label {
+  font-family: var(--font-orbitron);
+  font-size: 0.72rem;
+  color: var(--color-neon-cyan, #7EF3E8);
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+  letter-spacing: 0.05em;
+}
+
+.rb-modal-bio {
+  color: var(--color-steel-gray, #B7B9BD);
+  line-height: 1.6;
+  font-size: 0.88rem;
+}
+
+.rb-modal-topic-box {
+  background: rgba(0, 27, 58, 0.4);
+  border-left: 3px solid var(--color-neon-cyan, #7EF3E8);
+  padding: 0.8rem 1rem;
+  border-radius: 6px;
+  margin-bottom: 1.4rem;
+}
+
+.rb-modal-topic {
+  font-size: 0.9rem;
+  color: var(--color-off-white, #F5F7F8);
+  font-weight: 600;
+}
+
+.rb-modal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px dashed rgba(255, 255, 255, 0.1);
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.rb-modal-socials {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.rb-social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  border: 1px solid rgba(126, 243, 232, 0.3);
+  color: var(--color-neon-cyan, #7EF3E8);
+  font-size: 0.72rem;
+  font-family: var(--font-orbitron);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.rb-social-link:hover {
+  background: rgba(126, 243, 232, 0.15);
+}
+
+.rb-modal-download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1.1rem;
+  border-radius: 8px;
+  background: var(--color-neon-cyan, #7EF3E8);
+  color: var(--color-bg-dark, #0A0A0A);
+  font-family: var(--font-orbitron);
+  font-size: 0.75rem;
+  font-weight: 800;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.rb-modal-download-btn:hover {
+  background: #60e3d7;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .rb-reactbits-container {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  .rb-reactbits-title {
+    font-size: 2.2rem;
+  }
+  .rb-stack-stage-box {
+    width: 320px;
+    height: 450px;
+  }
+}

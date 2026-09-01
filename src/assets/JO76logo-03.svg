@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Swatch_Info_Layer" data-name="Swatch Info Layer" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1080 1080">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#linear-gradient-2);
+      }
+
+      .cls-2 {
+        fill: url(#linear-gradient);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="391.07" y1="453.22" x2="873.04" y2="453.22" gradientUnits="userSpaceOnUse">
+      <stop offset=".1" stop-color="#b3b3b3"/>
+      <stop offset=".23" stop-color="#cbcbcb"/>
+      <stop offset=".42" stop-color="#e7e7e7"/>
+      <stop offset=".58" stop-color="#f8f8f8"/>
+      <stop offset=".7" stop-color="#fff"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="206.96" y1="638.21" x2="662.69" y2="638.21" xlink:href="#linear-gradient"/>
+  </defs>
+  <polygon class="cls-2" points="721.01 740.87 391.07 740.84 574.57 538.67 543.53 537.16 671.36 391.48 783.09 266.38 872.86 165.58 873.04 368.44 833.79 412.73 674.08 595.1 852.39 595.69 721.01 740.87"/>
+  <polygon class="cls-1" points="336.89 766.58 207.19 914.42 206.96 723.18 388.33 514.42 207.2 514.15 341.76 362.01 662.69 362.27 491.85 553.37 519.87 554.57 475.34 607.27 336.89 766.58"/>
+</svg>
