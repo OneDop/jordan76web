@@ -140,7 +140,7 @@
 }
 
 /* Responsive Layout */
-@media (max-width: 992px) {
+@media (max-width: 1024px) {
   .menu__item {
     height: 80px;
   }
@@ -156,19 +156,36 @@
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+  .flowing-menu-section { padding: 2.5rem 0; }
+  .menu__item { height: 72px; }
+  .menu__item-link { font-size: 1.2rem; padding: 0 1rem; }
+  .marquee__text { font-size: 1.3rem; }
+  .menu__item-img { width: 100px; height: 42px; margin: 0 0.9rem; }
+}
+
+@media (max-width: 480px) {
   .menu__item {
-    height: 70px;
+    height: 64px;
   }
   .menu__item-link {
-    font-size: 1.15rem;
+    font-size: 1rem;
+    padding: 0 0.85rem;
   }
   .marquee__text {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
   }
   .menu__item-img {
-    width: 90px;
-    height: 38px;
-    margin: 0 0.8rem;
+    width: 80px;
+    height: 34px;
+    margin: 0 0.6rem;
   }
+}
+
+@media (hover: none) {
+  .marquee { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee__inner { animation: none; }
 }

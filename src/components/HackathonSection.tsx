@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Radio, ArrowRight, Cpu, Activity, Globe } from 'lucide-react';
+import { Radio, ArrowRight, Cpu, Activity, Globe, Truck } from 'lucide-react';
 import ammanImg from '../assets/hackathon_amman.png';
 import irbidImg from '../assets/hackathon_irbid.png';
 import petraImg from '../assets/hackathon_petra.png';
+import aquaImg from '../assets/hackathon_amman.png';
 
 interface TrackData {
   id: string;
@@ -16,36 +17,10 @@ interface TrackData {
 }
 
 const HACKATHON_TRACKS: TrackData[] = [
-  {
-    id: 'track-amman',
-    num: '1',
-    city: 'AMMAN',
-    track: 'EDUCATIONAL SYSTEMS',
-    subTrack: 'AI & DECENTRALIZED LEARNING',
-    desc: 'Pioneering adaptive AI learning matrices, skill verification grids, and next-gen digital classrooms.',
-    image: ammanImg,
-    icon: <Cpu size={18} color="#7EF3E8" />,
-  },
-  {
-    id: 'track-irbid',
-    num: '2',
-    city: 'IRBID',
-    track: 'HEALTHCARE SYSTEMS',
-    subTrack: 'BIO-CYBERNETICS & TELEMETRY',
-    desc: 'Developing bio-cybernetic vital monitors, autonomous medical drones, and predictive health AI.',
-    image: irbidImg,
-    icon: <Activity size={18} color="#7EF3E8" />,
-  },
-  {
-    id: 'track-petra',
-    num: '3',
-    city: 'PETRA',
-    track: 'TOURISM TECHNOLOGY',
-    subTrack: 'AR & CULTURAL HERITAGE',
-    desc: 'Creating immersive AR historical reconstructions, smart eco-tourism guidance, and heritage preservation.',
-    image: petraImg,
-    icon: <Globe size={18} color="#7EF3E8" />,
-  },
+  { id: 'track-amman', num: '1', city: 'AMMAN 2076', track: 'EDUCATION SYSTEMS', subTrack: 'Innovation in Education', desc: 'Reimagine how people learn, access education and engage with learning systems.', image: ammanImg, icon: <Cpu size={18} color="#7EF3E8" /> },
+  { id: 'track-irbid', num: '2', city: 'IRBID 2076', track: 'HEALTHCARE SYSTEMS', subTrack: 'Innovation in Healthcare', desc: 'Improve healthcare access, patient experiences, processes and outcomes.', image: irbidImg, icon: <Activity size={18} color="#7EF3E8" /> },
+  { id: 'track-petra', num: '3', city: 'PETRA 2076', track: 'TOURISM & CULTURE', subTrack: 'Heritage & Visitor Journeys', desc: 'Strengthen tourism, cultural experiences and heritage engagement.', image: petraImg, icon: <Globe size={18} color="#7EF3E8" /> },
+  { id: 'track-aqaba', num: '4', city: 'AQABA 2076', track: 'TRANSPORTATION', subTrack: 'Powered by Petra Ride', desc: 'Safer, smarter and more effective transportation systems.', image: aquaImg, icon: <Truck size={18} color="#7EF3E8" /> },
 ];
 
 interface HackathonSectionProps {
@@ -61,7 +36,7 @@ export const HackathonSection: React.FC<HackathonSectionProps> = ({ onOpenMissio
       style={{
         position: 'relative',
         backgroundColor: '#0A0A0A',
-        padding: '7rem 1.5rem 8rem 1.5rem',
+        padding: 'clamp(3rem, 8vw, 7rem) 1rem clamp(3rem, 8vw, 8rem)',
         overflow: 'hidden',
       }}
     >
@@ -147,7 +122,7 @@ export const HackathonSection: React.FC<HackathonSectionProps> = ({ onOpenMissio
             marginBottom: '4rem',
           }}
         >
-          Three cities. Three technological frontiers. Build solutions to secure and transform the future of the region.
+          Four Cities. Four Challenges. One Future. Build software-based solutions across education, healthcare, tourism & transport.
         </p>
 
         {/* Numeric Track Cards Row (Reference Design Layout) */}
@@ -157,9 +132,9 @@ export const HackathonSection: React.FC<HackathonSectionProps> = ({ onOpenMissio
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            gap: ' clamp(1rem, 3vw, 2.5rem)',
+            gap: 'clamp(1rem, 3vw, 2.5rem)',
             flexWrap: 'wrap',
-            marginBottom: '4.5rem',
+            marginBottom: 'clamp(2rem, 5vw, 4.5rem)',
           }}
         >
           {HACKATHON_TRACKS.map((item, index) => {
@@ -169,13 +144,17 @@ export const HackathonSection: React.FC<HackathonSectionProps> = ({ onOpenMissio
               <div
                 key={item.id}
                 onMouseEnter={() => setHoveredIndex(index)}
-                onClick={onOpenMission}
+                onMouseLeave={() => setHoveredIndex(null)}
+                onClick={() => { setHoveredIndex(index); onOpenMission(); }}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => { if (e.key === 'Enter') onOpenMission(); }}
                 style={{
                   position: 'relative',
                   display: 'flex',
                   alignItems: 'center',
                   cursor: 'pointer',
-                  paddingLeft: ' clamp(2rem, 4vw, 3.5rem)', // Space for overlapping giant number
+                  paddingLeft: 'clamp(0.5rem, 2vw, 3.5rem)',
                 }}
               >
                 {/* Giant Stylized Background Number overlapping poster card */}
@@ -186,7 +165,7 @@ export const HackathonSection: React.FC<HackathonSectionProps> = ({ onOpenMissio
                     top: '50%',
                     transform: 'translateY(-50%)',
                     fontFamily: 'var(--font-orbitron)',
-                    fontSize: 'clamp(6rem, 11vw, 9.5rem)',
+                    fontSize: 'clamp(4rem, 11vw, 9.5rem)',
                     fontWeight: 900,
                     lineHeight: 1,
                     color: isHovered ? 'rgba(126, 243, 232, 0.15)' : 'transparent',
@@ -206,7 +185,7 @@ export const HackathonSection: React.FC<HackathonSectionProps> = ({ onOpenMissio
                   style={{
                     position: 'relative',
                     zIndex: 2,
-                    width: 'clamp(230px, 22vw, 280px)',
+                    width: 'min(88vw, clamp(230px, 22vw, 280px))',
                     height: 'clamp(330px, 32vw, 400px)',
                     borderRadius: '16px',
                     overflow: 'hidden',
@@ -379,15 +358,17 @@ export const HackathonSection: React.FC<HackathonSectionProps> = ({ onOpenMissio
             transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.transform = 'translateY(-3px) scale(1.03)';
-            e.currentTarget.style.boxShadow = '0 0 45px rgba(126, 243, 232, 0.7)';
+            if (window.matchMedia('(hover: hover)').matches) {
+              e.currentTarget.style.transform = 'translateY(-3px) scale(1.03)';
+              e.currentTarget.style.boxShadow = '0 0 45px rgba(126, 243, 232, 0.7)';
+            }
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.transform = 'translateY(0) scale(1)';
             e.currentTarget.style.boxShadow = '0 0 30px rgba(126, 243, 232, 0.45)';
           }}
         >
-          <span>START YOUR MISSION</span>
+          <span>Explore Hackathon</span>
           <ArrowRight size={20} strokeWidth={2.5} color="#001B3A" />
         </button>
       </div>

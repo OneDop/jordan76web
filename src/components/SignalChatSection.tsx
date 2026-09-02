@@ -11,30 +11,9 @@ interface ChatMessageData {
 }
 
 const CHAT_MESSAGES: ChatMessageData[] = [
-  {
-    id: 'msg-vision',
-    sender: 'VISION DIRECTIVE',
-    timeAgo: '3m ago',
-    align: 'left',
-    title: 'OUR VISION',
-    text: 'To pioneer a decentralized, quantum-engineered ecosystem where student innovators, technical leaders, and researchers redefine the future of technology in Jordan.',
-  },
-  {
-    id: 'msg-mission',
-    sender: 'MISSION DIRECTIVE',
-    timeAgo: '1m ago',
-    align: 'right',
-    title: 'OUR MISSION',
-    text: 'Bridge speculation and execution by empowering future leaders through hands-on technical workshops, immersive hackathons, and high-impact keynotes.',
-  },
-  {
-    id: 'msg-theme',
-    sender: 'THEME DECODER',
-    timeAgo: 'just now',
-    align: 'left',
-    title: 'DECIPHERING TOMORROW',
-    text: 'Unlocking the encrypted possibilities of human-AI synergy, cyber-physical resilience, and sustainable computing to shape an unshakeable future.',
-  },
+  { id: 'msg-vision', sender: 'VISION', timeAgo: 'From Foundations', align: 'left', title: 'OUR VISION', text: 'To inspire and enable a generation of builders who can use technology, innovation, and entrepreneurship to contribute to Jordan’s future.' },
+  { id: 'msg-mission', sender: 'MISSION', timeAgo: 'To the Future', align: 'right', title: 'OUR MISSION', text: 'To connect young talent with practical challenges, technical knowledge, entrepreneurial thinking, industry expertise, and ecosystem opportunities through an integrated journey.' },
+  { id: 'msg-theme', sender: 'THEME', timeAgo: '2076', align: 'left', title: 'FROM FOUNDATIONS TO THE FUTURE', text: 'The future is built on foundations created today: strong technical capabilities, modern engineering, innovative thinking, entrepreneurship, digital infrastructure, and collaboration.' },
 ];
 
 export const SignalChatSection: React.FC = () => {
@@ -103,6 +82,7 @@ export const SignalChatSection: React.FC = () => {
   return (
     <div
       ref={sectionRef}
+      className="signal-chat-section"
       style={{
         position: 'relative',
         height: '240vh',
@@ -332,6 +312,15 @@ export const SignalChatSection: React.FC = () => {
         @keyframes bounce-subtle {
           0%, 100% { transform: translateY(0); }
           50% { transform: translateY(5px); }
+        }
+        @media (max-width: 768px) {
+          .signal-chat-section { height: auto; }
+          .signal-chat-section > div { position: relative !important; height: auto !important; padding: 2.5rem 1rem !important; }
+          .signal-chat-section > div > div { gap: 1rem !important; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .signal-chat-section { height: auto; }
+          .signal-chat-section > div { position: relative !important; height: auto !important; }
         }
       `}</style>
     </div>

@@ -160,21 +160,33 @@
 }
 
 /* Responsive adjustments */
+@media (max-width: 768px) {
+  .congress-title-section { padding: 3.5rem 1rem; min-height: auto; }
+  .congress-title-wrapper { gap: 0.85rem; flex-wrap: wrap; }
+  .congress-text { font-size: clamp(1.6rem, 7vw, 3.5rem); white-space: normal; text-align: center; overflow-wrap: break-word; }
+  .congress-footer-line { flex-wrap: wrap; justify-content: center; gap: 0.85rem; }
+  .congress-tagline { text-align: center; letter-spacing: 0.18em; }
+}
 @media (max-width: 640px) {
   .congress-title-section {
-    padding: 4rem 1rem;
+    padding: 3rem 1rem;
     min-height: 50vh;
   }
   .congress-title-wrapper {
     gap: 0.6rem;
   }
   .congress-text {
-    font-size: clamp(1.8rem, 8.5vw, 3.2rem);
+    font-size: clamp(1.4rem, 8.5vw, 2.6rem);
     letter-spacing: 0.02em;
   }
   .congress-sub-badge {
-    font-size: 0.6rem;
-    letter-spacing: 0.18em;
-    margin-bottom: 2rem;
+    font-size: 0.58rem;
+    letter-spacing: 0.14em;
+    margin-bottom: 1.5rem;
+    text-align: center;
   }
+}
+@media (max-width: 360px) {
+  .congress-text { font-size: clamp(1.2rem, 9vw, 2rem); }
+  .congress-logo-container { width: 56px; height: 56px; }
 }

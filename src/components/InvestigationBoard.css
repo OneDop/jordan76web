@@ -379,7 +379,7 @@
 
 /* ---- responsive ---- */
 
-@media (max-width: 900px) {
+@media (max-width: 768px) {
   /* Stacked artefacts leave no sensible route for the thread to take. */
   .ib-threads {
     display: none;
@@ -412,11 +412,13 @@
   }
 }
 
-@media (max-width: 620px) {
+@media (max-width: 480px) {
   .ib-evidence,
   .ib-note {
     --ib-tilt: 0deg;
   }
+  .ib-board { padding: 1.25rem 0.85rem 2rem; }
+  .ib-note { padding: 1.1rem 1rem 2.2rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {

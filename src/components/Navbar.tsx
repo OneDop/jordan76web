@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { NavLink, Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import logo05 from '../assets/JO76logo-05.png';
 
@@ -9,22 +10,38 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({ onOpenRegister }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [lang, setLang] = useState<'EN' | 'AR'>('EN');
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 40);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location.pathname]);
+
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [mobileMenuOpen]);
+
   const navLinks = [
-    { label: lang === 'AR' ? 'الرؤية' : 'VISION', href: '#vision' },
-    { label: lang === 'AR' ? 'الهاكاثون' : 'HACKATHON', href: '#hackathon' },
-    { label: lang === 'AR' ? 'المتحدثون' : 'SPEAKERS', href: '#keynote-speakers' },
-    { label: lang === 'AR' ? 'البرنامج' : 'AGENDA', href: '#agenda' },
-    { label: lang === 'AR' ? 'الموقع' : 'VENUE', href: '#venue' },
+    { label: 'HOME', to: '/' },
+    { label: 'ABOUT', to: '/about' },
+    { label: 'HACKATHON', to: '/hackathon' },
+    { label: 'BOOTCAMP', to: '/bootcamp' },
+    { label: 'CONGRESS', to: '/congress' },
+    { label: 'PARTNERS', to: '/partners' },
+    { label: 'FAQ', to: '/faq' },
+    { label: 'CONTACT', to: '/contact' },
   ];
 
   return (
@@ -38,6 +55,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenRegister }) => {
         transition: 'all 0.3s ease',
         background: scrolled ? 'rgba(10, 10, 10, 0.95)' : 'rgba(10, 10, 10, 0.6)',
         backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
         borderBottom: '1px solid rgba(183, 185, 189, 0.12)',
       }}
     >
@@ -45,19 +63,22 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenRegister }) => {
         style={{
           maxWidth: '1350px',
           margin: '0 auto',
-          padding: '1.1rem 2rem',
+          padding: '0.85rem clamp(0.85rem, 4vw, 2rem)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
+          gap: '0.75rem',
+          minWidth: 0,
         }}
       >
-        {/* Brand Logo */}
-        <a
-          href="#"
+        <Link
+          to="/"
           style={{
             display: 'flex',
             alignItems: 'center',
             textDecoration: 'none',
+            flexShrink: 0,
+            minWidth: 0,
           }}
           aria-label="Jordan 76 Home"
         >
@@ -65,92 +86,63 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenRegister }) => {
             src={logo05}
             alt="Jordan 76"
             style={{
-              height: '42px',
+              height: 'clamp(32px, 8vw, 42px)',
               width: 'auto',
               objectFit: 'contain',
               display: 'block',
+              maxWidth: '140px',
             }}
           />
-        </a>
+        </Link>
 
-        {/* Navigation Links */}
         <nav
-          style={{
-            display: 'none',
-            alignItems: 'center',
-            gap: '2.5rem',
-          }}
+          style={{ alignItems: 'center', gap: 'clamp(1rem, 1.8vw, 2.2rem)' }}
           className="desktop-nav"
         >
           {navLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              style={{
-                color: '#F5F7F8',
+            <NavLink
+              key={link.to}
+              to={link.to}
+              style={({ isActive }) => ({
+                color: isActive ? '#7EF3E8' : '#F5F7F8',
                 textDecoration: 'none',
                 fontFamily: 'var(--font-orbitron)',
-                fontSize: '0.82rem',
+                fontSize: '0.7rem',
                 fontWeight: 700,
-                letterSpacing: '0.12em',
+                letterSpacing: '0.07em',
                 transition: 'color 0.2s ease',
-              }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = '#7EF3E8')}
-              onMouseLeave={(e) => (e.currentTarget.style.color = '#F5F7F8')}
+                whiteSpace: 'nowrap',
+              })}
             >
               {link.label}
-            </a>
+            </NavLink>
           ))}
-
-          {/* Language Switcher */}
-          <button
-            onClick={() => setLang(lang === 'EN' ? 'AR' : 'EN')}
-            style={{
-              background: 'transparent',
-              border: 'none',
-              color: '#B7B9BD',
-              fontFamily: 'var(--font-orbitron)',
-              fontSize: '0.8rem',
-              fontWeight: 600,
-              cursor: 'pointer',
-              letterSpacing: '0.05em',
-            }}
-          >
-            <span style={{ color: lang === 'EN' ? '#F5F7F8' : '#B7B9BD' }}>EN</span> / <span style={{ color: lang === 'AR' ? '#7EF3E8' : '#B7B9BD' }}>ع</span>
-          </button>
         </nav>
 
-        {/* Get a Pass Button */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexShrink: 0 }}>
           <button
             onClick={onOpenRegister}
+            className="navbar-cta"
             style={{
               background: '#7EF3E8',
               color: '#0A0A0A',
               border: 'none',
               borderRadius: '4px',
-              padding: '0.65rem 1.4rem',
+              padding: '0.6rem 1.1rem',
               fontFamily: 'var(--font-orbitron)',
               fontWeight: 800,
-              fontSize: '0.8rem',
-              letterSpacing: '0.1em',
+              fontSize: 'clamp(0.65rem, 1.6vw, 0.78rem)',
+              letterSpacing: '0.08em',
               cursor: 'pointer',
               boxShadow: '0 0 15px rgba(126, 243, 232, 0.35)',
               transition: 'all 0.2s ease',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = '#60e3d7';
-              e.currentTarget.style.transform = 'translateY(-1px)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = '#7EF3E8';
-              e.currentTarget.style.transform = 'translateY(0)';
+              whiteSpace: 'nowrap',
+              minHeight: '40px',
             }}
           >
-            {lang === 'AR' ? 'احجز تذكرتك' : 'GET A PASS'}
+            <span className="navbar-cta-full">REGISTER NOW</span>
+            <span className="navbar-cta-short">REGISTER</span>
           </button>
-
-          {/* Mobile Menu Toggle */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             style={{
@@ -160,49 +152,73 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenRegister }) => {
               padding: '0.4rem',
               borderRadius: '4px',
               cursor: 'pointer',
+              minWidth: '44px',
+              minHeight: '44px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
             }}
             className="mobile-toggle"
+            aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={mobileMenuOpen}
           >
-            {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
         <div
           style={{
             background: 'rgba(10, 10, 10, 0.98)',
+            borderTop: '1px solid rgba(126,243,232,0.15)',
             borderBottom: '1px solid #7EF3E8',
-            padding: '1.5rem 2rem',
+            padding: '1.25rem clamp(1rem, 4vw, 2rem) 1.5rem',
             display: 'flex',
             flexDirection: 'column',
-            gap: '1.2rem',
+            gap: '0.35rem',
+            maxHeight: 'calc(100dvh - 64px)',
+            overflowY: 'auto',
+            WebkitOverflowScrolling: 'touch',
           }}
         >
           {navLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
+            <NavLink
+              key={link.to}
+              to={link.to}
               onClick={() => setMobileMenuOpen(false)}
-              style={{
-                color: '#F5F7F8',
+              style={({ isActive }) => ({
+                color: isActive ? '#7EF3E8' : '#F5F7F8',
                 textDecoration: 'none',
                 fontFamily: 'var(--font-orbitron)',
-                fontSize: '0.95rem',
-                letterSpacing: '0.1em',
-              }}
+                fontSize: '0.92rem',
+                letterSpacing: '0.08em',
+                fontWeight: 700,
+                padding: '0.75rem 0',
+                borderBottom: '1px solid rgba(255,255,255,0.06)',
+                display: 'block',
+              })}
             >
               {link.label}
-            </a>
+            </NavLink>
           ))}
         </div>
       )}
 
       <style>{`
-        @media (min-width: 868px) {
-          .desktop-nav { display: flex !important; }
+        .desktop-nav { display: none; }
+        .navbar-cta-short { display: none; }
+        .navbar-cta-full { display: inline; }
+        @media (min-width: 1024px) {
+          .desktop-nav { display: flex; }
           .mobile-toggle { display: none !important; }
+        }
+        @media (max-width: 380px) {
+          .navbar-cta-full { display: none; }
+          .navbar-cta-short { display: inline; }
+        }
+        @media (max-width: 360px) {
+          .navbar-cta { padding: 0.55rem 0.75rem !important; }
         }
       `}</style>
     </header>

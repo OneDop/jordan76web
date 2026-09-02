@@ -95,9 +95,10 @@ export const VisionPillars: React.FC = () => {
   return (
     <section
       id="vision"
+      className="vision-pillars-section"
       style={{
         position: 'relative',
-        minHeight: '100vh',
+        minHeight: '100dvh',
         backgroundColor: '#0A0A0A',
         display: 'flex',
         flexDirection: 'column',
@@ -107,18 +108,11 @@ export const VisionPillars: React.FC = () => {
         padding: '7rem 1.5rem',
       }}
     >
-      {/* Dynamic Floating Background Messages */}
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          pointerEvents: 'none',
-          zIndex: 1,
-        }}
-      >
+      <div className="vp-floating-layer" style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 1 }}>
         {FLOATING_MESSAGES.map((msg) => (
           <div
             key={msg.id}
+            className="vp-float-card"
             style={{
               position: 'absolute',
               ...msg.position,
@@ -180,7 +174,6 @@ export const VisionPillars: React.FC = () => {
         ))}
       </div>
 
-      {/* Main Center Content */}
       <div
         style={{
           position: 'relative',
@@ -193,6 +186,14 @@ export const VisionPillars: React.FC = () => {
           alignItems: 'center',
         }}
       >
+        <div className="vp-mobile-stack" style={{ display: 'none', flexDirection: 'column', gap: '0.6rem', width: '100%', maxWidth: '360px', marginBottom: '1.75rem', textAlign: 'left' }}>
+          {FLOATING_MESSAGES.slice(0, 3).map((msg) => (
+            <div key={`m-${msg.id}`} style={{ background: 'rgba(12,18,28,0.85)', border: '1px solid rgba(126,243,232,0.18)', borderRadius: '10px', padding: '0.75rem 1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '0.75rem' }}>
+              <span style={{ fontSize: '0.82rem', color: '#F5F7F8', lineHeight: 1.4 }}>{msg.text}</span>
+              <span style={{ fontSize: '0.65rem', color: 'rgba(183,185,189,0.7)', whiteSpace: 'nowrap', fontFamily: 'var(--font-rajdhani)' }}>{msg.timeAgo}</span>
+            </div>
+          ))}
+        </div>
         {/* Primary Headline with Exactly Matched Width Block Lines */}
         <h2
           style={{
@@ -209,22 +210,24 @@ export const VisionPillars: React.FC = () => {
         >
           <div
             style={{
-              fontSize: 'clamp(2.1rem, 5.1vw, 4.1rem)',
+              fontSize: 'clamp(1.75rem, 5.1vw, 4.1rem)',
               color: '#F5F7F8',
               letterSpacing: '0.025em',
               whiteSpace: 'nowrap',
               textShadow: '0 0 40px rgba(0, 0, 0, 0.9)',
+              overflowWrap: 'break-word',
             }}
           >
             DID YOU RECEIVE
           </div>
           <div
             style={{
-              fontSize: 'clamp(2.87rem, 6.97vw, 5.6rem)',
+              fontSize: 'clamp(2rem, 6.97vw, 5.6rem)',
               color: '#7EF3E8',
               letterSpacing: '0.025em',
               whiteSpace: 'nowrap',
               textShadow: '0 0 30px rgba(126, 243, 232, 0.7)',
+              overflowWrap: 'break-word',
             }}
           >
             THE SIGNAL?
@@ -249,11 +252,22 @@ export const VisionPillars: React.FC = () => {
         </p>
       </div>
 
-      {/* Floating Keyframe CSS */}
       <style>{`
         @keyframes float-card {
           0% { transform: translateY(0px) scale(1); }
           100% { transform: translateY(-14px) scale(1.02); }
+        }
+        @media (max-width: 768px) {
+          .vision-pillars-section { min-height: auto; padding: 3.5rem 1rem 2.5rem; }
+          .vision-pillars-section .vp-floating-layer { display: none; }
+          .vision-pillars-section .vp-mobile-stack { display: flex !important; }
+          .vision-pillars-section h2 div { white-space: normal !important; overflow-wrap: break-word; }
+        }
+        @media (max-width: 480px) {
+          .vision-pillars-section { padding: 2.5rem 1rem 2rem; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .vp-float-card { animation: none !important; }
         }
       `}</style>
     </section>

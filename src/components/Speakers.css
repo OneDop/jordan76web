@@ -186,8 +186,9 @@
 
 .rb-stack-stage-box {
   position: relative;
-  width: 370px;
-  height: 480px;
+  width: min(88vw, 370px);
+  height: min(120vw, 480px);
+  max-width: 100%;
   perspective: 1200px;
   transform-style: preserve-3d;
   margin-bottom: 2rem;
@@ -579,17 +580,39 @@
   background: #60e3d7;
 }
 
-/* Responsive */
-@media (max-width: 900px) {
+.rb-reactbits-right {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .rb-reactbits-section { padding: 3.5rem 1rem; }
   .rb-reactbits-container {
     grid-template-columns: 1fr;
-    gap: 3rem;
+    gap: 2.5rem;
   }
   .rb-reactbits-title {
-    font-size: 2.2rem;
+    font-size: clamp(1.6rem, 6vw, 2.2rem);
   }
+  .rb-reactbits-subtitle { font-size: 0.95rem; }
   .rb-stack-stage-box {
-    width: 320px;
-    height: 450px;
+    width: min(88vw, 340px);
+    height: min(118vw, 460px);
   }
+  .rb-reactbits-right { align-items: center; }
+}
+
+@media (max-width: 480px) {
+  .rb-reactbits-section { padding: 2.5rem 1rem; }
+  .rb-reactbits-title { font-size: 1.5rem; }
+  .rb-reactbits-controls { flex-wrap: wrap; gap: 0.6rem; }
+  .rb-modal-card { margin: 0.75rem; max-width: none; width: calc(100% - 1.5rem); }
+  .rb-modal-hero { flex-direction: column; align-items: flex-start; }
+  .rb-modal-avatar { width: 90px; height: 110px; }
+}
+
+@media (max-width: 360px) {
+  .rb-stack-stage-box { width: min(92vw, 300px); height: min(125vw, 420px); }
 }

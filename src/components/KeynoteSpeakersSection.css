@@ -156,7 +156,8 @@
 
 /* IMAGE CARDS */
 .keynote-card--image {
-  width: 340px;
+  width: min(88vw, 340px);
+  max-width: 100%;
   background: #0b0f17;
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
@@ -217,7 +218,8 @@
 
 /* INFO CARDS - Clean & Minimal */
 .keynote-card--info {
-  width: 380px;
+  width: min(88vw, 380px);
+  max-width: 100%;
   background: rgba(255, 255, 255, 0.025);
   border: 1px solid rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(20px);
@@ -298,26 +300,41 @@
     position: relative;
     height: auto;
     overflow: visible;
-    padding: 4rem 1.25rem;
+    padding: 3rem 1rem;
   }
   .keynote-full-track {
     flex-direction: column;
     width: 100%;
     padding: 0;
-    gap: 2.5rem;
+    gap: 1.5rem;
     transform: none !important;
   }
   .keynote-title-block {
     width: 100%;
   }
   .keynote-clean-heading {
-    font-size: clamp(2rem, 8vw, 3rem);
+    font-size: clamp(1.6rem, 8vw, 2.4rem);
     white-space: normal;
+    overflow-wrap: break-word;
   }
   .keynote-card--image,
   .keynote-card--info {
     width: 100%;
     height: auto;
-    min-height: 360px;
+    min-height: 340px;
   }
+  .keynote-card--up, .keynote-card--down { transform: none; }
+  .keynote-card--up:hover, .keynote-card--down:hover { transform: translateY(-4px); }
+}
+
+@media (max-width: 480px) {
+  .keynote-sticky-container { padding: 2.5rem 1rem; }
+  .keynote-card--image, .keynote-card--info { min-height: 320px; }
+  .keynote-card--info { padding: 1.4rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .keynote-scroll-section { height: auto; }
+  .keynote-sticky-container { position: relative; height: auto; }
+  .keynote-full-track { transform: none !important; }
 }

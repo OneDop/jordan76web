@@ -1,29 +1,25 @@
 import type { FAQItem } from '../types';
-
 export const FAQ_DATA: FAQItem[] = [
-  {
-    question: 'When and where will Jordan 2076 take place?',
-    answer: 'The event takes place October 15-17, 2076 at the Amman CyberDome & Futuristic Innovation Complex in Amman, Jordan. Virtual participants can join globally via 8K HoloStream.',
-    category: 'General'
-  },
-  {
-    question: 'What is included in the Cyber Delegate Pass?',
-    answer: 'The Delegate Pass grants complete physical access to all 3 days of keynotes, workshops, the Holo-Exhibition floor, networking dinners, and includes your custom holographic event badge.',
-    category: 'Tickets'
-  },
-  {
-    question: 'Can I customize my digital event pass?',
-    answer: 'Yes! Our interactive Cyber-Pass generator allows you to customize your callsign, choose your access tier, and preview your encrypted holographic pass with QR code live on the site.',
-    category: 'Tickets'
-  },
-  {
-    question: 'Are there neural interface translation services available?',
-    answer: 'Yes, the Amman CyberDome is equipped with real-time neural auditory translation channels supporting Arabic, English, Mandarin, French, and 40+ global languages.',
-    category: 'Cybernetics'
-  },
-  {
-    question: 'How do I travel to the Amman CyberDome?',
-    answer: 'Hyperloop transit shuttles run every 5 minutes from Queen Alia International Transport Hub directly to the CyberDome station terminal. Autonomous electric air taxis are also available.',
-    category: 'Venue'
-  }
+  { question: 'What is Jordan 2076?', answer: 'Jordan 2076 is a national technology and innovation initiative bringing together young builders, industry experts, innovators, companies and ecosystem partners to explore, build and shape Jordan’s future through technology, innovation and entrepreneurship. Theme: From Foundations to the Future.', category: 'General' },
+  { question: 'What are the Hackathon, Bootcamp and Congress?', answer: 'Hackathon — Build technology-driven solutions across four sector challenges. Bootcamp — Validate the business case (13–16 Sept 2026). Congress — Connect builders, experts and partners on 10 Oct 2026 at University of Jordan Academy.', category: 'General' },
+  { question: 'Is Congress registration required?', answer: 'Yes. Congress Day requires registration. Register via the Register Now button. Expected attendance 350–400 participants.', category: 'General' },
+  { question: 'Where will Congress Day take place?', answer: 'University of Jordan Academy, Amman. Saturday, 10 October 2026. Google Maps location is shared after registration. Expected attendance 350–400.', category: 'General' },
+  { question: 'What is the official event date?', answer: 'Congress Day: Saturday, 10 October 2026. Bootcamp: 13–16 September 2026 (10AM–4PM daily). Hackathon submissions close before Congress.', category: 'General' },
+  { question: 'Who can participate in the Hackathon?', answer: 'Young builders, students and early professionals. Check eligibility details on the Hackathon page. Teams are encouraged to be interdisciplinary.', category: 'Hackathon' },
+  { question: 'Can I register individually?', answer: 'Individual registration is allowed; you will be matched into teams if needed. Team size is typically 2–5 members.', category: 'Hackathon' },
+  { question: 'What is the team size?', answer: '2–5 members per team. Cross-functional teams (tech, design, business) are recommended.', category: 'Hackathon' },
+  { question: 'What are the four tracks?', answer: 'Amman 2076 — Education Systems, Irbid 2076 — Healthcare Systems, Petra 2076 — Tourism & Cultural Systems, Aqaba 2076 — Transportation (Powered by Petra Ride).', category: 'Hackathon' },
+  { question: 'Do Hackathon participants attend Congress Day?', answer: 'Yes. Selected finalist teams pitch at the Hackathon Finals during Congress Day and winners are announced at the Closing Ceremony.', category: 'Hackathon' },
+  { question: 'What are the prizes?', answer: 'Four first-place teams (one per track) receive JOD 750 each — total JOD 3,000 — plus an incubation opportunity. Additional mentorship and ecosystem exposure may follow.', category: 'Hackathon' },
+  { question: 'How are finalists and winners selected?', answer: 'Judging by a cross-ecosystem panel including INJAZ, UJIEC, EY and Replit representatives during the Finals. Criteria include problem-solution fit, technical execution and potential impact.', category: 'Hackathon' },
+  { question: 'Who participates in the Bootcamp?', answer: 'Hackathon teams selected to advance. The 4-day program strengthens the business and entrepreneurial side of their solutions.', category: 'Bootcamp' },
+  { question: 'When is the Bootcamp?', answer: '13–16 September 2026, 10:00 AM–4:00 PM daily. Format: learning sessions, practical application, teamwork & mentorship.', category: 'Bootcamp' },
+  { question: 'Is Bootcamp attendance required?', answer: 'Attendance is strongly expected for advancing teams to validate their solution and prepare the Final Business Case and pitch.', category: 'Bootcamp' },
+  { question: 'What will teams work on at Bootcamp?', answer: 'Customer discovery, value proposition, BMC, market sizing (TAM/SAM/SOM), financial viability, GTM strategy, funding and pitching.', category: 'Bootcamp' },
+  { question: 'What is the final Bootcamp Business Case?', answer: 'A coherent venture story and pitch deck built across 4 days — including 90-day milestones, budget and use of funds — evaluated on Day 4.', category: 'Bootcamp' },
+  { question: 'Can I attend Congress without participating in the Hackathon?', answer: 'Yes. Congress is open to students, professionals, companies and ecosystem partners via Congress registration.', category: 'Congress' },
+  { question: 'What does Congress registration include?', answer: 'Access to keynotes, Technology & Innovation Tracks, Hackathon Finals, panels, Time Travel Experience, NeuraChip Debate and Closing Ceremony. Food and refreshments are provided; attendance certificates are issued.', category: 'Congress' },
+  { question: 'What language will sessions be delivered in?', answer: 'Primarily English with Arabic support; panel moderation accommodates both.', category: 'Congress' },
+  { question: 'How do parallel track sessions and Hackathon Finals work?', answer: 'Track Sessions I & II run in parallel with Hackathon Finals pitching in the main auditorium. Attendees choose a track or watch Finals per slot.', category: 'Congress' },
+  { question: 'Will food and certificates be provided?', answer: 'Yes — lunch and networking breaks are included and attendance certificates are provided to registered participants.', category: 'Congress' },
 ];

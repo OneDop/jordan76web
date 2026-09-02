@@ -6,7 +6,7 @@ import aiTrackImg from '../assets/ai_track.png';
 import softwareTrackImg from '../assets/software_engineering_track.png';
 import emergingTrackImg from '../assets/emerging_tech_track.png';
 import innovationTrackImg from '../assets/innovation_track.png';
-import leadershipTrackImg from '../assets/leadership_track.png';
+
 
 export interface MenuItemProps {
   link: string;
@@ -19,31 +19,10 @@ export interface FlowingMenuProps {
 }
 
 const DEFAULT_ITEMS: MenuItemProps[] = [
-  {
-    text: 'Artificial Intelligence',
-    link: '#speakers',
-    image: aiTrackImg,
-  },
-  {
-    text: 'Software Engineering',
-    link: '#speakers',
-    image: softwareTrackImg,
-  },
-  {
-    text: 'Emerging Technologies',
-    link: '#speakers',
-    image: emergingTrackImg,
-  },
-  {
-    text: 'Innovation & Entrepreneurship',
-    link: '#speakers',
-    image: innovationTrackImg,
-  },
-  {
-    text: 'Leadership',
-    link: '#speakers',
-    image: leadershipTrackImg,
-  },
+  { text: 'Artificial Intelligence', link: '/congress', image: aiTrackImg },
+  { text: 'Software Engineering', link: '/congress', image: softwareTrackImg },
+  { text: 'Innovation & Entrepreneurship', link: '/congress', image: innovationTrackImg },
+  { text: 'Emerging Technologies & Future Innovation', link: '/congress', image: emergingTrackImg },
 ];
 
 export const FlowingMenu: React.FC<FlowingMenuProps> = ({ items = DEFAULT_ITEMS }) => {

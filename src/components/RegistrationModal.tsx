@@ -44,10 +44,12 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({ isOpen, on
         zIndex: 3000,
         background: 'rgba(10, 10, 10, 0.88)',
         backdropFilter: 'blur(16px)',
+        WebkitBackdropFilter: 'blur(16px)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '1.5rem',
+        padding: 'clamp(0.75rem, 3vw, 1.5rem)',
+        overflowY: 'auto',
       }}
       onClick={resetAndClose}
     >
@@ -56,7 +58,10 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({ isOpen, on
         style={{
           maxWidth: '600px',
           width: '100%',
-          padding: '2.5rem',
+          maxHeight: '90dvh',
+          overflowY: 'auto',
+          WebkitOverflowScrolling: 'touch',
+          padding: 'clamp(1.25rem, 4vw, 2.5rem)',
           borderColor: '#7EF3E8',
           boxShadow: '0 0 45px rgba(126, 243, 232, 0.35)',
           position: 'relative',

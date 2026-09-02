@@ -9,8 +9,7 @@ export const CountdownTimer: React.FC = () => {
   });
 
   useEffect(() => {
-    // Target Date: October 15, 2076
-    const targetDate = new Date('2076-10-15T09:00:00Z').getTime();
+    const targetDate = new Date('2026-10-10T09:30:00+03:00').getTime();
 
     const updateTimer = () => {
       const now = new Date().getTime();
@@ -42,7 +41,7 @@ export const CountdownTimer: React.FC = () => {
     <div
       style={{
         display: 'flex',
-        gap: '1rem',
+        gap: 'clamp(0.5rem, 2vw, 1rem)',
         justifyContent: 'center',
         alignItems: 'center',
         flexWrap: 'wrap',
@@ -64,8 +63,8 @@ export const CountdownTimer: React.FC = () => {
               border: '1px solid rgba(126, 243, 232, 0.4)',
               boxShadow: '0 0 20px rgba(126, 243, 232, 0.2), inset 0 0 10px rgba(0, 27, 58, 0.8)',
               borderRadius: '10px',
-              padding: '1rem 1.4rem',
-              minWidth: '100px',
+              padding: 'clamp(0.75rem, 2vw, 1rem) clamp(0.85rem, 2vw, 1.4rem)',
+              minWidth: 'clamp(72px, 18vw, 100px)',
               textAlign: 'center',
               position: 'relative',
               overflow: 'hidden',
@@ -74,7 +73,7 @@ export const CountdownTimer: React.FC = () => {
             <div
               style={{
                 fontFamily: 'var(--font-orbitron)',
-                fontSize: '2rem',
+                fontSize: 'clamp(1.4rem, 4vw, 2rem)',
                 fontWeight: 800,
                 color: '#7EF3E8',
                 lineHeight: 1,
@@ -98,9 +97,10 @@ export const CountdownTimer: React.FC = () => {
           </div>
           {i < timeBlocks.length - 1 && (
             <span
+              className="countdown-colon"
               style={{
                 fontFamily: 'var(--font-orbitron)',
-                fontSize: '1.5rem',
+                fontSize: 'clamp(1rem, 3vw, 1.5rem)',
                 color: '#7EF3E8',
                 opacity: 0.6,
                 marginBottom: '0.5rem',

@@ -29,7 +29,7 @@ export interface AgendaItem {
   description: string;
   speakerId?: string;
   speakerName?: string;
-  track: 'Keynote' | 'Quantum Tech' | 'Bio-Cybernetics' | 'Space & Energy' | 'AI & Governance';
+  track: 'Keynote' | 'Quantum Tech' | 'Bio-Cybernetics' | 'Space & Energy' | 'AI & Governance' | 'Artificial Intelligence' | 'Software Engineering' | 'Innovation & Entrepreneurship' | 'Emerging Technologies';
   location: string;
 }
 
@@ -72,7 +72,7 @@ export interface HackathonTrack {
 export interface FAQItem {
   question: string;
   answer: string;
-  category: 'General' | 'Tickets' | 'Venue' | 'Cybernetics';
+  category: 'General' | 'Hackathon' | 'Bootcamp' | 'Congress';
 }
 
 export interface UserPass {

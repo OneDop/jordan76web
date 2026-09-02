@@ -27,10 +27,11 @@ export const HackathonModal: React.FC<HackathonModalProps> = ({
         backdropFilter: 'blur(18px)',
         WebkitBackdropFilter: 'blur(18px)',
         display: 'flex',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         justifyContent: 'center',
-        padding: '1.5rem',
+        padding: 'clamp(0.75rem, 3vw, 1.5rem)',
         overflowY: 'auto',
+        WebkitOverflowScrolling: 'touch',
       }}
     >
       {/* Modal Dialog Content */}
@@ -39,14 +40,14 @@ export const HackathonModal: React.FC<HackathonModalProps> = ({
           position: 'relative',
           width: '100%',
           maxWidth: '1000px',
-          maxHeight: '90vh',
+          maxHeight: 'none',
           backgroundColor: '#0C121C',
           border: '1px solid rgba(126, 243, 232, 0.3)',
-          borderRadius: '20px',
+          borderRadius: '16px',
           boxShadow: '0 25px 60px rgba(0, 0, 0, 0.9), 0 0 35px rgba(126, 243, 232, 0.15)',
-          overflowY: 'auto',
+          overflowY: 'visible',
           color: '#F5F7F8',
-          padding: '2.5rem',
+          padding: 'clamp(1.25rem, 4vw, 2.5rem)',
         }}
       >
         {/* Close Button */}
@@ -125,7 +126,7 @@ export const HackathonModal: React.FC<HackathonModalProps> = ({
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 200px), 1fr))',
             gap: '1.2rem',
             marginBottom: '3rem',
             background: 'rgba(0, 27, 58, 0.4)',
