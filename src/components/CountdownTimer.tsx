@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
 
-export const CountdownTimer: React.FC = () => {
+interface CountdownTimerProps {
+  onOpenRegister?: () => void;
+}
+
+export const CountdownTimer: React.FC<CountdownTimerProps> = () => {
   const [timeLeft, setTimeLeft] = useState({
-    days: 18342,
-    hours: 14,
-    minutes: 32,
-    seconds: 45,
+    days: 34,
+    hours: 18,
+    minutes: 33,
+    seconds: 27,
   });
 
   useEffect(() => {
@@ -38,79 +42,82 @@ export const CountdownTimer: React.FC = () => {
   ];
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        gap: 'clamp(0.5rem, 2vw, 1rem)',
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexWrap: 'wrap',
-        margin: '2rem 0',
-      }}
-    >
-      {timeBlocks.map((block, i) => (
-        <div
-          key={block.label}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '1rem',
-          }}
-        >
-          <div
-            style={{
-              background: 'linear-gradient(135deg, rgba(0, 27, 58, 0.8), rgba(10, 10, 10, 0.9))',
-              border: '1px solid rgba(126, 243, 232, 0.4)',
-              boxShadow: '0 0 20px rgba(126, 243, 232, 0.2), inset 0 0 10px rgba(0, 27, 58, 0.8)',
-              borderRadius: '10px',
-              padding: 'clamp(0.75rem, 2vw, 1rem) clamp(0.85rem, 2vw, 1.4rem)',
-              minWidth: 'clamp(72px, 18vw, 100px)',
-              textAlign: 'center',
-              position: 'relative',
-              overflow: 'hidden',
-            }}
-          >
-            <div
-              style={{
-                fontFamily: 'var(--font-orbitron)',
-                fontSize: 'clamp(1.4rem, 4vw, 2rem)',
-                fontWeight: 800,
-                color: '#7EF3E8',
-                lineHeight: 1,
-                textShadow: '0 0 12px rgba(126, 243, 232, 0.5)',
-              }}
-            >
-              {String(block.value).padStart(2, '0')}
+    <div style={{ width: '100%', textAlign: 'center' }}>
+      {/* Clean Tabular Countdown */}
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'flex-start',
+          gap: 'clamp(1.2rem, 4.5vw, 3.8rem)',
+          flexWrap: 'wrap',
+          marginBottom: '1.75rem',
+        }}
+      >
+        {timeBlocks.map((block, i) => (
+          <React.Fragment key={block.label}>
+            <div style={{ textAlign: 'center', minWidth: 'clamp(75px, 13vw, 130px)' }}>
+              <div
+                style={{
+                  fontFamily: 'var(--font-orbitron)',
+                  fontSize: 'clamp(3.4rem, 7vw, 5.5rem)',
+                  fontWeight: 900,
+                  color: '#F5F7F8',
+                  lineHeight: 1,
+                  letterSpacing: '-0.02em',
+                  fontVariantNumeric: 'tabular-nums',
+                }}
+              >
+                {String(block.value).padStart(2, '0')}
+              </div>
+              <div
+                style={{
+                  fontFamily: 'var(--font-rajdhani)',
+                  fontSize: 'clamp(0.8rem, 1.2vw, 0.92rem)',
+                  fontWeight: 700,
+                  color: '#7EF3E8',
+                  letterSpacing: '0.22em',
+                  textTransform: 'uppercase',
+                  marginTop: '0.75rem',
+                }}
+              >
+                {block.label}
+              </div>
             </div>
-            <div
-              style={{
-                fontSize: '0.68rem',
-                fontFamily: 'var(--font-rajdhani)',
-                fontWeight: 700,
-                color: '#B7B9BD',
-                letterSpacing: '0.15em',
-                marginTop: '0.4rem',
-              }}
-            >
-              {block.label}
-            </div>
-          </div>
-          {i < timeBlocks.length - 1 && (
-            <span
-              className="countdown-colon"
-              style={{
-                fontFamily: 'var(--font-orbitron)',
-                fontSize: 'clamp(1rem, 3vw, 1.5rem)',
-                color: '#7EF3E8',
-                opacity: 0.6,
-                marginBottom: '0.5rem',
-              }}
-            >
-              :
-            </span>
-          )}
-        </div>
-      ))}
+
+            {i < timeBlocks.length - 1 && (
+              <div
+                style={{
+                  width: '1px',
+                  height: 'clamp(44px, 5.5vw, 70px)',
+                  background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.04))',
+                  alignSelf: 'flex-start',
+                  marginTop: 'clamp(0.4rem, 0.8vw, 0.75rem)',
+                }}
+              />
+            )}
+          </React.Fragment>
+        ))}
+      </div>
+
+      {/* Date & Location in Clean Typography Below the Timer */}
+      <div
+        style={{
+          fontFamily: 'var(--font-body)',
+          fontSize: 'clamp(0.88rem, 1.4vw, 1rem)',
+          color: '#94A3B8',
+          letterSpacing: '0.04em',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '0.6rem',
+          flexWrap: 'wrap',
+        }}
+      >
+        <span style={{ color: '#F5F7F8', fontWeight: 600 }}>Saturday, 10 October 2026</span>
+        <span style={{ opacity: 0.35 }}>•</span>
+        <span>University of Jordan Academy, Amman</span>
+      </div>
     </div>
   );
 };

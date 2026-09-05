@@ -58,13 +58,33 @@ export const HackathonSection: React.FC<HackathonSectionProps> = ({ onOpenMissio
         style={{
           position: 'relative',
           zIndex: 1,
-          maxWidth: '1150px',
+          maxWidth: '1380px',
+          width: '100%',
           margin: '0 auto',
+          padding: '0 clamp(1rem, 2.5vw, 2rem)',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
         }}
       >
+        <style>{`
+          .netflix-track-row {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: clamp(0.5rem, 1.8vw, 1.8rem);
+            margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
+            flex-wrap: nowrap;
+          }
+          @media (max-width: 960px) {
+            .netflix-track-row {
+              flex-wrap: wrap !important;
+              gap: 2.5rem 1.5rem !important;
+            }
+          }
+        `}</style>
+
         {/* Sub-Header Phrase */}
         <div
           style={{
@@ -119,24 +139,14 @@ export const HackathonSection: React.FC<HackathonSectionProps> = ({ onOpenMissio
             textAlign: 'center',
             maxWidth: '640px',
             lineHeight: 1.6,
-            marginBottom: '4rem',
+            marginBottom: '3.5rem',
           }}
         >
           Four Cities. Four Challenges. One Future. Build software-based solutions across education, healthcare, tourism & transport.
         </p>
 
-        {/* Numeric Track Cards Row (Reference Design Layout) */}
-        <div
-          style={{
-            width: '100%',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            gap: 'clamp(1rem, 3vw, 2.5rem)',
-            flexWrap: 'wrap',
-            marginBottom: 'clamp(2rem, 5vw, 4.5rem)',
-          }}
-        >
+        {/* Numeric Track Cards: Exact Netflix/HBO Reference Layout (All 4 in 1 Line) */}
+        <div className="netflix-track-row">
           {HACKATHON_TRACKS.map((item, index) => {
             const isHovered = hoveredIndex === index;
 
@@ -152,55 +162,58 @@ export const HackathonSection: React.FC<HackathonSectionProps> = ({ onOpenMissio
                 style={{
                   position: 'relative',
                   display: 'flex',
-                  alignItems: 'center',
+                  alignItems: 'flex-end',
                   cursor: 'pointer',
-                  paddingLeft: 'clamp(0.5rem, 2vw, 3.5rem)',
+                  paddingLeft: 'clamp(36px, 3.8vw, 64px)',
+                  flexShrink: 0,
                 }}
               >
-                {/* Giant Stylized Background Number overlapping poster card */}
+                {/* Giant Stylized Ranking Number (Netflix/HBO Style) */}
                 <div
                   style={{
                     position: 'absolute',
                     left: 0,
-                    top: '50%',
-                    transform: 'translateY(-50%)',
-                    fontFamily: 'var(--font-orbitron)',
-                    fontSize: 'clamp(4rem, 11vw, 9.5rem)',
+                    bottom: 'clamp(0.4rem, 1.2vw, 1.2rem)',
+                    fontFamily: '"Montserrat", "Arial Black", "Impact", "Helvetica Neue", sans-serif',
+                    fontSize: 'clamp(6rem, 8.5vw, 10rem)',
                     fontWeight: 900,
-                    lineHeight: 1,
-                    color: isHovered ? 'rgba(126, 243, 232, 0.15)' : 'transparent',
-                    WebkitTextStroke: isHovered ? '2.5px #7EF3E8' : '2px rgba(126, 243, 232, 0.4)',
-                    textShadow: isHovered ? '0 0 30px rgba(126, 243, 232, 0.6)' : 'none',
+                    lineHeight: 0.8,
+                    letterSpacing: '-0.06em',
+                    color: isHovered ? '#7EF3E8' : 'transparent',
+                    WebkitTextStroke: isHovered ? 'none' : '3px #7EF3E8',
+                    textShadow: isHovered
+                      ? '0 0 35px rgba(126, 243, 232, 0.85), 0 0 15px #7EF3E8'
+                      : '0 0 15px rgba(126, 243, 232, 0.3)',
                     zIndex: 1,
                     pointerEvents: 'none',
                     userSelect: 'none',
-                    transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
+                    transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
                   }}
                 >
                   {item.num}
                 </div>
 
-                {/* Vertical Poster Card */}
+                {/* Vertical Poster Card Overlapping the Number */}
                 <div
                   style={{
                     position: 'relative',
                     zIndex: 2,
-                    width: 'min(88vw, clamp(230px, 22vw, 280px))',
-                    height: 'clamp(330px, 32vw, 400px)',
-                    borderRadius: '16px',
+                    width: 'clamp(165px, 16vw, 235px)',
+                    height: 'clamp(265px, 25vw, 365px)',
+                    borderRadius: '12px',
                     overflow: 'hidden',
-                    background: 'rgba(12, 18, 28, 0.9)',
+                    background: '#0B0F19',
                     border: isHovered
                       ? '2px solid #7EF3E8'
                       : '1px solid rgba(126, 243, 232, 0.22)',
                     boxShadow: isHovered
-                      ? '0 20px 45px rgba(126, 243, 232, 0.35), 0 0 25px rgba(126, 243, 232, 0.2)'
-                      : '0 10px 30px rgba(0, 0, 0, 0.8)',
+                      ? '0 25px 50px rgba(0, 0, 0, 0.9), 0 0 30px rgba(126, 243, 232, 0.45)'
+                      : '0 10px 25px rgba(0, 0, 0, 0.75)',
                     transform: isHovered
-                      ? 'translateY(-12px) scale(1.04)'
+                      ? 'translateY(-12px) scale(1.03)'
                       : 'translateY(0) scale(1)',
-                    opacity: hoveredIndex !== null && !isHovered ? 0.78 : 1,
-                    transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
+                    opacity: hoveredIndex !== null && !isHovered ? 0.82 : 1,
+                    transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'flex-end',
@@ -219,7 +232,7 @@ export const HackathonSection: React.FC<HackathonSectionProps> = ({ onOpenMissio
                       filter: isHovered
                         ? 'brightness(1.05) contrast(1.05)'
                         : 'brightness(0.85) contrast(1)',
-                      transition: 'all 0.35s ease',
+                      transition: 'all 0.3s ease',
                     }}
                   />
 
@@ -230,50 +243,41 @@ export const HackathonSection: React.FC<HackathonSectionProps> = ({ onOpenMissio
                       inset: 0,
                       background: `
                         linear-gradient(to top, rgba(10, 15, 25, 0.98) 0%, rgba(10, 15, 25, 0.6) 45%, transparent 100%),
-                        linear-gradient(to bottom, rgba(10, 15, 25, 0.3) 0%, transparent 40%)
+                        linear-gradient(to bottom, rgba(10, 15, 25, 0.4) 0%, transparent 40%)
                       `,
                       pointerEvents: 'none',
                     }}
                   />
 
-                  {/* Top Track Badge */}
+                  {/* Top City Badge */}
                   <div
                     style={{
                       position: 'absolute',
-                      top: '1rem',
-                      left: '1rem',
-                      right: '1rem',
+                      top: '0.85rem',
+                      left: '0.85rem',
                       display: 'flex',
-                      justifyContent: 'space-between',
                       alignItems: 'center',
+                      gap: '0.35rem',
+                      background: 'rgba(10, 15, 25, 0.82)',
+                      border: '1px solid rgba(126, 243, 232, 0.28)',
+                      padding: '0.28rem 0.55rem',
+                      borderRadius: '6px',
+                      backdropFilter: 'blur(8px)',
                       zIndex: 3,
                     }}
                   >
-                    <div
+                    {item.icon}
+                    <span
                       style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '0.4rem',
-                        background: 'rgba(10, 15, 25, 0.75)',
-                        border: '1px solid rgba(126, 243, 232, 0.25)',
-                        padding: '0.3rem 0.6rem',
-                        borderRadius: '6px',
-                        backdropFilter: 'blur(8px)',
+                        fontFamily: 'var(--font-orbitron)',
+                        fontSize: '0.62rem',
+                        fontWeight: 700,
+                        color: '#7EF3E8',
+                        letterSpacing: '0.08em',
                       }}
                     >
-                      {item.icon}
-                      <span
-                        style={{
-                          fontFamily: 'var(--font-orbitron)',
-                          fontSize: '0.65rem',
-                          fontWeight: 700,
-                          color: '#7EF3E8',
-                          letterSpacing: '0.08em',
-                        }}
-                      >
-                        {item.city}
-                      </span>
-                    </div>
+                      {item.city}
+                    </span>
                   </div>
 
                   {/* Card Content Overlay */}
@@ -281,18 +285,18 @@ export const HackathonSection: React.FC<HackathonSectionProps> = ({ onOpenMissio
                     style={{
                       position: 'relative',
                       zIndex: 3,
-                      padding: '1.25rem 1.25rem',
+                      padding: '1.1rem 1.1rem',
                       display: 'flex',
                       flexDirection: 'column',
-                      gap: '0.4rem',
+                      gap: '0.35rem',
                     }}
                   >
                     <span
                       style={{
                         fontFamily: 'var(--font-rajdhani)',
-                        fontSize: '0.72rem',
+                        fontSize: '0.7rem',
                         fontWeight: 700,
-                        color: 'rgba(126, 243, 232, 0.85)',
+                        color: 'rgba(126, 243, 232, 0.9)',
                         letterSpacing: '0.1em',
                         textTransform: 'uppercase',
                       }}
@@ -303,7 +307,7 @@ export const HackathonSection: React.FC<HackathonSectionProps> = ({ onOpenMissio
                     <h3
                       style={{
                         fontFamily: 'var(--font-orbitron)',
-                        fontSize: '1.05rem',
+                        fontSize: '1rem',
                         fontWeight: 800,
                         color: '#F5F7F8',
                         lineHeight: 1.25,
@@ -316,11 +320,11 @@ export const HackathonSection: React.FC<HackathonSectionProps> = ({ onOpenMissio
 
                     <p
                       style={{
-                        fontSize: '0.82rem',
-                        color: '#B7B9BD',
+                        fontSize: '0.78rem',
+                        color: '#94A3B8',
                         fontFamily: 'var(--font-body)',
                         lineHeight: 1.45,
-                        margin: '0.2rem 0 0 0',
+                        margin: '0.15rem 0 0 0',
                         display: '-webkit-box',
                         WebkitLineClamp: 2,
                         WebkitBoxOrient: 'vertical',

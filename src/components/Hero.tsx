@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 interface HeroProps {
   onOpenRegister?: () => void;
@@ -239,7 +240,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenRegister }) => {
           </p>
           <div style={{ display: 'flex', gap: '1.2rem', alignItems: 'center', flexWrap: 'wrap' }}>
             <button onClick={onOpenRegister} style={{ background: '#7EF3E8', color: '#0A0A0A', border: 'none', padding: '0.9rem 2.2rem', fontFamily: 'var(--font-orbitron)', fontWeight: 800, fontSize: '0.88rem', letterSpacing: '0.08em', borderRadius: '4px', cursor: 'pointer', boxShadow: '0 0 20px rgba(126, 243, 232, 0.4)' }}>Register Now</button>
-            <a href="/about" style={{ background: 'rgba(0, 27, 58, 0.4)', color: '#7EF3E8', border: '1px solid rgba(126, 243, 232, 0.5)', padding: '0.9rem 2.2rem', fontFamily: 'var(--font-orbitron)', fontWeight: 700, fontSize: '0.88rem', letterSpacing: '0.08em', borderRadius: '4px', textDecoration: 'none', backdropFilter: 'blur(8px)' }}>Explore Jordan 2076</a>
+            <Link to="/about" style={{ background: 'rgba(0, 27, 58, 0.4)', color: '#7EF3E8', border: '1px solid rgba(126, 243, 232, 0.5)', padding: '0.9rem 2.2rem', fontFamily: 'var(--font-orbitron)', fontWeight: 700, fontSize: '0.88rem', letterSpacing: '0.08em', borderRadius: '4px', textDecoration: 'none', backdropFilter: 'blur(8px)', display: 'inline-flex', alignItems: 'center' }}>Explore Jordan 2076</Link>
           </div>
 
           {/* Bottom Scroll Hint */}

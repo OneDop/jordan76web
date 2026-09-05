@@ -1,63 +1,165 @@
-import { Calendar, Clock, Target, TrendingUp, Megaphone, Presentation } from 'lucide-react';
+import React, { useState } from 'react';
+import { ChevronDown } from 'lucide-react';
+import { Link } from 'react-router-dom';
+
+const DAYS = [
+  {
+    num: '01',
+    title: 'Validation and customer discovery',
+    summary:
+      'Test the core assumptions, map the user’s problem space, and write a value proposition that survives real feedback.',
+    sessions: [
+      'Idea validation and customer discovery frameworks',
+      'Value proposition design and problem–solution fit',
+      'User interview protocols and rapid feedback synthesis',
+    ],
+    deliverable:
+      'An assumption map, one customer persona, and a first draft of the business model canvas.',
+  },
+  {
+    num: '02',
+    title: 'Market architecture and financial logic',
+    summary:
+      'Size the addressable market, read the competition honestly, and build unit economics that hold up.',
+    sessions: [
+      'TAM, SAM, SOM sizing and competitive moats',
+      'Startup financial planning, pricing, and unit economics',
+      'Twelve-month break-even projection and capital logic',
+    ],
+    deliverable:
+      'A market size breakdown, a competitor positioning matrix, and a twelve-month break-even projection.',
+  },
+  {
+    num: '03',
+    title: 'Go-to-market and investment readiness',
+    summary:
+      'Design acquisition channels that scale, run a fast pilot experiment, and work out how much capital the plan actually needs.',
+    sessions: [
+      'Go-to-market strategy and channel validation',
+      'Growth funnel architecture and pilot experiment design',
+      'The venture funding landscape and capital structuring',
+    ],
+    deliverable:
+      'A ninety-day execution roadmap, one acquisition funnel experiment, and a use-of-funds breakdown.',
+  },
+  {
+    num: '04',
+    title: 'Venture storytelling and pitch showcase',
+    summary:
+      'Turn the technical architecture into a narrative an investor can follow, then rehearse it in front of mentors.',
+    sessions: [
+      'Executive storytelling and pitch deck architecture',
+      'Live rehearsals, mentor feedback, and Q&A preparation',
+      'Congress finalist selection and stage accreditation',
+    ],
+    deliverable:
+      'A final ten-slide venture deck and a place in the congress finals on 10 October.',
+  },
+];
 
 export const Bootcamp: React.FC = () => {
-  return (
-    <div>
-      <section className="section-container" style={{ paddingTop: '4rem' }}>
-        <div className="cyber-badge">JORDAN 2076 BOOTCAMP</div>
-        <h1 className="section-title" style={{ marginTop: '0.8rem' }}>FROM SOLUTION<br /><span style={{ color: '#7EF3E8' }}>TO VENTURE</span></h1>
-        <p style={{ color: '#B7B9BD', maxWidth: '800px', lineHeight: 1.7, marginTop: '1rem' }}>
-          A four-day practical program designed to strengthen the business and entrepreneurial side of participating teams’ solutions. Teams validate assumptions, understand customers and markets, develop their business model, explore financial and go-to-market strategies, and build a clear business case.
-        </p>
-        <div className="cyber-card" style={{ padding: '1.2rem', display: 'flex', gap: '1.5rem', flexWrap: 'wrap', marginTop: '1.5rem', justifyContent: 'space-between' }}>
-          {[
-            { icon: <Calendar size={16} />, label: 'Dates', value: '13–16 September 2026' },
-            { icon: <Clock size={16} />, label: 'Daily', value: '10:00 AM – 4:00 PM' },
-            { icon: <Target size={16} />, label: 'Focus', value: 'Business & Entrepreneurship' },
-            { icon: <TrendingUp size={16} />, label: 'Format', value: 'Sessions + Mentorship + Teamwork' },
-          ].map((i) => (
-            <div key={i.label} style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-              <span style={{ width: '32px', height: '32px', borderRadius: '6px', background: 'rgba(126,243,232,0.12)', border: '1px solid rgba(126,243,232,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#7EF3E8' }}>{i.icon}</span>
-              <div><div style={{ fontSize: '0.7rem', color: '#B7B9BD', fontFamily: 'var(--font-orbitron)', letterSpacing: '0.08em' }}>{i.label}</div><div style={{ color: '#F5F7F8', fontSize: '0.85rem', fontWeight: 600 }}>{i.value}</div></div>
-            </div>
-          ))}
-        </div>
-      </section>
+  const [openDay, setOpenDay] = useState<string | null>('01');
 
-      <section className="section-container">
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%, 280px),1fr))', gap: '1.5rem' }}>
-          {[
-            { day: 'Day 1', title: 'From Idea to Validated Opportunity', icon: <Target size={18} />, sessions: ['Idea Validation & Entrepreneurship Fundamentals', 'Customer Discovery, Value Proposition & Business Model Development'], outcomes: ['Assumption Map', 'Refined Problem Statement', 'Customer Persona', 'Value Proposition', 'Initial BMC', 'Customer Validation'] },
-            { day: 'Day 2', title: 'Understanding Market & Financial Viability', icon: <TrendingUp size={18} />, sessions: ['Opportunity Analysis, Market Research & Competitive Analysis', 'Startup Financial Planning & Unit Economics'], outcomes: ['TAM/SAM/SOM', 'Competitor Analysis', 'Differentiation', 'Revenue Model', 'Pricing & Costs', 'Break-even & 12-Month Projection'] },
-            { day: 'Day 3', title: 'Reaching the Market & Funding the Venture', icon: <Megaphone size={18} />, sessions: ['Go-to-Market Strategy & Customer Acquisition', 'Startup Funding & Investment Readiness'], outcomes: ['Early Adopters', 'Acquisition Channels', 'GTM Plan & Experiment', '90-Day Milestones', 'Budget & Funding Needs', 'Use of Funds'] },
-            { day: 'Day 4', title: 'Building & Communicating the Investment Case', icon: <Presentation size={18} />, sessions: ['Startup Pitching & Investor Communication', 'Final Startup Pitching & Evaluation'], outcomes: ['Venture Story', 'Final Pitch Deck', 'Pitch Practice', 'Final Feedback', 'Final Business Case'] },
-          ].map((d) => (
-            <div key={d.day} className="cyber-card" style={{ padding: '1.6rem', display: 'flex', flexDirection: 'column' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.8rem' }}>
-                <span style={{ color: '#7EF3E8', background: 'rgba(126,243,232,0.12)', border: '1px solid rgba(126,243,232,0.3)', width: '36px', height: '36px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{d.icon}</span>
-                <span style={{ fontFamily: 'var(--font-orbitron)', color: '#7EF3E8', fontSize: '0.75rem', letterSpacing: '0.1em' }}>{d.day}</span>
-              </div>
-              <h3 style={{ fontFamily: 'var(--font-orbitron)', color: '#F5F7F8', fontSize: '0.95rem', lineHeight: 1.3, marginBottom: '0.8rem' }}>{d.title}</h3>
-              <div style={{ marginBottom: '1rem' }}>
-                <div style={{ fontSize: '0.7rem', color: '#B7B9BD', fontFamily: 'var(--font-orbitron)', letterSpacing: '0.08em', marginBottom: '0.4rem' }}>SESSIONS</div>
-                {d.sessions.map((s) => (<div key={s} style={{ color: '#B7B9BD', fontSize: '0.82rem', lineHeight: 1.4, marginBottom: '0.3rem', display: 'flex', gap: '0.4rem' }}><span style={{ color: '#7EF3E8' }}>›</span> {s}</div>))}
-              </div>
-              <div style={{ marginTop: 'auto', background: 'rgba(0,27,58,0.5)', border: '1px solid rgba(126,243,232,0.15)', borderRadius: '8px', padding: '0.9rem' }}>
-                <div style={{ fontSize: '0.7rem', color: '#7EF3E8', fontFamily: 'var(--font-orbitron)', letterSpacing: '0.08em', marginBottom: '0.4rem' }}>OUTCOMES</div>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
-                  {d.outcomes.map((o) => (<span key={o} style={{ fontSize: '0.68rem', color: '#B7B9BD', background: 'rgba(126,243,232,0.08)', border: '1px solid rgba(126,243,232,0.15)', padding: '0.25rem 0.5rem', borderRadius: '4px' }}>{o}</span>))}
+  return (
+    <div className="doc">
+      <header className="doc-head">
+        <h1 className="doc-title">From solution to venture.</h1>
+
+        <p className="doc-lead">
+          A four-day venture development intensive. Qualifying hackathon teams stress-test customer
+          demand, structure the business logic behind their build, and sharpen the pitch they will
+          give on the congress main stage.
+        </p>
+
+        <div className="spec">
+          <div className="spec-item">
+            <span className="spec-k">Dates</span>
+            <span className="spec-v">
+              13–16 September 2026
+              <small>Four consecutive days</small>
+            </span>
+          </div>
+          <div className="spec-item">
+            <span className="spec-k">Daily hours</span>
+            <span className="spec-v">
+              10:00 – 16:00
+              <small>Sessions, mentoring, and studio time</small>
+            </span>
+          </div>
+          <div className="spec-item">
+            <span className="spec-k">Venue</span>
+            <span className="spec-v">
+              University of Jordan
+              <small>UJ Academy, Amman</small>
+            </span>
+          </div>
+        </div>
+      </header>
+
+      <section className="sect">
+        <div className="sect-head">
+          <h2 className="sect-title">The four days</h2>
+          <span className="sect-note">Select a day to see its sessions</span>
+        </div>
+
+        <div className="rows">
+          {DAYS.map((day) => {
+            const isOpen = openDay === day.num;
+            return (
+              <div className="step" key={day.num} data-open={isOpen}>
+                <button
+                  type="button"
+                  className="step-btn"
+                  aria-expanded={isOpen}
+                  onClick={() => setOpenDay(isOpen ? null : day.num)}
+                >
+                  <span className="step-num">{day.num}</span>
+                  <span>
+                    <span className="step-title">{day.title}</span>
+                    <span className="step-summary" style={{ display: 'block' }}>
+                      {day.summary}
+                    </span>
+                  </span>
+                  <ChevronDown size={18} className="step-chev" aria-hidden="true" />
+                </button>
+
+                <div className="step-panel">
+                  <div>
+                    <div className="step-panel-inner">
+                      <div>
+                        <div className="block-sub">Core sessions</div>
+                        <ul className="block-list" style={{ borderTop: 0, paddingTop: 0 }}>
+                          {day.sessions.map((session) => (
+                            <li key={session}>{session}</li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      <div>
+                        <div className="block-sub">What you leave with</div>
+                        <p className="block-text">{day.deliverable}</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
 
-      <section className="section-container">
-        <div className="cyber-card" style={{ padding: '1.5rem', textAlign: 'center', borderColor: 'rgba(126,243,232,0.3)' }}>
-          <p style={{ color: '#B7B9BD', fontSize: '0.9rem' }}>Bootcamp is for advancing Hackathon teams. Final day delivers a complete venture story, pitch deck and business case evaluated by mentors.</p>
+      <div className="band">
+        <div>
+          <h2 className="band-title">Advancing to the congress stage</h2>
+          <p className="band-text">
+            Teams that complete day four pitch live in the congress finals on 10 October. Places are
+            earned through the hackathon.
+          </p>
         </div>
-      </section>
+        <Link to="/hackathon" className="btn-cyber-outline">
+          View hackathon tracks
+        </Link>
+      </div>
     </div>
   );
 };

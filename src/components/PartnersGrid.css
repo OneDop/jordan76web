@@ -1,0 +1,156 @@
+/* Partners Grid - Premium Dark Glass Cyber Aesthetics */
+.partners-grid-container {
+  width: 100%;
+  position: relative;
+}
+
+.partners-tiles-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1.25rem;
+  width: 100%;
+}
+
+.partner-tile-card {
+  position: relative;
+  background: rgba(15, 20, 28, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  height: 105px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.1rem 1.25rem;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+  user-select: none;
+  cursor: pointer;
+}
+
+/* Subtle gradient sheen on top border */
+.partner-tile-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 15%;
+  right: 15%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(126, 243, 232, 0.35), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.partner-tile-card:hover {
+  transform: translateY(-4px);
+  background: rgba(18, 25, 36, 0.75);
+  border-color: rgba(126, 243, 232, 0.38);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 25px rgba(126, 243, 232, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.partner-tile-card:hover::before {
+  opacity: 1;
+}
+
+/* User's custom PNG / SVG image */
+.partner-logo-img {
+  max-height: 42px;
+  max-width: 80%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1) opacity(0.7);
+  transition: filter 0.25s ease, opacity 0.25s ease, transform 0.25s ease;
+}
+
+.partner-tile-card:hover .partner-logo-img {
+  filter: brightness(0) invert(1) opacity(1);
+  transform: scale(1.04);
+}
+
+/* Default Placeholder Logo Layout */
+.partner-placeholder-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  color: rgba(255, 255, 255, 0.72);
+  width: 100%;
+  transition: color 0.25s ease, transform 0.25s ease;
+}
+
+.partner-placeholder-icon {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  color: #7EF3E8;
+  opacity: 0.85;
+  transition: opacity 0.25s ease, transform 0.25s ease, filter 0.25s ease;
+}
+
+.partner-placeholder-name {
+  font-family: var(--font-orbitron, 'Orbitron', sans-serif);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: rgba(245, 247, 248, 0.8);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 110px;
+  transition: color 0.25s ease;
+}
+
+.partner-tile-card:hover .partner-placeholder-content {
+  transform: scale(1.03);
+}
+
+.partner-tile-card:hover .partner-placeholder-icon {
+  opacity: 1;
+  filter: drop-shadow(0 0 6px rgba(126, 243, 232, 0.6));
+}
+
+.partner-tile-card:hover .partner-placeholder-name {
+  color: #ffffff;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1100px) {
+  .partners-tiles-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .partners-tiles-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.85rem;
+  }
+  .partner-tile-card {
+    height: 94px;
+    border-radius: 15px;
+    padding: 0.85rem 1rem;
+  }
+  .partner-placeholder-name {
+    font-size: 0.76rem;
+    max-width: 85px;
+  }
+  .partner-placeholder-icon {
+    width: 19px;
+    height: 19px;
+  }
+}
+
+@media (max-width: 480px) {
+  .partners-tiles-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+  .partner-tile-card {
+    height: 86px;
+    border-radius: 14px;
+  }
+}

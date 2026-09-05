@@ -1,43 +1,119 @@
-import { useState } from 'react';
-import { HelpCircle, ChevronDown } from 'lucide-react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { ChevronDown, Search } from 'lucide-react';
 import { FAQ_DATA } from '../data/faqs';
 
+const CATEGORIES = ['All', 'General', 'Hackathon', 'Bootcamp', 'Congress'] as const;
+
 export const FAQPage: React.FC = () => {
-  const [activeCat, setActiveCat] = useState<string>('All');
-  const [openIdx, setOpenIdx] = useState<number | null>(0);
-  const cats = ['All', 'General', 'Hackathon', 'Bootcamp', 'Congress'];
-  const filtered = activeCat === 'All' ? FAQ_DATA : FAQ_DATA.filter((f) => f.category === activeCat);
+  const [category, setCategory] = useState<(typeof CATEGORIES)[number]>('All');
+  const [openQuestion, setOpenQuestion] = useState<string | null>(FAQ_DATA[0]?.question ?? null);
+  const [search, setSearch] = useState('');
+
+  const query = search.trim().toLowerCase();
+
+  const results = FAQ_DATA.filter((item) => {
+    const inCategory = category === 'All' || item.category === category;
+    const inSearch =
+      query === '' ||
+      item.question.toLowerCase().includes(query) ||
+      item.answer.toLowerCase().includes(query);
+    return inCategory && inSearch;
+  });
+
   return (
-    <div>
-      <section className="section-container" style={{ paddingTop: '4rem', paddingBottom: '1rem' }}>
-        <div className="cyber-badge">FAQ</div>
-        <h1 className="section-title" style={{ marginTop: '0.8rem' }}>FREQUENTLY ASKED <span style={{ color: '#7EF3E8' }}>QUESTIONS</span></h1>
-        <p style={{ color: '#B7B9BD', maxWidth: '700px', lineHeight: 1.6, marginTop: '0.8rem' }}>General, Hackathon, Bootcamp and Congress — all answers in one place.</p>
-        <div style={{ display: 'flex', gap: '0.6rem', flexWrap: 'wrap', marginTop: '1.5rem' }}>
-          {cats.map((c) => (
-            <button key={c} onClick={() => { setActiveCat(c); setOpenIdx(0); }} style={{ background: activeCat === c ? 'rgba(126,243,232,0.15)' : 'transparent', color: activeCat === c ? '#7EF3E8' : '#B7B9BD', border: `1px solid ${activeCat === c ? '#7EF3E8' : 'rgba(183,185,189,0.15)'}`, padding: '0.45rem 1rem', borderRadius: '20px', fontFamily: 'var(--font-orbitron)', fontSize: '0.75rem', cursor: 'pointer' }}>{c}</button>
-          ))}
+    <div className="doc">
+      <header className="doc-head">
+        <h1 className="doc-title">Questions, answered.</h1>
+
+        <p className="doc-lead">
+          Team eligibility, hackathon tracks, bootcamp requirements, and how to get into congress
+          day. If something is missing here, the organizing team will answer directly.
+        </p>
+
+        <div style={{ marginTop: '2.25rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <div className="search">
+            <Search size={17} aria-hidden="true" />
+            <input
+              type="search"
+              value={search}
+              onChange={(event) => setSearch(event.target.value)}
+              placeholder="Search the questions"
+              aria-label="Search the questions"
+            />
+          </div>
+
+          <div className="tabs">
+            {CATEGORIES.map((option) => (
+              <button
+                key={option}
+                type="button"
+                className="tab"
+                aria-pressed={category === option}
+                onClick={() => setCategory(option)}
+              >
+                {option}
+              </button>
+            ))}
+          </div>
         </div>
+      </header>
+
+      <section className="sect" style={{ marginTop: 'clamp(2.5rem, 5vw, 3.5rem)' }}>
+        <div className="sect-head">
+          <h2 className="sect-title">{category === 'All' ? 'All questions' : category}</h2>
+          <span className="sect-note">
+            {results.length} {results.length === 1 ? 'question' : 'questions'}
+          </span>
+        </div>
+
+        {results.length === 0 ? (
+          <p className="empty">
+            Nothing matches that search. Try a different word, or{' '}
+            <Link to="/contact" className="textlink">
+              ask the organizing team
+            </Link>
+            .
+          </p>
+        ) : (
+          <div className="qa-list">
+            {results.map((item) => {
+              const isOpen = openQuestion === item.question;
+              return (
+                <div className="qa" key={item.question} data-open={isOpen}>
+                  <button
+                    type="button"
+                    className="qa-btn"
+                    aria-expanded={isOpen}
+                    onClick={() => setOpenQuestion(isOpen ? null : item.question)}
+                  >
+                    {item.question}
+                    <ChevronDown size={18} aria-hidden="true" />
+                  </button>
+
+                  <div className="qa-panel">
+                    <div>
+                      <p className="qa-answer">{item.answer}</p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </section>
 
-      <section className="section-container" style={{ paddingTop: '1rem' }}>
-        <div style={{ maxWidth: '900px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-          {filtered.map((item, idx) => {
-            const isOpen = openIdx === idx;
-            return (
-              <div key={item.question} className="cyber-card" style={{ padding: 0, overflow: 'hidden', borderColor: isOpen ? 'rgba(126,243,232,0.4)' : undefined }}>
-                <button onClick={() => setOpenIdx(isOpen ? null : idx)} style={{ width: '100%', display: 'flex', alignItems: 'center', gap: '0.8rem', padding: '1.1rem 1.2rem', background: 'transparent', border: 'none', cursor: 'pointer', textAlign: 'left' }}>
-                  <span style={{ width: '32px', height: '32px', borderRadius: '6px', background: isOpen ? '#7EF3E8' : 'rgba(126,243,232,0.12)', border: '1px solid rgba(126,243,232,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: isOpen ? '#0A0A0A' : '#7EF3E8', flexShrink: 0 }}><HelpCircle size={16} /></span>
-                  <span style={{ flex: 1, color: '#F5F7F8', fontFamily: 'var(--font-orbitron)', fontSize: 'clamp(0.82rem, 2vw, 0.9rem)', fontWeight: 600, minWidth: 0, overflowWrap: 'break-word' }}>{item.question}</span>
-                  <span className="cyber-badge" style={{ fontSize: '0.6rem', display: 'none' }}>{item.category}</span>
-                  <ChevronDown size={16} color="#7EF3E8" style={{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s' }} />
-                </button>
-                {isOpen && <div style={{ padding: '0 1.2rem 1.2rem 1.2rem', color: '#B7B9BD', fontSize: '0.88rem', lineHeight: 1.6, overflowWrap: 'break-word' }}>{item.answer}</div>}
-              </div>
-            );
-          })}
+      <div className="band">
+        <div>
+          <h2 className="band-title">Still stuck?</h2>
+          <p className="band-text">
+            The organizing team answers within 24 to 48 hours, including sponsorship and press.
+          </p>
         </div>
-      </section>
+        <Link to="/contact" className="btn-cyber-outline">
+          Contact the team
+        </Link>
+      </div>
     </div>
   );
 };

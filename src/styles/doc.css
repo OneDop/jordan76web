@@ -1,0 +1,920 @@
+/* ============================================================
+   Jordan 2076 — Subpage document system
+
+   The home page is the spectacle. These pages are the record:
+   precise, quiet, information first.
+
+   Rules this file enforces:
+   1. Orbitron sets page and section titles only. Rajdhani carries
+      the micro-typography (dates, times, labels, tabs). Inter
+      carries entry titles and prose.
+   2. The cyan signal marks state and wayfinding — active tab, the
+      primary action, an open panel. Never decoration.
+   3. A bordered surface means "an object you can act on".
+      Everything else is separated by a hairline.
+
+   Every class below is meant to live inside a .doc page. The names
+   are deliberately plain (.row, .tab, .slot), so if you add a
+   component elsewhere in the app, prefix its classes the way
+   PartnersGrid.css and CongressDay.css do.
+   ============================================================ */
+
+.doc {
+  /* Surfaces */
+  --raise: rgba(14, 18, 25, 0.72);
+  --raise-hi: rgba(19, 25, 35, 0.92);
+  --rule: rgba(245, 247, 248, 0.10);
+  --rule-soft: rgba(245, 247, 248, 0.055);
+
+  /* Ink ramp */
+  --ink: #F5F7F8;
+  --ink-2: #9EABB8;
+  --ink-3: #667584;
+
+  --signal: #7EF3E8;
+
+  --gap-sect: clamp(3.5rem, 7vw, 5.5rem);
+
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: clamp(3rem, 6vw, 5rem) 1.5rem clamp(4rem, 8vw, 6rem);
+  color: var(--ink);
+}
+
+/* The global stylesheet uppercases every heading. On a document page
+   only the titles want that, so reset here and re-apply per class.
+   :where() keeps the reset at zero specificity, so the component
+   classes below win without having to be doubled up. */
+.doc :where(h1, h2, h3, h4) {
+  text-transform: none;
+  letter-spacing: normal;
+  font-weight: 400;
+  margin: 0;
+}
+
+.doc :where(p) { margin: 0; }
+
+/* ---------- Page header ----------------------------------- */
+
+.doc-head { margin-bottom: var(--gap-sect); }
+
+.doc-title {
+  font-family: var(--font-orbitron);
+  font-weight: 900;
+  font-size: clamp(1.95rem, 5.4vw, 3.85rem);
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  max-width: 17ch;
+  text-wrap: balance;
+}
+
+/* Orbitron is wide; on a phone, balancing a four-line title strands
+   single words, so let it wrap greedily instead. */
+@media (max-width: 620px) {
+  .doc-title { text-wrap: normal; }
+}
+
+.doc-title--wide { max-width: 24ch; }
+
+.doc-lead {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: clamp(1.02rem, 1.5vw, 1.18rem);
+  line-height: 1.7;
+  color: var(--ink-2);
+  max-width: 62ch;
+  margin-top: 1.5rem;
+}
+
+.doc-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-top: 2.25rem;
+}
+
+/* ---------- Spec strip ------------------------------------
+   Replaces "A · B · C" meta lines: labelled values, so a reader
+   can find the date without parsing a sentence. */
+
+.spec {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr));
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  margin-top: 2.5rem;
+}
+
+.spec-item {
+  padding: 1.1rem 1.5rem;
+  border-left: 1px solid var(--rule-soft);
+}
+
+.spec-item:first-child {
+  border-left: 0;
+  padding-left: 0;
+}
+
+.spec-k {
+  display: block;
+  font-family: var(--font-rajdhani);
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  color: var(--ink-3);
+  margin-bottom: 0.3rem;
+}
+
+.spec-v {
+  display: block;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.98rem;
+  line-height: 1.4;
+  color: var(--ink);
+}
+
+.spec-v small {
+  display: block;
+  font-weight: 400;
+  font-size: 0.86rem;
+  color: var(--ink-2);
+  margin-top: 0.2rem;
+}
+
+/* ---------- Sections --------------------------------------- */
+
+.sect { margin-top: var(--gap-sect); }
+
+.sect-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 2rem;
+}
+
+.sect-title {
+  font-family: var(--font-orbitron);
+  font-weight: 700;
+  font-size: clamp(1.05rem, 1.9vw, 1.3rem);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.sect-note {
+  font-family: var(--font-rajdhani);
+  font-weight: 600;
+  font-size: 0.98rem;
+  color: var(--ink-3);
+}
+
+.sect-intro {
+  font-family: var(--font-body);
+  font-size: 0.98rem;
+  line-height: 1.7;
+  color: var(--ink-2);
+  max-width: 60ch;
+  margin: -0.75rem 0 2rem;
+}
+
+/* ---------- Hairline rows ---------------------------------- */
+
+.rows { display: flex; flex-direction: column; }
+
+.row {
+  display: grid;
+  grid-template-columns: 200px minmax(0, 1fr) auto;
+  gap: 1rem 2rem;
+  align-items: start;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--rule-soft);
+}
+
+.rows > .row:first-child { padding-top: 0; }
+
+.row-kicker {
+  font-family: var(--font-rajdhani);
+  font-weight: 600;
+  font-size: 0.98rem;
+  line-height: 1.4;
+  color: var(--ink-3);
+}
+
+.row-name {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 1.05rem;
+  line-height: 1.35;
+  color: var(--ink);
+}
+
+.row-text {
+  font-family: var(--font-body);
+  font-size: 0.94rem;
+  line-height: 1.65;
+  color: var(--ink-2);
+  max-width: 62ch;
+  margin-top: 0.4rem;
+}
+
+.row-aside {
+  font-family: var(--font-rajdhani);
+  font-weight: 600;
+  font-size: 0.98rem;
+  color: var(--ink-3);
+  white-space: nowrap;
+}
+
+.row--pair { grid-template-columns: 200px minmax(0, 1fr); }
+
+a.row-name {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.18s ease;
+}
+
+a.row-name:hover { border-bottom-color: var(--signal); }
+
+.row--plain {
+  grid-template-columns: minmax(0, 1fr);
+  padding: 1.05rem 0;
+  font-family: var(--font-body);
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: var(--ink-2);
+  max-width: 76ch;
+}
+
+/* ---------- Two-column split (reference beside a form) ------ */
+
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr);
+  gap: clamp(2.5rem, 5vw, 4rem);
+  align-items: start;
+}
+
+/* Rows inside a split column have half the width to play with */
+.split .row--pair { grid-template-columns: 8.5rem minmax(0, 1fr); }
+
+/* ---------- Definition blocks ------------------------------ */
+
+.blocks {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: clamp(2rem, 4vw, 3.25rem);
+}
+
+/* Four items read better two-up than three-up with an orphan. */
+.blocks--pair { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+@media (max-width: 700px) {
+  .blocks--pair { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* Let the prose absorb the slack so any trailing list rule lines
+   up across a row instead of stepping. */
+.blocks > * {
+  display: flex;
+  flex-direction: column;
+}
+
+.blocks .block-text { flex-grow: 1; }
+
+.block-title {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 1.12rem;
+  line-height: 1.3;
+  color: var(--ink);
+  margin-bottom: 0.55rem;
+}
+
+.block-sub {
+  font-family: var(--font-rajdhani);
+  font-weight: 600;
+  font-size: 0.98rem;
+  color: var(--ink-3);
+  margin-bottom: 0.55rem;
+}
+
+.block-text {
+  font-family: var(--font-body);
+  font-size: 0.94rem;
+  line-height: 1.7;
+  color: var(--ink-2);
+  max-width: 48ch;
+}
+
+.block-list {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0.9rem 0 0;
+  border-top: 1px solid var(--rule-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.block-list li {
+  font-family: var(--font-rajdhani);
+  font-weight: 600;
+  font-size: 0.98rem;
+  color: var(--ink-2);
+}
+
+/* ---------- People ----------------------------------------- */
+
+.person {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  gap: 1.15rem;
+  align-items: start;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--rule-soft);
+}
+
+.person--compact {
+  grid-template-columns: 38px minmax(0, 1fr);
+  gap: 0.85rem;
+  padding: 0.7rem 0;
+  border-bottom: 0;
+  align-items: center;
+}
+
+.person-photo {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.05);
+}
+
+.person-name {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 1.05rem;
+  line-height: 1.3;
+  color: var(--ink);
+}
+
+.person--compact .person-name { font-size: 0.95rem; }
+
+.person-role {
+  font-family: var(--font-rajdhani);
+  font-weight: 600;
+  font-size: 0.98rem;
+  color: var(--ink-3);
+  margin-top: 0.1rem;
+}
+
+.person-talk {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--ink);
+  margin-top: 0.75rem;
+  max-width: 48ch;
+}
+
+.person-bio {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--ink-2);
+  margin-top: 0.4rem;
+  max-width: 58ch;
+}
+
+/* ---------- Tiles (objects you can open) -------------------- */
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+@media (max-width: 1000px) {
+  .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 540px) {
+  .tiles { grid-template-columns: minmax(0, 1fr); }
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  padding: 0;
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  background: var(--raise);
+  overflow: hidden;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.tile:hover,
+.tile:focus-visible {
+  border-color: rgba(126, 243, 232, 0.4);
+  background: var(--raise-hi);
+}
+
+.tile-figure {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
+.tile-figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(0.6) contrast(1.05);
+  transition: filter 0.35s ease;
+}
+
+.tile:hover .tile-figure img,
+.tile:focus-visible .tile-figure img { filter: grayscale(0) contrast(1); }
+
+/* A track with no photograph of its own gets the grid texture rather
+   than another city's picture standing in for it. */
+.tile-figure--blank {
+  background:
+    linear-gradient(160deg, rgba(0, 27, 58, 0.55), rgba(10, 12, 16, 0.9)),
+    var(--raise-hi);
+  background-size: 40px 40px, auto;
+}
+
+.tile-figure--blank::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(126, 243, 232, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(126, 243, 232, 0.07) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.tile-figure::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(8, 10, 14, 0.96) 4%, rgba(8, 10, 14, 0.08) 62%);
+}
+
+.tile-place {
+  position: absolute;
+  left: 1.15rem;
+  bottom: 0.85rem;
+  z-index: 1;
+  font-family: var(--font-orbitron);
+  font-weight: 800;
+  font-size: 1.3rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.tile-body {
+  padding: 1.25rem 1.15rem 1.35rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.tile-title {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.35;
+  color: var(--ink);
+  margin-bottom: 0.5rem;
+}
+
+.tile-text {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--ink-2);
+  flex: 1;
+}
+
+.tile-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.25rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--rule-soft);
+  font-family: var(--font-rajdhani);
+  font-weight: 600;
+  font-size: 0.98rem;
+  color: var(--ink-3);
+}
+
+/* ---------- Sequence spine (real sequences only) ------------ */
+
+.step { border-bottom: 1px solid var(--rule-soft); }
+
+.step-btn {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 3.25rem minmax(0, 1fr) 1.5rem;
+  gap: 1.25rem;
+  align-items: baseline;
+  background: none;
+  border: 0;
+  padding: 1.6rem 0;
+  text-align: left;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+}
+
+.step-num {
+  font-family: var(--font-orbitron);
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: var(--ink-3);
+  transition: color 0.2s ease;
+}
+
+.step[data-open='true'] .step-num { color: var(--signal); }
+
+.step-title {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: clamp(1.02rem, 1.9vw, 1.18rem);
+  line-height: 1.35;
+  color: var(--ink);
+}
+
+.step-summary {
+  font-family: var(--font-body);
+  font-size: 0.93rem;
+  line-height: 1.6;
+  color: var(--ink-2);
+  margin-top: 0.35rem;
+  max-width: 62ch;
+}
+
+.step-chev {
+  justify-self: end;
+  align-self: center;
+  color: var(--ink-3);
+  transition: transform 0.25s ease, color 0.25s ease;
+}
+
+.step[data-open='true'] .step-chev {
+  transform: rotate(180deg);
+  color: var(--signal);
+}
+
+/* Disclosure animates to its own height, no magic number */
+.step-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.step[data-open='true'] .step-panel { grid-template-rows: 1fr; }
+
+.step-panel > div { overflow: hidden; }
+
+.step-panel-inner {
+  padding: 0.25rem 0 2rem 4.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 2rem;
+}
+
+/* ---------- Timetable -------------------------------------- */
+
+.timetable { display: flex; flex-direction: column; }
+
+.slot {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  gap: 1.5rem;
+  padding: 1.15rem 0;
+  border-bottom: 1px solid var(--rule-soft);
+}
+
+.slot-time {
+  font-family: var(--font-rajdhani);
+  font-weight: 700;
+  font-size: 1.05rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-2);
+  padding-top: 0.05rem;
+}
+
+.slot-title {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.4;
+  color: var(--ink);
+}
+
+.slot-text {
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--ink-2);
+  margin-top: 0.3rem;
+  max-width: 64ch;
+}
+
+.slot-where {
+  font-family: var(--font-rajdhani);
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--ink-3);
+  margin-top: 0.4rem;
+}
+
+.empty {
+  font-family: var(--font-body);
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: var(--ink-2);
+  padding: 2.5rem 0;
+  max-width: 52ch;
+}
+
+/* ---------- Tabs -------------------------------------------- */
+
+.tabs { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+.tab {
+  font-family: var(--font-rajdhani);
+  font-weight: 600;
+  font-size: 0.98rem;
+  padding: 0.35rem 0.95rem;
+  border-radius: 999px;
+  border: 1px solid var(--rule);
+  background: transparent;
+  color: var(--ink-2);
+  cursor: pointer;
+  transition: color 0.18s ease, border-color 0.18s ease;
+}
+
+.tab:hover { color: var(--ink); border-color: rgba(126, 243, 232, 0.35); }
+
+.tab[aria-pressed='true'] {
+  background: var(--signal);
+  border-color: var(--signal);
+  color: #06090C;
+}
+
+/* ---------- Search ------------------------------------------ */
+
+.search { position: relative; max-width: 460px; }
+
+.search svg {
+  position: absolute;
+  left: 0.95rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--ink-3);
+  pointer-events: none;
+}
+
+.search input {
+  width: 100%;
+  background: var(--raise);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 0.7rem 1rem 0.7rem 2.75rem;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.18s ease;
+}
+
+.search input:focus { border-color: rgba(126, 243, 232, 0.5); }
+.search input::placeholder { color: var(--ink-3); }
+
+/* ---------- Q & A ------------------------------------------- */
+
+/* Keep the disclosure control near the question it opens rather
+   than parked at the far edge of a 1080px page. */
+.qa-list { max-width: 800px; }
+
+.qa { border-bottom: 1px solid var(--rule-soft); }
+
+.qa-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  background: none;
+  border: 0;
+  padding: 1.25rem 0;
+  text-align: left;
+  cursor: pointer;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.qa-btn svg {
+  flex-shrink: 0;
+  color: var(--ink-3);
+  transition: transform 0.25s ease, color 0.25s ease;
+}
+
+.qa[data-open='true'] .qa-btn svg {
+  transform: rotate(180deg);
+  color: var(--signal);
+}
+
+.qa-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.qa[data-open='true'] .qa-panel { grid-template-rows: 1fr; }
+
+.qa-panel > div { overflow: hidden; }
+
+.qa-answer {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: var(--ink-2);
+  max-width: 66ch;
+  padding-bottom: 1.4rem;
+}
+
+/* ---------- Form -------------------------------------------- */
+
+.panel {
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  background: var(--raise);
+  padding: clamp(1.75rem, 3.5vw, 2.5rem);
+}
+
+.panel-title {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--ink);
+  margin-bottom: 1.6rem;
+}
+
+.form { display: flex; flex-direction: column; gap: 1.15rem; }
+
+.field { display: flex; flex-direction: column; gap: 0.4rem; }
+
+.field label {
+  font-family: var(--font-rajdhani);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--ink-2);
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  background: rgba(8, 10, 14, 0.7);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 0.7rem 0.9rem;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.18s ease;
+}
+
+.field input:focus,
+.field textarea:focus { border-color: rgba(126, 243, 232, 0.5); }
+
+.field input::placeholder,
+.field textarea::placeholder { color: var(--ink-3); }
+
+.field textarea { resize: vertical; min-height: 7rem; }
+
+.notice {
+  border: 1px solid rgba(126, 243, 232, 0.45);
+  border-radius: 8px;
+  background: rgba(126, 243, 232, 0.07);
+  color: var(--signal);
+  font-family: var(--font-rajdhani);
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.8rem 1rem;
+  margin-bottom: 1.4rem;
+}
+
+/* ---------- Text link --------------------------------------- */
+
+.textlink {
+  font-family: var(--font-rajdhani);
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--signal);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.18s ease, color 0.18s ease;
+  white-space: nowrap;
+}
+
+.textlink:hover { border-bottom-color: currentColor; }
+
+.textlink--quiet { color: var(--ink-2); }
+.textlink--quiet:hover { color: var(--ink); }
+
+/* ---------- Closing action band ----------------------------- */
+
+.band {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem 2rem;
+  margin-top: var(--gap-sect);
+  padding-top: 2rem;
+  border-top: 1px solid var(--rule);
+}
+
+.band-title {
+  font-family: var(--font-orbitron);
+  font-weight: 700;
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.band-text {
+  font-family: var(--font-body);
+  font-size: 0.94rem;
+  line-height: 1.6;
+  color: var(--ink-2);
+  margin-top: 0.4rem;
+  max-width: 54ch;
+}
+
+/* ---------- Focus ------------------------------------------- */
+
+.doc :focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+/* ---------- Narrow screens ---------------------------------- */
+
+@media (max-width: 880px) {
+  .split { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 860px) {
+  .row,
+  .row--pair {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.5rem;
+  }
+  .row-aside { justify-self: start; }
+  .spec-item {
+    border-left: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .spec-item + .spec-item { border-top: 1px solid var(--rule-soft); }
+  .step-panel-inner { padding-left: 0; }
+  .step-btn {
+    grid-template-columns: 2.5rem minmax(0, 1fr) 1.25rem;
+    gap: 0.9rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .slot {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.35rem;
+  }
+  .doc-actions .btn-cyber-primary,
+  .doc-actions .btn-cyber-outline { width: 100%; }
+}
