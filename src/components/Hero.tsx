@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import introBg from '../assets/frames/second_001_frame_01.webp';
 
 interface HeroProps {
   onOpenRegister?: () => void;
@@ -22,6 +23,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenRegister }) => {
   const requestRef = useRef<number | null>(null);
 
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [introOpacity, setIntroOpacity] = useState(1);
   const [isMobile, setIsMobile] = useState(() =>
     typeof window !== 'undefined' ? window.matchMedia('(max-width: 768px)').matches || window.matchMedia('(prefers-reduced-motion: reduce)').matches : false
   );
@@ -37,6 +39,17 @@ export const Hero: React.FC<HeroProps> = ({ onOpenRegister }) => {
       mqReduce.removeEventListener('change', onChange);
     };
   }, []);
+
+  useEffect(() => {
+    if (!isMobile) return;
+    const onScroll = () => {
+      const fade = Math.max(0, 1 - window.scrollY / (window.innerHeight * 0.7));
+      setIntroOpacity(fade);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [isMobile]);
 
   useEffect(() => {
     if (isMobile) return;
@@ -130,31 +143,23 @@ export const Hero: React.FC<HeroProps> = ({ onOpenRegister }) => {
   const state1Opacity = Math.max(0, Math.min(1, (0.45 - scrollProgress) / 0.15));
   const state2Opacity = Math.max(0, Math.min(1, (scrollProgress - 0.45) / 0.2));
 
-  const staticFallback = frameUrls[frameUrls.length - 1] || '';
-
   if (isMobile) {
     return (
+      <>
+      <style>{`@media (min-width: 769px) { .mobile-intro-bg { display: none; } }`}</style>
+      <div className="mobile-intro-bg" aria-hidden="true" style={{ position: 'fixed', inset: 0, zIndex: 0, backgroundImage: `url(${introBg})`, backgroundSize: 'cover', backgroundPosition: 'center', opacity: introOpacity, pointerEvents: 'none', transition: 'opacity 0.15s linear', visibility: introOpacity <= 0 ? 'hidden' : 'visible' }} />
       <div
         style={{
           position: 'relative',
+          zIndex: 1,
           minHeight: '100dvh',
-          backgroundColor: '#0A0A0A',
+          backgroundColor: introOpacity > 0 ? 'transparent' : '#0A0A0A',
           display: 'flex',
           alignItems: 'center',
           overflow: 'hidden',
           padding: '6rem 1.25rem 3rem',
         }}
       >
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            backgroundImage: staticFallback ? `url(${staticFallback})` : undefined,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            opacity: 0.45,
-          }}
-        />
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(10,10,10,0.2) 0%, rgba(10,10,10,0.85) 100%)' }} />
         <div style={{ position: 'relative', zIndex: 2, maxWidth: '640px', width: '100%', margin: '0 auto', textAlign: 'left' }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem', color: '#7EF3E8', fontFamily: 'var(--font-orbitron)', fontSize: 'clamp(0.76rem, 2.4vw, 0.8rem)', fontWeight: 700, letterSpacing: '0.1em', marginBottom: '1rem' }}>
@@ -172,6 +177,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenRegister }) => {
           </div>
         </div>
       </div>
+      </>
     );
   }
 

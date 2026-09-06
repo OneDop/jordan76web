@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Radio, ArrowRight, Cpu, Activity, Globe, Truck } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import ammanImg from '../assets/hackathon_amman.png';
 import irbidImg from '../assets/hackathon_irbid.png';
 import petraImg from '../assets/hackathon_petra.png';
@@ -28,6 +29,7 @@ interface HackathonSectionProps {
 }
 
 export const HackathonSection: React.FC<HackathonSectionProps> = ({ onOpenMission }) => {
+  const navigate = useNavigate();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(1); // Default center card focused
 
   return (
@@ -369,7 +371,7 @@ export const HackathonSection: React.FC<HackathonSectionProps> = ({ onOpenMissio
 
         {/* CTA Button: START YOUR MISSION */}
         <button
-          onClick={onOpenMission}
+          onClick={() => navigate('/hackathon')}
           style={{
             display: 'inline-flex',
             alignItems: 'center',

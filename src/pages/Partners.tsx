@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { ExternalLink } from 'lucide-react';
-import { partnersByTier, type Partner } from '../data/partners';
+import { PARTNERS, partnersByTier, type Partner } from '../data/partners';
 import { PartnerLogo } from '../components/PartnersGrid';
+import DriftWall from '../components/DriftWall';
 
 const PartnerRow: React.FC<{ partner: Partner }> = ({ partner }) => (
   <div className={partner.href ? 'row row--logo' : 'row row--logo row--logo-pair'}>
@@ -39,11 +40,15 @@ const SECTIONS = [
 ] as const;
 
 export const Partners: React.FC = () => {
+  const driftItems = useMemo(
+    () => PARTNERS.map((p) => ({ image: p.logo, title: `${p.name} — ${p.role}`, href: p.href })),
+    []
+  );
+
   return (
     <div className="doc">
       <header className="doc-head">
         <h1 className="doc-title">The organizations behind Jordan 2076.</h1>
-
         <p className="doc-lead">
           Jordan 2076 is built with academic institutions, technology companies, and ecosystem
           builders who have agreed to put real problems, real mentors, and real money in front of
@@ -51,6 +56,29 @@ export const Partners: React.FC = () => {
         </p>
       </header>
 
+      <div className="partners-drift-hero">
+        <DriftWall
+          items={driftItems}
+          columns={5}
+          tileWidth={200}
+          tileHeight={132}
+          overlayColor="#060010"
+          dim={0.7}
+          fade={0.6}
+        />
+        <div className="partners-drift-copy">
+          <div className="row-kicker">{PARTNERS.length} partners</div>
+        </div>
+      </div>
+
+      <ClassicPartners />
+    </div>
+  );
+};
+
+const ClassicPartners: React.FC = () => {
+  return (
+    <>
       {SECTIONS.map((section) => (
         <section className="sect" key={section.tier}>
           <div className="sect-head">
@@ -77,6 +105,6 @@ export const Partners: React.FC = () => {
           Talk to us about sponsorship
         </Link>
       </div>
-    </div>
+    </>
   );
 };

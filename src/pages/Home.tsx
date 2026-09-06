@@ -13,6 +13,7 @@ import { BootScreen } from '../components/BootScreen';
 
 import { JourneySection } from '../components/JourneySection';
 import { PartnersGrid } from '../components/PartnersGrid';
+import { WebmasterSection } from '../components/WebmasterSection';
 
 export const Home: React.FC = () => {
   const { openRegister, openMission } = useOutletContext<{ openRegister: () => void; openMission: () => void }>() as any;
@@ -77,6 +78,8 @@ export const Home: React.FC = () => {
           </div>
         </div>
       </section>
+
+      <WebmasterSection />
 
       {booting && <BootScreen onDone={() => setBooting(false)} />}
     </>
