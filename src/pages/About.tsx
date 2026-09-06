@@ -63,6 +63,30 @@ export const About: React.FC = () => {
           expertise through one integrated journey: build a solution, validate whether it holds, and
           take it to the people who can carry it further.
         </p>
+
+        <div className="spec">
+          <div className="spec-item">
+            <span className="spec-k">Hackathon</span>
+            <span className="spec-v">
+              Four sector tracks
+              <small>Amman, Irbid, Petra, Aqaba</small>
+            </span>
+          </div>
+          <div className="spec-item">
+            <span className="spec-k">Bootcamp</span>
+            <span className="spec-v">
+              13–16 September 2026
+              <small>Four-day venture intensive</small>
+            </span>
+          </div>
+          <div className="spec-item">
+            <span className="spec-k">Congress</span>
+            <span className="spec-v">
+              10 October 2026
+              <small>University of Jordan Academy</small>
+            </span>
+          </div>
+        </div>
       </header>
 
       <section className="sect">

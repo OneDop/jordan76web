@@ -35,7 +35,7 @@ export const Home: React.FC = () => {
       <CongressTitleSection />
 
       {/* Countdown Timer: Vertically centered in the middle between Congress Day and Keynotes */}
-      <section style={{ maxWidth: '1040px', margin: '0 auto', padding: 'clamp(6.5rem, 11vw, 9.5rem) 1.5rem clamp(1.5rem, 2.5vw, 2.5rem)', position: 'relative' }}>
+      <section style={{ maxWidth: '1040px', margin: '0 auto', padding: 'clamp(2.5rem, 11vw, 9.5rem) 1.5rem clamp(1.5rem, 2.5vw, 2.5rem)', position: 'relative' }}>
         <CountdownTimer onOpenRegister={openRegister} />
       </section>
 
@@ -48,7 +48,7 @@ export const Home: React.FC = () => {
           <h2 style={{ fontFamily: 'var(--font-orbitron)', fontSize: '1.3rem', color: '#F5F7F8', margin: 0, textTransform: 'uppercase' }}>
             Ecosystem Partners
           </h2>
-          <Link to="/partners" style={{ color: '#7EF3E8', textDecoration: 'none', fontFamily: 'var(--font-orbitron)', fontSize: '0.8rem', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}>
+          <Link to="/partners" style={{ color: '#7EF3E8', textDecoration: 'none', fontFamily: 'var(--font-orbitron)', fontSize: '0.8rem', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '0.4rem', minHeight: '44px' }}>
             View All Partners <ArrowRight size={13} />
           </Link>
         </div>
@@ -60,7 +60,7 @@ export const Home: React.FC = () => {
       {/* Clean Call to Action (Minimal Banner) */}
       <section style={{ maxWidth: '1080px', margin: '0 auto', padding: '1rem 1.5rem 5rem' }}>
         <div style={{ border: '1px solid rgba(126, 243, 232, 0.25)', borderRadius: '14px', background: 'linear-gradient(135deg, rgba(15, 20, 30, 0.8), rgba(10, 12, 16, 0.95))', padding: 'clamp(2.5rem, 5vw, 4rem)', textAlign: 'center' }}>
-          <h2 style={{ fontFamily: 'var(--font-orbitron)', color: '#F5F7F8', fontSize: 'clamp(1.6rem, 4vw, 2.5rem)', lineHeight: 1.2, margin: '0 0 1rem' }}>
+          <h2 style={{ fontFamily: 'var(--font-orbitron)', color: '#F5F7F8', fontSize: 'clamp(1.25rem, 4vw, 2.5rem)', lineHeight: 1.25, margin: '0 0 1rem', textWrap: 'balance' }}>
             The future is not something we wait for.<br />
             <span style={{ color: '#7EF3E8' }}>It is something we build.</span>
           </h2>

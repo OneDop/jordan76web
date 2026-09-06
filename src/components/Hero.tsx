@@ -157,7 +157,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenRegister }) => {
         />
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(10,10,10,0.2) 0%, rgba(10,10,10,0.85) 100%)' }} />
         <div style={{ position: 'relative', zIndex: 2, maxWidth: '640px', width: '100%', margin: '0 auto', textAlign: 'left' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem', color: '#7EF3E8', fontFamily: 'var(--font-orbitron)', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.1em', marginBottom: '1rem' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem', color: '#7EF3E8', fontFamily: 'var(--font-orbitron)', fontSize: 'clamp(0.76rem, 2.4vw, 0.8rem)', fontWeight: 700, letterSpacing: '0.1em', marginBottom: '1rem' }}>
             <span style={{ width: '8px', height: '8px', backgroundColor: '#7EF3E8', display: 'inline-block', borderRadius: '50%' }} />
             <span>JORDAN 2076 — FROM FOUNDATIONS TO THE FUTURE</span>
           </div>

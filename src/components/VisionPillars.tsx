@@ -186,14 +186,6 @@ export const VisionPillars: React.FC = () => {
           alignItems: 'center',
         }}
       >
-        <div className="vp-mobile-stack" style={{ display: 'none', flexDirection: 'column', gap: '0.6rem', width: '100%', maxWidth: '360px', marginBottom: '1.75rem', textAlign: 'left' }}>
-          {FLOATING_MESSAGES.slice(0, 3).map((msg) => (
-            <div key={`m-${msg.id}`} style={{ background: 'rgba(12,18,28,0.85)', border: '1px solid rgba(126,243,232,0.18)', borderRadius: '10px', padding: '0.75rem 1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '0.75rem' }}>
-              <span style={{ fontSize: '0.82rem', color: '#F5F7F8', lineHeight: 1.4 }}>{msg.text}</span>
-              <span style={{ fontSize: '0.65rem', color: 'rgba(183,185,189,0.7)', whiteSpace: 'nowrap', fontFamily: 'var(--font-rajdhani)' }}>{msg.timeAgo}</span>
-            </div>
-          ))}
-        </div>
         {/* Primary Headline with Exactly Matched Width Block Lines */}
         <h2
           style={{
@@ -248,7 +240,7 @@ export const VisionPillars: React.FC = () => {
           }}
         >
           NOW YOU ARE PART OF<br />
-          <strong style={{ color: '#001B3A', WebkitTextStroke: '1px #7EF3E8', textShadow: '0 0 15px rgba(126, 243, 232, 0.4)' }}>PROJECT 2076.</strong>
+          <strong className="vp-project-tag" style={{ color: '#001B3A', WebkitTextStroke: '1px #7EF3E8', textShadow: '0 0 15px rgba(126, 243, 232, 0.4)' }}>PROJECT 2076.</strong>
         </p>
       </div>
 
@@ -258,13 +250,55 @@ export const VisionPillars: React.FC = () => {
           100% { transform: translateY(-14px) scale(1.02); }
         }
         @media (max-width: 768px) {
-          .vision-pillars-section { min-height: auto; padding: 3.5rem 1rem 2.5rem; }
-          .vision-pillars-section .vp-floating-layer { display: none; }
-          .vision-pillars-section .vp-mobile-stack { display: flex !important; }
+          /* The section sets min-height/padding inline, so these need
+             !important to win. Enough height for the transmissions to
+             sit behind the headline instead of on top of it. */
+          .vision-pillars-section { min-height: 72vh !important; padding: 4rem 1rem !important; }
           .vision-pillars-section h2 div { white-space: normal !important; overflow-wrap: break-word; }
+
+          /* These cards are atmosphere, not content. Three of them,
+             pushed to the corners and bled off the edges, reading
+             behind the headline the way they do on desktop. */
+          .vision-pillars-section .vp-float-card:nth-child(n + 4) { display: none; }
+
+          .vision-pillars-section .vp-float-card {
+            min-width: 0 !important;
+            width: 58vw;
+            max-width: 240px;
+            padding: 0.65rem 0.85rem !important;
+            top: auto !important;
+            bottom: auto !important;
+            left: auto !important;
+            right: auto !important;
+          }
+
+          .vision-pillars-section .vp-float-card:nth-child(1) {
+            top: 3% !important;
+            left: -7% !important;
+            opacity: 0.4 !important;
+            filter: blur(0.5px) !important;
+          }
+          .vision-pillars-section .vp-float-card:nth-child(2) {
+            top: 19% !important;
+            right: -9% !important;
+            opacity: 0.3 !important;
+            filter: blur(1px) !important;
+          }
+          .vision-pillars-section .vp-float-card:nth-child(3) {
+            bottom: 5% !important;
+            left: 2% !important;
+            opacity: 0.26 !important;
+            filter: blur(1.5px) !important;
+          }
+
+          /* Outlined text at this size turns to mud. */
+          .vp-project-tag {
+            color: var(--color-neon-cyan) !important;
+            -webkit-text-stroke: 0 !important;
+          }
         }
         @media (max-width: 480px) {
-          .vision-pillars-section { padding: 2.5rem 1rem 2rem; }
+          .vision-pillars-section { padding: 3rem 1rem !important; }
         }
         @media (prefers-reduced-motion: reduce) {
           .vp-float-card { animation: none !important; }

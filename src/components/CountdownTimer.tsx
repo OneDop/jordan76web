@@ -45,6 +45,7 @@ export const CountdownTimer: React.FC<CountdownTimerProps> = () => {
     <div style={{ width: '100%', textAlign: 'center' }}>
       {/* Clean Tabular Countdown */}
       <div
+        className="countdown-row"
         style={{
           display: 'flex',
           justifyContent: 'center',
@@ -56,7 +57,7 @@ export const CountdownTimer: React.FC<CountdownTimerProps> = () => {
       >
         {timeBlocks.map((block, i) => (
           <React.Fragment key={block.label}>
-            <div style={{ textAlign: 'center', minWidth: 'clamp(75px, 13vw, 130px)' }}>
+            <div className="countdown-block" style={{ textAlign: 'center', minWidth: 'clamp(75px, 13vw, 130px)' }}>
               <div
                 style={{
                   fontFamily: 'var(--font-orbitron)',
@@ -87,6 +88,7 @@ export const CountdownTimer: React.FC<CountdownTimerProps> = () => {
 
             {i < timeBlocks.length - 1 && (
               <div
+                className="countdown-divider"
                 style={{
                   width: '1px',
                   height: 'clamp(44px, 5.5vw, 70px)',
@@ -115,7 +117,7 @@ export const CountdownTimer: React.FC<CountdownTimerProps> = () => {
         }}
       >
         <span style={{ color: '#F5F7F8', fontWeight: 600 }}>Saturday, 10 October 2026</span>
-        <span style={{ opacity: 0.35 }}>•</span>
+        <span className="countdown-sep" style={{ opacity: 0.35 }}>•</span>
         <span>University of Jordan Academy, Amman</span>
       </div>
     </div>

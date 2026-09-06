@@ -20,6 +20,21 @@ export const SignalChatSection: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState<number>(0);
 
+  // The reveal is driven by how far you have scrolled through a 240vh
+  // section. On mobile that section collapses to its content height,
+  // so `totalScrollable` goes negative, the handler below bails out,
+  // and progress is stuck at 0 — which meant the cards sat at opacity
+  // 0 and never appeared. Small screens get them already revealed.
+  const [staticReveal, setStaticReveal] = useState(true);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 769px) and (prefers-reduced-motion: no-preference)');
+    const sync = () => setStaticReveal(!mq.matches);
+    sync();
+    mq.addEventListener('change', sync);
+    return () => mq.removeEventListener('change', sync);
+  }, []);
+
   useEffect(() => {
     const handleScroll = () => {
       if (!sectionRef.current) return;
@@ -48,6 +63,15 @@ export const SignalChatSection: React.FC = () => {
       { start: 0.30, full: 0.48 },
       { start: 0.58, full: 0.78 },
     ];
+
+    if (staticReveal) {
+      return {
+        opacity: 1,
+        transform: 'none',
+        pointerEvents: 'auto' as const,
+        transition: 'none',
+      };
+    }
 
     const t = thresholds[index];
     const p = scrollProgress;
@@ -229,7 +253,7 @@ export const SignalChatSection: React.FC = () => {
                     </div>
                     <span
                       style={{
-                        fontSize: '0.7rem',
+                        fontSize: '0.78rem',
                         color: 'rgba(183, 185, 189, 0.6)',
                         fontFamily: 'var(--font-rajdhani)',
                         fontWeight: 600,
@@ -273,7 +297,10 @@ export const SignalChatSection: React.FC = () => {
           })}
         </div>
 
-        {/* Scroll Prompt */}
+        {/* Scroll Prompt — only meaningful while the reveal is
+            scroll-driven, and it is absolutely positioned, so on a
+            phone it would print straight over the last card. */}
+        {!staticReveal && (
         <div
           style={{
             position: 'absolute',
@@ -290,7 +317,7 @@ export const SignalChatSection: React.FC = () => {
           <span
             style={{
               fontFamily: 'var(--font-orbitron)',
-              fontSize: '0.62rem',
+              fontSize: '0.75rem',
               fontWeight: 600,
               color: '#B7B9BD',
               letterSpacing: '0.12em',
@@ -306,6 +333,7 @@ export const SignalChatSection: React.FC = () => {
             }}
           />
         </div>
+        )}
       </div>
 
       <style>{`
@@ -314,12 +342,15 @@ export const SignalChatSection: React.FC = () => {
           50% { transform: translateY(5px); }
         }
         @media (max-width: 768px) {
-          .signal-chat-section { height: auto; }
+          /* height is set inline as 240vh for the scroll-driven
+             reveal, so this needs !important or a phone gets 2.5
+             screens of empty scroll. */
+          .signal-chat-section { height: auto !important; }
           .signal-chat-section > div { position: relative !important; height: auto !important; padding: 2.5rem 1rem !important; }
           .signal-chat-section > div > div { gap: 1rem !important; }
         }
         @media (prefers-reduced-motion: reduce) {
-          .signal-chat-section { height: auto; }
+          .signal-chat-section { height: auto !important; }
           .signal-chat-section > div { position: relative !important; height: auto !important; }
         }
       `}</style>

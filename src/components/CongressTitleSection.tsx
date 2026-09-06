@@ -6,6 +6,21 @@ export const CongressTitleSection: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState<number>(0);
 
+  // The words fly in from ±85vw. On a phone that parks them entirely
+  // outside the screen and widens the document by ~200px, and the
+  // title reads as a blank gap until the scroll maths catches up. So
+  // small screens (and anyone who asked for less motion) get the
+  // title already assembled.
+  const [staticTitle, setStaticTitle] = useState(true);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 769px) and (prefers-reduced-motion: no-preference)');
+    const sync = () => setStaticTitle(!mq.matches);
+    sync();
+    mq.addEventListener('change', sync);
+    return () => mq.removeEventListener('change', sync);
+  }, []);
+
   useEffect(() => {
     const handleScroll = () => {
       if (!sectionRef.current) return;
@@ -33,18 +48,18 @@ export const CongressTitleSection: React.FC = () => {
   }, []);
 
   // Distance multiplier for offset (starts at 1 when progress = 0, decreases to 0 when progress = 1)
-  const offsetMultiplier = 1 - scrollProgress;
+  const offsetMultiplier = staticTitle ? 0 : 1 - scrollProgress;
 
   // Fly in from completely OUT OF FRAME (outside viewport boundaries)
   // "CONGRESS" moves from far left (-85vw) to center (0)
   const congressX = -offsetMultiplier * 85;
-  
+
   // "DAY" moves from far right (+85vw) to center (0)
   const dayX = offsetMultiplier * 85;
 
   // Opacity fades in as words enter the visible frame
-  const textOpacity = Math.min(1, scrollProgress * 1.8);
-  const logoScale = 0.85 + scrollProgress * 0.15;
+  const textOpacity = staticTitle ? 1 : Math.min(1, scrollProgress * 1.8);
+  const logoScale = staticTitle ? 1 : 0.85 + scrollProgress * 0.15;
 
   return (
     <section className="congress-title-section" ref={sectionRef} id="congress-title">

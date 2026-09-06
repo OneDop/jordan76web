@@ -83,6 +83,32 @@ export const HackathonSection: React.FC<HackathonSectionProps> = ({ onOpenMissio
               gap: 2.5rem 1.5rem !important;
             }
           }
+          /* At 165px wide the card cannot hold a word like
+             "TRANSPORTATION" at 1rem, so the title scales with the
+             card and is allowed to break rather than spill out. */
+          .netflix-card-title {
+            font-size: clamp(0.8rem, 3.4vw, 1rem);
+            overflow-wrap: anywhere;
+          }
+          .netflix-card-sub {
+            font-size: clamp(0.62rem, 2.6vw, 0.7rem);
+            overflow-wrap: anywhere;
+          }
+          .netflix-card-city { font-size: clamp(0.72rem, 2.4vw, 0.78rem); }
+          @media (max-width: 560px) {
+            /* Two 165px posters will not fit side by side on a phone,
+               and shrinking them further breaks words like
+               "TRANSPORTATION" mid-syllable. So the row becomes a
+               single column of posters big enough to actually read. */
+            .netflix-track-row { gap: 2rem 0 !important; }
+            .netflix-card-poster {
+              width: min(300px, 74vw) !important;
+              height: auto !important;
+              aspect-ratio: 3 / 4;
+            }
+            .netflix-card-title { font-size: 1.05rem; overflow-wrap: normal; }
+            .netflix-card-sub { font-size: 0.72rem; }
+          }
         `}</style>
 
         {/* Sub-Header Phrase */}
@@ -195,6 +221,7 @@ export const HackathonSection: React.FC<HackathonSectionProps> = ({ onOpenMissio
 
                 {/* Vertical Poster Card Overlapping the Number */}
                 <div
+                  className="netflix-card-poster"
                   style={{
                     position: 'relative',
                     zIndex: 2,
@@ -268,9 +295,9 @@ export const HackathonSection: React.FC<HackathonSectionProps> = ({ onOpenMissio
                   >
                     {item.icon}
                     <span
+                      className="netflix-card-city"
                       style={{
                         fontFamily: 'var(--font-orbitron)',
-                        fontSize: '0.62rem',
                         fontWeight: 700,
                         color: '#7EF3E8',
                         letterSpacing: '0.08em',
@@ -292,9 +319,9 @@ export const HackathonSection: React.FC<HackathonSectionProps> = ({ onOpenMissio
                     }}
                   >
                     <span
+                      className="netflix-card-sub"
                       style={{
                         fontFamily: 'var(--font-rajdhani)',
-                        fontSize: '0.7rem',
                         fontWeight: 700,
                         color: 'rgba(126, 243, 232, 0.9)',
                         letterSpacing: '0.1em',
@@ -305,9 +332,9 @@ export const HackathonSection: React.FC<HackathonSectionProps> = ({ onOpenMissio
                     </span>
 
                     <h3
+                      className="netflix-card-title"
                       style={{
                         fontFamily: 'var(--font-orbitron)',
-                        fontSize: '1rem',
                         fontWeight: 800,
                         color: '#F5F7F8',
                         lineHeight: 1.25,

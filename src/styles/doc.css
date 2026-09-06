@@ -8,10 +8,12 @@
    1. Orbitron sets page and section titles only. Rajdhani carries
       the micro-typography (dates, times, labels, tabs). Inter
       carries entry titles and prose.
-   2. The cyan signal marks state and wayfinding — active tab, the
-      primary action, an open panel. Never decoration.
-   3. A bordered surface means "an object you can act on".
-      Everything else is separated by a hairline.
+   2. Only the five brand colors, each with one job (see .doc below).
+      Cyan carries the readout — data and interaction — never
+      decoration; navy carries depth; steel carries prose.
+   3. A bordered surface means "an object you can act on". A filled
+      navy surface with no border is a zone. Everything else is
+      separated by a hairline.
 
    Every class below is meant to live inside a .doc page. The names
    are deliberately plain (.row, .tab, .slot), so if you add a
@@ -20,18 +22,39 @@
    ============================================================ */
 
 .doc {
-  /* Surfaces */
-  --raise: rgba(14, 18, 25, 0.72);
-  --raise-hi: rgba(19, 25, 35, 0.92);
-  --rule: rgba(245, 247, 248, 0.10);
-  --rule-soft: rgba(245, 247, 248, 0.055);
+  /* Five brand colors, five jobs. Nothing outside this list.
+       #0A0A0A  the page ground
+       #001B3A  depth — every raised surface and zone
+       #F5F7F8  content — names, values, titles
+       #B7B9BD  prose
+       #7EF3E8  the readout: data and interaction   */
 
-  /* Ink ramp */
-  --ink: #F5F7F8;
-  --ink-2: #9EABB8;
-  --ink-3: #667584;
+  /* Solid values come straight from the brand tokens in index.css.
+     The alpha steps below repeat the channels because rgba() cannot
+     read a hex var; keep them in sync if a brand colour ever moves. */
 
-  --signal: #7EF3E8;
+  /* Depth. Navy, not grey — it is what stops the page reading flat. */
+  --navy: var(--color-deep-navy);
+  --zone: rgba(0, 27, 58, 0.42);
+  --raise: rgba(0, 27, 58, 0.6);
+  --raise-hi: rgba(0, 34, 72, 0.85);
+
+  /* Structure takes the brand tint rather than plain white alpha,
+     so hairlines read as lit edges instead of printed rules. */
+  --rule: rgba(126, 243, 232, 0.17);
+  --rule-soft: rgba(126, 243, 232, 0.095);
+
+  /* Ink ramp, all from the brand steel */
+  --ink: var(--color-off-white);
+  --ink-2: var(--color-steel-gray);
+  --ink-3: rgba(183, 185, 189, 0.68);
+
+  /* Cyan at two strengths. Full for anything you can act on; the
+     softer step for the data layer — dates, times, places, roles —
+     so a page of readouts does not shout as loudly as its buttons. */
+  --signal: var(--color-neon-cyan);
+  --data: rgba(126, 243, 232, 0.82);
+  --data-soft: rgba(126, 243, 232, 0.58);
 
   --gap-sect: clamp(3.5rem, 7vw, 5.5rem);
 
@@ -67,6 +90,14 @@
   text-transform: uppercase;
   max-width: 17ch;
   text-wrap: balance;
+  /* Orbitron is wide enough that a single long word ("ORGANIZATIONS")
+     can outgrow a 320px screen. This only engages when a word cannot
+     fit on a line of its own, so normal wrapping is untouched. */
+  overflow-wrap: break-word;
+}
+
+@media (max-width: 380px) {
+  .doc-title { font-size: 1.7rem; }
 }
 
 /* Orbitron is wide; on a phone, balancing a four-line title strands
@@ -98,23 +129,25 @@
    Replaces "A · B · C" meta lines: labelled values, so a reader
    can find the date without parsing a sentence. */
 
+/* A filled zone, not a card: no border, so it reads as ground the
+   page sits on rather than another object to act on. Every subpage
+   opens on one of these and closes on the band, which gives the set
+   a colour frame without decorating anything. */
 .spec {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr));
-  border-top: 1px solid var(--rule);
-  border-bottom: 1px solid var(--rule);
+  background: var(--zone);
+  border-radius: 10px;
   margin-top: 2.5rem;
+  overflow: hidden;
 }
 
 .spec-item {
-  padding: 1.1rem 1.5rem;
+  padding: 1.25rem 1.6rem;
   border-left: 1px solid var(--rule-soft);
 }
 
-.spec-item:first-child {
-  border-left: 0;
-  padding-left: 0;
-}
+.spec-item:first-child { border-left: 0; }
 
 .spec-k {
   display: block;
@@ -122,7 +155,7 @@
   font-weight: 600;
   font-size: 0.85rem;
   letter-spacing: 0.03em;
-  color: var(--ink-3);
+  color: var(--data);
   margin-bottom: 0.3rem;
 }
 
@@ -171,7 +204,7 @@
   font-family: var(--font-rajdhani);
   font-weight: 600;
   font-size: 0.98rem;
-  color: var(--ink-3);
+  color: var(--data);
 }
 
 .sect-intro {
@@ -203,7 +236,7 @@
   font-weight: 600;
   font-size: 0.98rem;
   line-height: 1.4;
-  color: var(--ink-3);
+  color: var(--data);
 }
 
 .row-name {
@@ -238,18 +271,41 @@ a.row-name {
   text-decoration: none;
   border-bottom: 1px solid transparent;
   transition: border-color 0.18s ease;
+  /* A long address should never be the thing that widens the page. */
+  overflow-wrap: anywhere;
 }
 
 a.row-name:hover { border-bottom-color: var(--signal); }
 
-.row--plain {
-  grid-template-columns: minmax(0, 1fr);
-  padding: 1.05rem 0;
-  font-family: var(--font-body);
-  font-size: 0.98rem;
-  line-height: 1.6;
-  color: var(--ink-2);
-  max-width: 76ch;
+/* Roster row that leads with a logo instead of a text kicker. The
+   logo sizing lives here rather than in PartnersGrid.css, which sets
+   the smaller size used by the home page strip. */
+.row--logo { grid-template-columns: 148px minmax(0, 1fr) auto; }
+.row--logo-pair { grid-template-columns: 148px minmax(0, 1fr); }
+
+.row-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* One fixed slot for every partner, so logos of wildly different
+     proportions still line up down the column. */
+  width: 124px;
+  height: 60px;
+}
+
+.row-logo .partner-logo {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+/* The roster is the formal credit, so plates run at full strength
+   here and fill the slot rather than floating inside it. */
+.row-logo .partner-logo--plate {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 1;
+  padding: 8px 10px;
 }
 
 /* ---------- Two-column split (reference beside a form) ------ */
@@ -301,7 +357,7 @@ a.row-name:hover { border-bottom-color: var(--signal); }
   font-family: var(--font-rajdhani);
   font-weight: 600;
   font-size: 0.98rem;
-  color: var(--ink-3);
+  color: var(--data);
   margin-bottom: 0.55rem;
 }
 
@@ -354,7 +410,7 @@ a.row-name:hover { border-bottom-color: var(--signal); }
   aspect-ratio: 1;
   border-radius: 50%;
   object-fit: cover;
-  filter: grayscale(1) contrast(1.05);
+  filter: grayscale(0.85) contrast(1.05);
 }
 
 .person-name {
@@ -371,7 +427,7 @@ a.row-name:hover { border-bottom-color: var(--signal); }
   font-family: var(--font-rajdhani);
   font-weight: 600;
   font-size: 0.98rem;
-  color: var(--ink-3);
+  color: var(--data-soft);
   margin-top: 0.1rem;
 }
 
@@ -440,12 +496,14 @@ a.row-name:hover { border-bottom-color: var(--signal); }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: grayscale(0.6) contrast(1.05);
+  /* Held back just enough to keep the text legible over them; the
+     photographs carry this page, so do not drain them. */
+  filter: grayscale(0.25) contrast(1.03) saturate(1.05);
   transition: filter 0.35s ease;
 }
 
 .tile:hover .tile-figure img,
-.tile:focus-visible .tile-figure img { filter: grayscale(0) contrast(1); }
+.tile:focus-visible .tile-figure img { filter: grayscale(0) contrast(1) saturate(1.1); }
 
 /* A track with no photograph of its own gets the grid texture rather
    than another city's picture standing in for it. */
@@ -524,9 +582,21 @@ a.row-name:hover { border-bottom-color: var(--signal); }
   color: var(--ink-3);
 }
 
+.tile-value { color: var(--ink); }
+.tile-action { color: var(--signal); }
+
 /* ---------- Sequence spine (real sequences only) ------------ */
 
-.step { border-bottom: 1px solid var(--rule-soft); }
+.step {
+  border-bottom: 1px solid var(--rule-soft);
+  transition: background 0.25s ease;
+}
+
+/* The open day lifts onto the zone colour, so which one is open is
+   readable from across the page and not just from the chevron. */
+.step[data-open='true'] {
+  background: linear-gradient(to right, var(--zone), transparent 78%);
+}
 
 .step-btn {
   width: 100%;
@@ -617,7 +687,7 @@ a.row-name:hover { border-bottom-color: var(--signal); }
   font-weight: 700;
   font-size: 1.05rem;
   font-variant-numeric: tabular-nums;
-  color: var(--ink-2);
+  color: var(--data);
   padding-top: 0.05rem;
 }
 
@@ -854,8 +924,9 @@ a.row-name:hover { border-bottom-color: var(--signal); }
   flex-wrap: wrap;
   gap: 1.5rem 2rem;
   margin-top: var(--gap-sect);
-  padding-top: 2rem;
-  border-top: 1px solid var(--rule);
+  padding: clamp(1.75rem, 3.5vw, 2.4rem);
+  background: var(--zone);
+  border-radius: 10px;
 }
 
 .band-title {
@@ -886,16 +957,45 @@ a.row-name:hover { border-bottom-color: var(--signal); }
 
 /* ---------- Narrow screens ---------------------------------- */
 
+/* ---------- Touch sizing ------------------------------------
+   These read fine with a mouse but land at 20-33px tall, which is
+   under the 44px a thumb wants. Below 700px they grow into a proper
+   target without changing how they look. */
+
+@media (max-width: 700px) {
+  .textlink,
+  a.row-name {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  .block-list { gap: 0; }
+
+  .tab { padding: 0.6rem 1.05rem; }
+
+  /* The rows have already stacked to one column by here, so the
+     extra height costs nothing. */
+  .row-aside { margin-top: -0.25rem; }
+}
+
 @media (max-width: 880px) {
   .split { grid-template-columns: minmax(0, 1fr); }
 }
 
 @media (max-width: 860px) {
   .row,
-  .row--pair {
+  .row--pair,
+  .row--logo,
+  .row--logo-pair,
+  /* .split .row--pair carries two classes, so it out-specifies the
+     single-column rule and has to be named again here. */
+  .split .row--pair {
     grid-template-columns: minmax(0, 1fr);
     gap: 0.5rem;
   }
+
+  .row-logo { justify-content: flex-start; }
   .row-aside { justify-self: start; }
   .spec-item {
     border-left: 0;

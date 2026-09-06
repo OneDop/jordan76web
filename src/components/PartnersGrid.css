@@ -54,66 +54,50 @@
   opacity: 1;
 }
 
-/* User's custom PNG / SVG image */
-.partner-logo-img {
-  max-height: 42px;
-  max-width: 80%;
+/* ---------- Logo treatments -------------------------------------
+   See LogoTreatment in src/data/partners.ts for why each partner gets
+   the treatment it does. Sizing here is for the home page strip; the
+   partners page overrides it in doc.css. */
+
+.partner-logo {
+  max-height: 44px;
+  max-width: 84%;
   width: auto;
   height: auto;
   object-fit: contain;
-  filter: brightness(0) invert(1) opacity(0.7);
-  transition: filter 0.25s ease, opacity 0.25s ease, transform 0.25s ease;
+  transition: opacity 0.25s ease, filter 0.25s ease, transform 0.25s ease;
 }
 
-.partner-tile-card:hover .partner-logo-img {
-  filter: brightness(0) invert(1) opacity(1);
-  transform: scale(1.04);
-}
-
-/* Default Placeholder Logo Layout */
-.partner-placeholder-content {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.65rem;
-  color: rgba(255, 255, 255, 0.72);
+/* True colour on a light plate — the default, because most of these
+   files are colour emblems that a knockout would flatten. */
+.partner-logo--plate {
+  /* One plate size for every partner, so the wall reads as a grid of
+     equals rather than twelve differently shaped chips. */
   width: 100%;
-  transition: color 0.25s ease, transform 0.25s ease;
+  height: 56px;
+  max-height: 56px;
+  object-fit: contain;
+  background: var(--color-off-white);
+  border-radius: 8px;
+  padding: 6px 10px;
+  opacity: 0.92;
 }
 
-.partner-placeholder-icon {
-  flex-shrink: 0;
-  width: 22px;
-  height: 22px;
-  color: #7EF3E8;
+/* Already light artwork; a plate would erase it. */
+.partner-logo--asIs {
+  max-height: 40px;
   opacity: 0.85;
-  transition: opacity 0.25s ease, transform 0.25s ease, filter 0.25s ease;
 }
 
-.partner-placeholder-name {
-  font-family: var(--font-orbitron, 'Orbitron', sans-serif);
-  font-size: 0.82rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  color: rgba(245, 247, 248, 0.8);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 110px;
-  transition: color 0.25s ease;
+/* Line art and single-weight wordmarks only. */
+.partner-logo--knockout {
+  filter: brightness(0) invert(1);
+  opacity: 0.75;
 }
 
-.partner-tile-card:hover .partner-placeholder-content {
-  transform: scale(1.03);
-}
-
-.partner-tile-card:hover .partner-placeholder-icon {
+.partner-tile-card:hover .partner-logo {
   opacity: 1;
-  filter: drop-shadow(0 0 6px rgba(126, 243, 232, 0.6));
-}
-
-.partner-tile-card:hover .partner-placeholder-name {
-  color: #ffffff;
+  transform: scale(1.04);
 }
 
 /* Responsive Breakpoints */
@@ -133,14 +117,6 @@
     height: 94px;
     border-radius: 15px;
     padding: 0.85rem 1rem;
-  }
-  .partner-placeholder-name {
-    font-size: 0.76rem;
-    max-width: 85px;
-  }
-  .partner-placeholder-icon {
-    width: 19px;
-    height: 19px;
   }
 }
 

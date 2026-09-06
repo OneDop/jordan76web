@@ -92,8 +92,8 @@ export const Hackathon: React.FC = () => {
                 <h3 className="tile-title">{track.title}</h3>
                 <p className="tile-text">{track.briefing}</p>
                 <div className="tile-foot">
-                  <span>{track.prize.split('+')[0].trim()}</span>
-                  <span>Open briefing</span>
+                  <span className="tile-value">{track.prize.split('+')[0].trim()}</span>
+                  <span className="tile-action">Open briefing</span>
                 </div>
               </div>
             </button>

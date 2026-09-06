@@ -311,6 +311,21 @@ h1, h2, h3, h4, h5, h6, .font-orbitron {
   .countdown-colon { display: none; }
 }
 
+/* Four countdown units wrap to 3 + 1 on a phone and strand a divider,
+   so below 640px they become an even 2 x 2 block. */
+@media (max-width: 640px) {
+  .countdown-row {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.75rem 0.5rem !important;
+    justify-items: center;
+  }
+  .countdown-divider { display: none !important; }
+  /* The date and venue stack, which leaves the separator stranded on
+     the end of the date line. */
+  .countdown-sep { display: none; }
+}
+
 input, textarea, select {
   max-width: 100%;
   font-size: 16px;

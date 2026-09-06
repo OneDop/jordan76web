@@ -171,18 +171,28 @@
 @media (max-width: 640px) {
   .congress-title-section {
     padding: 3rem 1rem;
-    min-height: 50vh;
+    /* 50vh of forced height read as a large empty gap above the
+       countdown once the title stopped animating in. */
+    min-height: auto;
   }
   .congress-title-wrapper {
     gap: 0.6rem;
+  }
+  /* Wrapping put the logo between the two words, breaking the title
+     into "CONGRESS [mark]" / "DAY". Give the mark its own line. */
+  .congress-logo-container {
+    order: -1;
+    flex-basis: 100%;
+    height: clamp(56px, 15vw, 90px);
+    margin-bottom: 0.9rem;
   }
   .congress-text {
     font-size: clamp(1.4rem, 8.5vw, 2.6rem);
     letter-spacing: 0.02em;
   }
   .congress-sub-badge {
-    font-size: 0.58rem;
-    letter-spacing: 0.14em;
+    font-size: 0.74rem;
+    letter-spacing: 0.12em;
     margin-bottom: 1.5rem;
     text-align: center;
   }

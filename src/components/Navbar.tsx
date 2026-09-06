@@ -79,6 +79,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenRegister }) => {
             textDecoration: 'none',
             flexShrink: 0,
             minWidth: 0,
+            minHeight: '44px',
           }}
           aria-label="Jordan 76 Home"
         >
