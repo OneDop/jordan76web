@@ -6,7 +6,7 @@
 
    Rules this file enforces:
    1. Orbitron sets page and section titles only. Rajdhani carries
-      the micro-typography (dates, times, labels, tabs). Inter
+      the micro-typography (dates, times, labels, tabs). Orbitron
       carries entry titles and prose.
    2. Only the five brand colors, each with one job (see .doc below).
       Cyan carries the readout — data and interaction — never
@@ -109,7 +109,7 @@
 .doc-title--wide { max-width: 24ch; }
 
 .doc-lead {
-  font-family: var(--font-body);
+  font-family: var(--font-orbitron);
   font-weight: 300;
   font-size: clamp(1.02rem, 1.5vw, 1.18rem);
   line-height: 1.7;
@@ -161,7 +161,7 @@
 
 .spec-v {
   display: block;
-  font-family: var(--font-body);
+  font-family: var(--font-orbitron);
   font-weight: 500;
   font-size: 0.98rem;
   line-height: 1.4;
@@ -208,7 +208,7 @@
 }
 
 .sect-intro {
-  font-family: var(--font-body);
+  font-family: var(--font-orbitron);
   font-size: 0.98rem;
   line-height: 1.7;
   color: var(--ink-2);
@@ -240,7 +240,7 @@
 }
 
 .row-name {
-  font-family: var(--font-body);
+  font-family: var(--font-orbitron);
   font-weight: 600;
   font-size: 1.05rem;
   line-height: 1.35;
@@ -248,7 +248,7 @@
 }
 
 .row-text {
-  font-family: var(--font-body);
+  font-family: var(--font-orbitron);
   font-size: 0.94rem;
   line-height: 1.65;
   color: var(--ink-2);
@@ -345,7 +345,7 @@ a.row-name:hover { border-bottom-color: var(--signal); }
 .blocks .block-text { flex-grow: 1; }
 
 .block-title {
-  font-family: var(--font-body);
+  font-family: var(--font-orbitron);
   font-weight: 600;
   font-size: 1.12rem;
   line-height: 1.3;
@@ -362,7 +362,7 @@ a.row-name:hover { border-bottom-color: var(--signal); }
 }
 
 .block-text {
-  font-family: var(--font-body);
+  font-family: var(--font-orbitron);
   font-size: 0.94rem;
   line-height: 1.7;
   color: var(--ink-2);
@@ -414,7 +414,7 @@ a.row-name:hover { border-bottom-color: var(--signal); }
 }
 
 .person-name {
-  font-family: var(--font-body);
+  font-family: var(--font-orbitron);
   font-weight: 600;
   font-size: 1.05rem;
   line-height: 1.3;
@@ -432,7 +432,7 @@ a.row-name:hover { border-bottom-color: var(--signal); }
 }
 
 .person-talk {
-  font-family: var(--font-body);
+  font-family: var(--font-orbitron);
   font-size: 0.95rem;
   line-height: 1.55;
   color: var(--ink);
@@ -441,7 +441,7 @@ a.row-name:hover { border-bottom-color: var(--signal); }
 }
 
 .person-bio {
-  font-family: var(--font-body);
+  font-family: var(--font-orbitron);
   font-size: 0.9rem;
   line-height: 1.65;
   color: var(--ink-2);
@@ -488,7 +488,7 @@ a.row-name:hover { border-bottom-color: var(--signal); }
 
 .tile-figure {
   position: relative;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
 }
 
@@ -552,7 +552,7 @@ a.row-name:hover { border-bottom-color: var(--signal); }
 }
 
 .tile-title {
-  font-family: var(--font-body);
+  font-family: var(--font-orbitron);
   font-weight: 600;
   font-size: 1rem;
   line-height: 1.35;
@@ -561,7 +561,7 @@ a.row-name:hover { border-bottom-color: var(--signal); }
 }
 
 .tile-text {
-  font-family: var(--font-body);
+  font-family: var(--font-orbitron);
   font-size: 0.9rem;
   line-height: 1.6;
   color: var(--ink-2);
@@ -624,7 +624,7 @@ a.row-name:hover { border-bottom-color: var(--signal); }
 .step[data-open='true'] .step-num { color: var(--signal); }
 
 .step-title {
-  font-family: var(--font-body);
+  font-family: var(--font-orbitron);
   font-weight: 600;
   font-size: clamp(1.02rem, 1.9vw, 1.18rem);
   line-height: 1.35;
@@ -632,7 +632,7 @@ a.row-name:hover { border-bottom-color: var(--signal); }
 }
 
 .step-summary {
-  font-family: var(--font-body);
+  font-family: var(--font-orbitron);
   font-size: 0.93rem;
   line-height: 1.6;
   color: var(--ink-2);
@@ -692,7 +692,7 @@ a.row-name:hover { border-bottom-color: var(--signal); }
 }
 
 .slot-title {
-  font-family: var(--font-body);
+  font-family: var(--font-orbitron);
   font-weight: 600;
   font-size: 1rem;
   line-height: 1.4;
@@ -700,7 +700,7 @@ a.row-name:hover { border-bottom-color: var(--signal); }
 }
 
 .slot-text {
-  font-family: var(--font-body);
+  font-family: var(--font-orbitron);
   font-size: 0.92rem;
   line-height: 1.6;
   color: var(--ink-2);
@@ -717,7 +717,7 @@ a.row-name:hover { border-bottom-color: var(--signal); }
 }
 
 .empty {
-  font-family: var(--font-body);
+  font-family: var(--font-orbitron);
   font-size: 0.98rem;
   line-height: 1.6;
   color: var(--ink-2);
@@ -770,7 +770,7 @@ a.row-name:hover { border-bottom-color: var(--signal); }
   border-radius: 8px;
   padding: 0.7rem 1rem 0.7rem 2.75rem;
   color: var(--ink);
-  font-family: var(--font-body);
+  font-family: var(--font-orbitron);
   font-size: 0.95rem;
   outline: none;
   transition: border-color 0.18s ease;
@@ -799,7 +799,7 @@ a.row-name:hover { border-bottom-color: var(--signal); }
   text-align: left;
   cursor: pointer;
   color: var(--ink);
-  font-family: var(--font-body);
+  font-family: var(--font-orbitron);
   font-weight: 500;
   font-size: 1rem;
   line-height: 1.45;
@@ -827,7 +827,7 @@ a.row-name:hover { border-bottom-color: var(--signal); }
 .qa-panel > div { overflow: hidden; }
 
 .qa-answer {
-  font-family: var(--font-body);
+  font-family: var(--font-orbitron);
   font-size: 0.95rem;
   line-height: 1.75;
   color: var(--ink-2);
@@ -845,7 +845,7 @@ a.row-name:hover { border-bottom-color: var(--signal); }
 }
 
 .panel-title {
-  font-family: var(--font-body);
+  font-family: var(--font-orbitron);
   font-weight: 600;
   font-size: 1.1rem;
   color: var(--ink);
@@ -871,7 +871,7 @@ a.row-name:hover { border-bottom-color: var(--signal); }
   border-radius: 8px;
   padding: 0.7rem 0.9rem;
   color: var(--ink);
-  font-family: var(--font-body);
+  font-family: var(--font-orbitron);
   font-size: 0.95rem;
   outline: none;
   transition: border-color 0.18s ease;
@@ -939,7 +939,7 @@ a.row-name:hover { border-bottom-color: var(--signal); }
 }
 
 .band-text {
-  font-family: var(--font-body);
+  font-family: var(--font-orbitron);
   font-size: 0.94rem;
   line-height: 1.6;
   color: var(--ink-2);
@@ -1018,3 +1018,10 @@ a.row-name:hover { border-bottom-color: var(--signal); }
   .doc-actions .btn-cyber-primary,
   .doc-actions .btn-cyber-outline { width: 100%; }
 }
+
+/* ---------- J76 bridge (2026-09) ---------------------------------
+   .doc remains the system for About / Partners / FAQ / Contact.
+   Hackathon / Congress / Bootcamp moved to .j76-page
+   (src/styles/j76-future.css): aurora hero, bento, spotlight,
+   tracing timeline, glow CTA. This file is untouched otherwise,
+   so .backup-2026-09-16 restores the previous trio verbatim. */

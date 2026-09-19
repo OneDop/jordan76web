@@ -5,6 +5,7 @@
   --color-neon-cyan: #7EF3E8;
   --color-deep-navy: #001B3A;
   --color-bg-dark: #0A0A0A;
+  --color-site-gradient: linear-gradient(180deg, #001B3A 0%, #001426 38%, #070B12 68%, #0A0A0A 100%);
   --color-steel-gray: #B7B9BD;
   --color-off-white: #F5F7F8;
 
@@ -16,10 +17,10 @@
   --color-card-border: rgba(126, 243, 232, 0.22);
   --color-border-muted: rgba(183, 185, 189, 0.2);
 
-  /* Typography */
+  /* Typography - Orbitron unified for consistency */
   --font-orbitron: 'Orbitron', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-rajdhani: 'Rajdhani', sans-serif;
-  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Orbitron', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-hand: 'Caveat', 'Segoe Script', cursive;
 
   --bp-sm: 640px;
@@ -50,12 +51,16 @@
 html {
   scroll-behavior: smooth;
   color-scheme: dark;
+  background-color: #0A0A0A;
 }
 
 body {
-  background-color: var(--color-bg-dark);
+  background: var(--color-site-gradient);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
   color: var(--color-off-white);
-  font-family: var(--font-body);
+  font-family: var(--font-orbitron);
   line-height: 1.6;
   overflow-x: hidden;
   min-height: 100vh;
@@ -67,10 +72,10 @@ body {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--color-bg-dark);
+  background: #001B3A;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-deep-navy);
+  background: rgba(126, 243, 232, 0.4);
   border: 1px solid var(--color-card-border);
   border-radius: 4px;
 }
@@ -342,3 +347,67 @@ input, textarea, select {
   }
   html { scroll-behavior: auto; }
 }
+
+/* ---------- Hero shimmer — FROM FOUNDATIONS / TO THE FUTURE ----------
+   Instagram-style shine: solid readable text + a bright highlight bar
+   sweeping across (pseudo-element overlay). Always visible, even where
+   background-clip:text is unsupported. */
+.hero-shimmer {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding: 0.04em 0.14em 0.08em;
+  margin: -0.04em -0.14em -0.08em;
+}
+.hero-shimmer--white {
+  color: #ffffff;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.9), 0 2px 6px rgba(0, 0, 0, 0.9);
+}
+.hero-shimmer--cyan {
+  color: #7ef3e8;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.9), 0 0 24px rgba(126, 243, 232, 0.45);
+}
+.hero-shimmer::after {
+  content: "";
+  position: absolute;
+  top: -10%;
+  bottom: -10%;
+  left: 0;
+  width: 42%;
+  background: linear-gradient(
+    100deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.55) 38%,
+    rgba(255, 255, 255, 0.95) 50%,
+    rgba(255, 255, 255, 0.55) 62%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  filter: blur(2px);
+  transform: translateX(-260%) skewX(-18deg);
+  animation: hero-ig-sweep 4.5s linear infinite;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  will-change: transform;
+}
+/* Offset the second line so the sweeps chase each other instead of syncing */
+.hero-shimmer--cyan::after { animation-delay: -2.25s; }
+@keyframes hero-ig-sweep {
+  0% { transform: translateX(-260%) skewX(-18deg); }
+  100% { transform: translateX(480%) skewX(-18deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-shimmer::after { animation: none; display: none; }
+}
+
+/* ---------- J76 future surface bridge (2026-09) ----------
+   Hackathon / Congress / Bootcamp now render on .j76-page
+   (see src/styles/j76-future.css + src/components/j76/J76.tsx).
+   Global hooks only — component styles stay isolated. */
+::selection {
+  background: rgba(126, 243, 232, 0.85);
+  color: #06121a;
+}
+
+.j76-page .h-full { height: 100%; }

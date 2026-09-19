@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { AGENDA_DATA } from '../data/agenda';
+import type { AgendaItem } from '../types';
 import { Clock, Bookmark, User } from 'lucide-react';
 
 export const Agenda: React.FC = () => {
@@ -9,7 +10,7 @@ export const Agenda: React.FC = () => {
 
   const tracks = ['All', 'Keynote', 'Quantum Tech', 'Bio-Cybernetics', 'Space & Energy', 'AI & Governance'];
 
-  const filteredAgenda = AGENDA_DATA.filter((item) => {
+  const filteredAgenda = AGENDA_DATA.filter((item: AgendaItem) => {
     const matchDay = item.day === activeDay;
     const matchTrack = activeTrack === 'All' || item.track === activeTrack;
     return matchDay && matchTrack;
@@ -17,7 +18,7 @@ export const Agenda: React.FC = () => {
 
   const toggleBookmark = (id: string) => {
     if (bookmarkedIds.includes(id)) {
-      setBookmarkedIds(bookmarkedIds.filter((item) => item !== id));
+      setBookmarkedIds(bookmarkedIds.filter((bookmarked: string) => bookmarked !== id));
     } else {
       setBookmarkedIds([...bookmarkedIds, id]);
     }
@@ -123,7 +124,7 @@ export const Agenda: React.FC = () => {
 
       {/* Agenda Timeline List */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem', maxWidth: '900px', margin: '0 auto' }}>
-        {filteredAgenda.map((item) => {
+        {filteredAgenda.map((item: AgendaItem) => {
           const isBookmarked = bookmarkedIds.includes(item.id);
           return (
             <div

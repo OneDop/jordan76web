@@ -69,9 +69,6 @@ export const Home: React.FC = () => {
             Join hundreds of young engineers, founders, and industry mentors participating in Jordan 2076.
           </p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <button onClick={openRegister} className="btn-cyber-primary" style={{ padding: '0.8rem 2rem' }}>
-              Register Now
-            </button>
             <Link to="/about" className="btn-cyber-outline" style={{ padding: '0.8rem 2rem' }}>
               About The Initiative
             </Link>

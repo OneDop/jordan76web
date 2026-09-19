@@ -19,7 +19,7 @@ export const Layout: React.FC = () => {
   }, [location.pathname]);
 
   return (
-    <div style={{ backgroundColor: 'var(--color-bg-dark)', minHeight: '100vh', position: 'relative' }}>
+    <div style={{ backgroundColor: 'transparent', minHeight: '100vh', position: 'relative' }}>
       <div className="cyber-grid-overlay" style={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 0, opacity: 0.4 }} />
       <div style={{ position: 'relative', zIndex: 1 }}>
         <Navbar onOpenRegister={openRegister} />

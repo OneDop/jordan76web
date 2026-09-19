@@ -147,30 +147,31 @@ export const Hero: React.FC<HeroProps> = ({ onOpenRegister }) => {
     return (
       <>
       <style>{`@media (min-width: 769px) { .mobile-intro-bg { display: none; } }`}</style>
-      <div className="mobile-intro-bg" aria-hidden="true" style={{ position: 'fixed', inset: 0, zIndex: 0, backgroundImage: `url(${introBg})`, backgroundSize: 'cover', backgroundPosition: 'center', opacity: introOpacity, pointerEvents: 'none', transition: 'opacity 0.15s linear', visibility: introOpacity <= 0 ? 'hidden' : 'visible' }} />
+      <div className="mobile-intro-bg" aria-hidden="true" style={{ position: 'fixed', inset: 0, zIndex: 0, backgroundImage: `url(${introBg})`, backgroundSize: 'cover', backgroundPosition: 'center', opacity: introOpacity, pointerEvents: 'none', transition: 'opacity 0.15s linear', visibility: introOpacity <= 0 ? 'hidden' : 'visible', filter: 'brightness(1.1) contrast(1.02)' }} />
       <div
         style={{
           position: 'relative',
           zIndex: 1,
           minHeight: '100dvh',
-          backgroundColor: introOpacity > 0 ? 'transparent' : '#0A0A0A',
+          backgroundColor: 'transparent',
           display: 'flex',
           alignItems: 'center',
           overflow: 'hidden',
           padding: '6rem 1.25rem 3rem',
         }}
       >
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(10,10,10,0.2) 0%, rgba(10,10,10,0.85) 100%)' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(0,27,58,0.42) 0%, rgba(0,20,38,0.22) 30%, rgba(10,10,10,0.38) 62%, rgba(7,11,18,0.82) 100%)' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, rgba(0,20,38,0.42) 0%, rgba(0,20,38,0.22) 45%, rgba(0,20,38,0.08) 70%, transparent 100%)' }} />
         <div style={{ position: 'relative', zIndex: 2, maxWidth: '640px', width: '100%', margin: '0 auto', textAlign: 'left' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem', color: '#7EF3E8', fontFamily: 'var(--font-orbitron)', fontSize: 'clamp(0.76rem, 2.4vw, 0.8rem)', fontWeight: 700, letterSpacing: '0.1em', marginBottom: '1rem' }}>
-            <span style={{ width: '8px', height: '8px', backgroundColor: '#7EF3E8', display: 'inline-block', borderRadius: '50%' }} />
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem', color: '#7EF3E8', fontFamily: 'var(--font-orbitron)', fontSize: 'clamp(0.76rem, 2.4vw, 0.8rem)', fontWeight: 700, letterSpacing: '0.1em', marginBottom: '1rem', textShadow: '0 2px 12px rgba(0,0,0,0.9)' }}>
+            <span style={{ width: '8px', height: '8px', backgroundColor: '#7EF3E8', display: 'inline-block', borderRadius: '50%', boxShadow: '0 0 12px rgba(126,243,232,0.9)' }} />
             <span>JORDAN 2076 — FROM FOUNDATIONS TO THE FUTURE</span>
           </div>
-          <h1 style={{ fontFamily: 'var(--font-orbitron)', fontSize: 'clamp(1.9rem, 8vw, 2.6rem)', fontWeight: 900, lineHeight: 1.05, color: '#F5F7F8', letterSpacing: '0.03em', marginBottom: '1rem', textTransform: 'uppercase' }}>
-            FROM FOUNDATIONS<br /><span style={{ color: '#7EF3E8' }}>TO THE FUTURE</span>
+          <h1 style={{ fontFamily: 'var(--font-orbitron)', fontSize: 'clamp(1.9rem, 8vw, 2.6rem)', fontWeight: 900, lineHeight: 1.05, letterSpacing: '0.03em', marginBottom: '1rem', textTransform: 'uppercase' }}>
+            <span className="hero-shimmer hero-shimmer--white">FROM FOUNDATIONS</span><br /><span className="hero-shimmer hero-shimmer--cyan">TO THE FUTURE</span>
           </h1>
-          <p style={{ fontSize: '0.95rem', color: '#B7B9BD', lineHeight: 1.6, marginBottom: '0.5rem' }}>What foundations must we build today to shape Jordan's future?</p>
-          <p style={{ fontSize: '0.88rem', color: 'rgba(183,185,189,0.9)', lineHeight: 1.6, marginBottom: '1.5rem' }}>A national technology and innovation initiative bringing together young builders, industry experts, innovators, companies and ecosystem partners.</p>
+          <p style={{ fontSize: '0.95rem', color: '#FFFFFF', fontWeight: 600, lineHeight: 1.6, marginBottom: '0.5rem', textShadow: '0 2px 12px rgba(0,0,0,0.95), 0 1px 3px rgba(0,0,0,0.95)' }}>What foundations must we build today to shape Jordan's future?</p>
+          <p style={{ fontSize: '0.88rem', color: '#F1F5F9', lineHeight: 1.6, marginBottom: '1.5rem', textShadow: '0 2px 12px rgba(0,0,0,0.95), 0 1px 3px rgba(0,0,0,0.95)' }}>A national technology and innovation initiative bringing together young builders, industry experts, innovators, companies and ecosystem partners.</p>
           <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
             <button onClick={onOpenRegister} style={{ background: '#7EF3E8', color: '#0A0A0A', border: 'none', padding: '0.85rem 1.6rem', fontFamily: 'var(--font-orbitron)', fontWeight: 800, fontSize: '0.82rem', letterSpacing: '0.06em', borderRadius: '4px', cursor: 'pointer', boxShadow: '0 0 20px rgba(126, 243, 232, 0.35)', flex: '1 1 160px' }}>Register Now</button>
             <a href="/about" style={{ background: 'rgba(0, 27, 58, 0.5)', color: '#7EF3E8', border: '1px solid rgba(126, 243, 232, 0.5)', padding: '0.85rem 1.6rem', fontFamily: 'var(--font-orbitron)', fontWeight: 700, fontSize: '0.82rem', letterSpacing: '0.06em', borderRadius: '4px', textDecoration: 'none', backdropFilter: 'blur(8px)', textAlign: 'center', flex: '1 1 160px' }}>Explore Jordan 2076</a>
@@ -187,7 +188,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenRegister }) => {
       style={{
         position: 'relative',
         height: '300vh',
-        backgroundColor: '#0A0A0A',
+        backgroundColor: 'transparent',
       }}
     >
       <div
@@ -197,7 +198,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenRegister }) => {
           height: '100dvh',
           width: '100%',
           overflow: 'hidden',
-          backgroundColor: '#0A0A0A',
+          backgroundColor: 'transparent',
         }}
       >
         <canvas
@@ -210,6 +211,29 @@ export const Hero: React.FC<HeroProps> = ({ onOpenRegister }) => {
             height: '100%',
             objectFit: 'cover',
             zIndex: 0,
+            filter: 'brightness(1.12) contrast(1.03) saturate(1.02)',
+          }}
+        />
+
+        {/* Readability scrims: left-to-right + top/bottom so body copy stays legible over the busy frame */}
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            zIndex: 1,
+            background:
+              'linear-gradient(90deg, rgba(0,20,38,0.68) 0%, rgba(0,20,38,0.55) 28%, rgba(0,20,38,0.32) 48%, rgba(0,20,38,0.12) 70%, rgba(0,20,38,0.04) 100%)',
+            pointerEvents: 'none',
+          }}
+        />
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            zIndex: 1,
+            background:
+              'linear-gradient(to bottom, rgba(0,27,58,0.42) 0%, rgba(0,27,58,0.12) 18%, transparent 32%, transparent 62%, rgba(7,11,18,0.45) 82%, rgba(7,11,18,0.72) 100%)',
+            pointerEvents: 'none',
           }}
         />
 
@@ -231,17 +255,17 @@ export const Hero: React.FC<HeroProps> = ({ onOpenRegister }) => {
             right: 0,
           }}
         >
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem', color: '#7EF3E8', fontFamily: 'var(--font-orbitron)', fontSize: '0.78rem', fontWeight: 700, letterSpacing: '0.12em', marginBottom: '1.2rem' }}>
-            <span style={{ width: '8px', height: '8px', backgroundColor: '#7EF3E8', display: 'inline-block' }} />
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem', color: '#7EF3E8', fontFamily: 'var(--font-orbitron)', fontSize: '0.78rem', fontWeight: 700, letterSpacing: '0.12em', marginBottom: '1.2rem', textShadow: '0 2px 12px rgba(0,0,0,0.9)' }}>
+            <span style={{ width: '8px', height: '8px', backgroundColor: '#7EF3E8', display: 'inline-block', boxShadow: '0 0 12px rgba(126,243,232,0.9)' }} />
             <span>JORDAN 2076 — FROM FOUNDATIONS TO THE FUTURE</span>
           </div>
-          <h1 style={{ fontFamily: 'var(--font-orbitron)', fontSize: 'clamp(1.9rem, 5.8vw, 5rem)', fontWeight: 900, lineHeight: 1.05, color: '#F5F7F8', letterSpacing: '0.03em', marginBottom: '1.2rem', textTransform: 'uppercase', textShadow: '0 4px 20px rgba(0, 0, 0, 0.9)', overflowWrap: 'break-word' }}>
-            FROM FOUNDATIONS<br /><span style={{ color: '#7EF3E8' }}>TO THE FUTURE</span>
+          <h1 style={{ fontFamily: 'var(--font-orbitron)', fontSize: 'clamp(1.9rem, 5.8vw, 5rem)', fontWeight: 900, lineHeight: 1.05, letterSpacing: '0.03em', marginBottom: '1.2rem', textTransform: 'uppercase', overflowWrap: 'break-word' }}>
+            <span className="hero-shimmer hero-shimmer--white">FROM FOUNDATIONS</span><br /><span className="hero-shimmer hero-shimmer--cyan">TO THE FUTURE</span>
           </h1>
-          <p style={{ fontSize: 'clamp(0.95rem, 1.3vw, 1.15rem)', color: '#B7B9BD', maxWidth: '620px', lineHeight: 1.6, marginBottom: '0.6rem', fontFamily: 'var(--font-body)' }}>
+          <p style={{ fontSize: 'clamp(0.95rem, 1.3vw, 1.15rem)', color: '#FFFFFF', fontWeight: 600, maxWidth: '620px', lineHeight: 1.6, marginBottom: '0.6rem', fontFamily: 'var(--font-orbitron)', textShadow: '0 2px 12px rgba(0,0,0,0.95), 0 1px 3px rgba(0,0,0,0.95)' }}>
             What foundations must we build today to shape Jordan's future?
           </p>
-          <p style={{ fontSize: '0.92rem', color: 'rgba(183,185,189,0.9)', maxWidth: '600px', lineHeight: 1.6, marginBottom: '2rem' }}>
+          <p style={{ fontSize: '0.92rem', color: '#F1F5F9', maxWidth: '600px', lineHeight: 1.6, marginBottom: '2rem', textShadow: '0 2px 12px rgba(0,0,0,0.95), 0 1px 3px rgba(0,0,0,0.95)' }}>
             A national technology and innovation initiative bringing together young builders, industry experts, innovators, companies and ecosystem partners.
           </p>
           <div style={{ display: 'flex', gap: '1.2rem', alignItems: 'center', flexWrap: 'wrap' }}>
@@ -253,13 +277,14 @@ export const Hero: React.FC<HeroProps> = ({ onOpenRegister }) => {
           <div
             style={{
               marginTop: '3.5rem',
-              color: '#B7B9BD',
+              color: '#E2E8F0',
               fontFamily: 'var(--font-orbitron)',
               fontSize: '0.75rem',
               letterSpacing: '0.12em',
               display: 'flex',
               alignItems: 'center',
               gap: '0.5rem',
+              textShadow: '0 2px 10px rgba(0,0,0,0.9)',
             }}
           >
             <span>↓ SCROLL TO DECODE</span>
@@ -287,12 +312,12 @@ export const Hero: React.FC<HeroProps> = ({ onOpenRegister }) => {
           <h1 style={{ fontFamily: 'var(--font-orbitron)', fontSize: 'clamp(2.5rem, 6.8vw, 5.2rem)', fontWeight: 900, lineHeight: 1.05, color: '#F5F7F8', letterSpacing: '0.04em', marginBottom: '1.2rem', textTransform: 'uppercase', textShadow: '0 0 35px rgba(126, 243, 232, 0.6), 0 0 60px rgba(0, 27, 58, 0.9), 0 4px 20px rgba(0, 0, 0, 0.95)' }}>
             THE SIGNAL<br /><span style={{ color: '#7EF3E8' }}>FOUND YOU</span>
           </h1>
-          <p style={{ fontSize: '1.1rem', color: '#B7B9BD', fontFamily: 'var(--font-body)', marginBottom: '0.6rem' }}>The future is not something we wait for. It is something we build.</p>
-          <p style={{ fontSize: '1.15rem', color: '#7EF3E8', fontFamily: 'sans-serif', fontWeight: 600, direction: 'rtl' }}>إشارات من المستقبل</p>
+          <p style={{ fontSize: '1.1rem', color: '#FFFFFF', fontFamily: 'var(--font-orbitron)', marginBottom: '0.6rem', textShadow: '0 2px 14px rgba(0,0,0,0.9)' }}>The future is not something we wait for. It is something we build.</p>
+          <p style={{ fontSize: '1.15rem', color: '#7EF3E8', fontFamily: 'var(--font-orbitron)', fontWeight: 600, direction: 'rtl' }}>إشارات من المستقبل</p>
         </div>
       </div>
 
-      {/* Seamless Transition Divider BELOW Hero (Fades from video background to #0A0A0A) */}
+      {/* Seamless Transition Divider BELOW Hero (Fades from video background to site gradient) */}
       <div
         style={{
           position: 'absolute',
@@ -300,7 +325,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenRegister }) => {
           left: 0,
           right: 0,
           height: '200px',
-          background: 'linear-gradient(to bottom, transparent 0%, #0A0A0A 100%)',
+          background: 'linear-gradient(to bottom, transparent 0%, transparent 100%)',
           pointerEvents: 'none',
           zIndex: 5,
         }}

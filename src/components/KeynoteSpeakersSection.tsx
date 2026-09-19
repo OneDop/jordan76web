@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { SPEAKERS_DATA } from '../data/speakers';
+import type { Speaker } from '../types';
 import './KeynoteSpeakersSection.css';
 
 export const KeynoteSpeakersSection: React.FC = () => {
@@ -9,7 +10,7 @@ export const KeynoteSpeakersSection: React.FC = () => {
   const [maxTranslate, setMaxTranslate] = useState<number>(0);
 
   // Filter top 2 keynote speakers
-  const keynoteSpeakers = SPEAKERS_DATA.filter(s => s.session === 'keynote' || s.id === 'spk-1' || s.id === 'spk-2').slice(0, 2);
+  const keynoteSpeakers = SPEAKERS_DATA.filter((s: Speaker) => s.session === 'keynote' || s.id === 'spk-1' || s.id === 'spk-2').slice(0, 2);
   const spk1 = keynoteSpeakers[0] || SPEAKERS_DATA[0];
   const spk2 = keynoteSpeakers[1] || SPEAKERS_DATA[1];
 

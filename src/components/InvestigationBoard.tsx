@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { ArrowRight, Target } from 'lucide-react';
 import { HACKATHON_TRACKS } from '../data/tracks';
+import type { HackathonTrack } from '../types';
 import './InvestigationBoard.css';
 
 interface InvestigationBoardProps {
@@ -139,7 +140,7 @@ export const InvestigationBoard: React.FC<InvestigationBoardProps> = ({ onOpenRe
       <div className="ib-board">
         <div className="ib-stage" ref={stageRef}>
           <div className="ib-row">
-            {HACKATHON_TRACKS.map((track, i) => (
+            {HACKATHON_TRACKS.map((track: HackathonTrack, i: number) => (
               <div className="ib-cell" key={track.id} style={PHOTO_PLACEMENT[i]}>
                 <span className="ib-pin" ref={pinRef(i)} />
                 <figure className="ib-evidence" style={{ '--ib-focus': track.focus } as BoardStyle}>

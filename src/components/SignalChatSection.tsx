@@ -110,7 +110,7 @@ export const SignalChatSection: React.FC = () => {
       style={{
         position: 'relative',
         height: '240vh',
-        backgroundColor: '#0A0A0A',
+        backgroundColor: 'transparent',
       }}
     >
       {/* Sticky Viewport Stage */}
@@ -284,7 +284,7 @@ export const SignalChatSection: React.FC = () => {
                     style={{
                       fontSize: '0.94rem',
                       color: '#B7B9BD',
-                      fontFamily: 'var(--font-body)',
+                      fontFamily: 'var(--font-orbitron)',
                       lineHeight: 1.5,
                       margin: 0,
                     }}

@@ -1,8 +1,8 @@
 import React from 'react';
 import { X, Cpu, Activity, Globe, Award, Calendar, CheckCircle2, ArrowRight, Shield } from 'lucide-react';
-import ammanImg from '../assets/hackathon_amman.png';
-import irbidImg from '../assets/hackathon_irbid.png';
-import petraImg from '../assets/hackathon_petra.png';
+import ammanImg from '../assets/cities/Amman.2076.png';
+import irbidImg from '../assets/cities/Irbid2076.png';
+import petraImg from '../assets/cities/Petra2076.png';
 
 interface HackathonModalProps {
   isOpen: boolean;
@@ -197,7 +197,7 @@ export const HackathonModal: React.FC<HackathonModalProps> = ({
             <img
               src={ammanImg}
               alt="Amman Educational Track"
-              style={{ width: '120px', height: '140px', objectFit: 'cover', borderRadius: '10px' }}
+              style={{ width: '160px', height: '190px', objectFit: 'cover', borderRadius: '10px' }}
             />
             <div style={{ flex: 1, minWidth: '240px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.4rem' }}>
@@ -230,7 +230,7 @@ export const HackathonModal: React.FC<HackathonModalProps> = ({
             <img
               src={irbidImg}
               alt="Irbid Healthcare Track"
-              style={{ width: '120px', height: '140px', objectFit: 'cover', borderRadius: '10px' }}
+              style={{ width: '160px', height: '190px', objectFit: 'cover', borderRadius: '10px' }}
             />
             <div style={{ flex: 1, minWidth: '240px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.4rem' }}>
@@ -263,7 +263,7 @@ export const HackathonModal: React.FC<HackathonModalProps> = ({
             <img
               src={petraImg}
               alt="Petra Tourism Track"
-              style={{ width: '120px', height: '140px', objectFit: 'cover', borderRadius: '10px' }}
+              style={{ width: '160px', height: '190px', objectFit: 'cover', borderRadius: '10px' }}
             />
             <div style={{ flex: 1, minWidth: '240px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.4rem' }}>

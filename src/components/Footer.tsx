@@ -4,7 +4,7 @@ import logo05 from '../assets/JO76logo-03.svg';
 
 const socialIconStyle: React.CSSProperties = { width: '44px', height: '44px', borderRadius: '6px', background: 'rgba(0, 27, 58, 0.8)', border: '1px solid rgba(126, 243, 232, 0.3)', color: '#7EF3E8', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 };
 
-export const Footer: React.FC<{ onOpenRegister?: () => void }> = ({ onOpenRegister }) => {
+export const Footer: React.FC<{ onOpenRegister?: () => void }> = () => {
   // const [email, setEmail] = useState('');
   // const [subscribed, setSubscribed] = useState(false);
   // const handleSubscribe = (e: React.FormEvent) => { e.preventDefault(); if (email) setSubscribed(true); };
@@ -26,7 +26,7 @@ export const Footer: React.FC<{ onOpenRegister?: () => void }> = ({ onOpenRegist
         .footer-credit-break { display: block; height: 0; overflow: hidden; }
       }
     `}</style>
-    <footer style={{ background: 'linear-gradient(to top, rgba(0, 27, 58, 0.95), rgba(10, 10, 10, 0.98))', borderTop: '1px solid rgba(126, 243, 232, 0.3)', paddingTop: 'clamp(2.5rem, 6vw, 4rem)', paddingBottom: '2.5rem', color: '#B7B9BD', position: 'relative' }}>
+    <footer style={{ background: 'transparent', borderTop: '1px solid rgba(126, 243, 232, 0.3)', paddingTop: 'clamp(2.5rem, 6vw, 4rem)', paddingBottom: '2.5rem', color: '#B7B9BD', position: 'relative' }}>
       <div className="section-container" style={{ paddingTop: 0, paddingBottom: 0, marginBottom: '3rem' }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 250px), 1fr))', gap: 'clamp(1.5rem, 4vw, 3rem)', alignItems: 'start' }}>
           <div>
@@ -52,7 +52,6 @@ export const Footer: React.FC<{ onOpenRegister?: () => void }> = ({ onOpenRegist
               <Link to="/partners" style={{ color: '#B7B9BD', textDecoration: 'none' }}>Partners</Link>
               <Link to="/faq" style={{ color: '#B7B9BD', textDecoration: 'none' }}>FAQ</Link>
               <Link to="/contact" style={{ color: '#B7B9BD', textDecoration: 'none' }}>Contact</Link>
-              {onOpenRegister && <button onClick={onOpenRegister} style={{ background: 'none', border: 'none', color: '#7EF3E8', textAlign: 'left', cursor: 'pointer', fontSize: '0.88rem', fontFamily: 'var(--font-orbitron)', fontWeight: 700 }}>Register Now</button>}
             </div>
           </div>
           <div>

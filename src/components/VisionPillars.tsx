@@ -99,7 +99,7 @@ export const VisionPillars: React.FC = () => {
       style={{
         position: 'relative',
         minHeight: '100dvh',
-        backgroundColor: '#0A0A0A',
+        backgroundColor: 'transparent',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -164,7 +164,7 @@ export const VisionPillars: React.FC = () => {
               style={{
                 fontSize: '0.88rem',
                 color: '#F5F7F8',
-                fontFamily: 'var(--font-body)',
+                fontFamily: 'var(--font-orbitron)',
                 lineHeight: 1.4,
               }}
             >

@@ -157,7 +157,7 @@ export const CyberPass: React.FC<CyberPassProps> = ({ onOpenRegister }) => {
                   borderRadius: '6px',
                   padding: '0.8rem 1rem',
                   color: '#F5F7F8',
-                  fontFamily: 'var(--font-body)',
+                  fontFamily: 'var(--font-orbitron)',
                   fontSize: '0.95rem',
                   outline: 'none',
                 }}
@@ -180,7 +180,7 @@ export const CyberPass: React.FC<CyberPassProps> = ({ onOpenRegister }) => {
                   borderRadius: '6px',
                   padding: '0.8rem 1rem',
                   color: '#F5F7F8',
-                  fontFamily: 'var(--font-body)',
+                  fontFamily: 'var(--font-orbitron)',
                   fontSize: '0.95rem',
                   outline: 'none',
                 }}

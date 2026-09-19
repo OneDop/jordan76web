@@ -105,7 +105,7 @@ export const CountdownTimer: React.FC<CountdownTimerProps> = () => {
       {/* Date & Location in Clean Typography Below the Timer */}
       <div
         style={{
-          fontFamily: 'var(--font-body)',
+          fontFamily: 'var(--font-orbitron)',
           fontSize: 'clamp(0.88rem, 1.4vw, 1rem)',
           color: '#94A3B8',
           letterSpacing: '0.04em',

@@ -3,11 +3,7 @@ import { NavLink, Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import logo05 from '../assets/JO76logo-05.png';
 
-interface NavbarProps {
-  onOpenRegister: () => void;
-}
-
-export const Navbar: React.FC<NavbarProps> = ({ onOpenRegister }) => {
+export const Navbar: React.FC<{ onOpenRegister?: () => void }> = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
@@ -53,10 +49,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenRegister }) => {
         right: 0,
         zIndex: 1000,
         transition: 'all 0.3s ease',
-        background: scrolled ? 'rgba(10, 10, 10, 0.95)' : 'rgba(10, 10, 10, 0.6)',
-        backdropFilter: 'blur(12px)',
-        WebkitBackdropFilter: 'blur(12px)',
-        borderBottom: '1px solid rgba(183, 185, 189, 0.12)',
+        background: scrolled
+          ? 'linear-gradient(180deg, rgba(0,27,58,0.92) 0%, rgba(0,20,38,0.88) 100%)'
+          : 'linear-gradient(180deg, rgba(0,27,58,0.55) 0%, rgba(0,20,38,0.22) 100%)',
+        backdropFilter: 'blur(14px)',
+        WebkitBackdropFilter: 'blur(14px)',
+        borderBottom: '1px solid rgba(126, 243, 232, 0.14)',
+        boxShadow: scrolled ? '0 8px 32px rgba(0, 0, 0, 0.35)' : 'none',
       }}
     >
       <div
@@ -122,29 +121,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenRegister }) => {
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexShrink: 0 }}>
           <button
-            onClick={onOpenRegister}
-            className="navbar-cta"
-            style={{
-              background: '#7EF3E8',
-              color: '#0A0A0A',
-              border: 'none',
-              borderRadius: '4px',
-              padding: '0.6rem 1.1rem',
-              fontFamily: 'var(--font-orbitron)',
-              fontWeight: 800,
-              fontSize: 'clamp(0.65rem, 1.6vw, 0.78rem)',
-              letterSpacing: '0.08em',
-              cursor: 'pointer',
-              boxShadow: '0 0 15px rgba(126, 243, 232, 0.35)',
-              transition: 'all 0.2s ease',
-              whiteSpace: 'nowrap',
-              minHeight: '40px',
-            }}
-          >
-            <span className="navbar-cta-full">REGISTER NOW</span>
-            <span className="navbar-cta-short">REGISTER</span>
-          </button>
-          <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             style={{
               background: 'transparent',
@@ -171,7 +147,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenRegister }) => {
       {mobileMenuOpen && (
         <div
           style={{
-            background: 'rgba(10, 10, 10, 0.98)',
+            background: 'linear-gradient(180deg, rgba(0,27,58,0.98) 0%, rgba(0,20,38,0.97) 100%)',
             borderTop: '1px solid rgba(126,243,232,0.15)',
             borderBottom: '1px solid #7EF3E8',
             padding: '1.25rem clamp(1rem, 4vw, 2rem) 1.5rem',
@@ -208,18 +184,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenRegister }) => {
 
       <style>{`
         .desktop-nav { display: none; }
-        .navbar-cta-short { display: none; }
-        .navbar-cta-full { display: inline; }
         @media (min-width: 1024px) {
           .desktop-nav { display: flex; }
           .mobile-toggle { display: none !important; }
-        }
-        @media (max-width: 380px) {
-          .navbar-cta-full { display: none; }
-          .navbar-cta-short { display: inline; }
-        }
-        @media (max-width: 360px) {
-          .navbar-cta { padding: 0.55rem 0.75rem !important; }
         }
       `}</style>
     </header>

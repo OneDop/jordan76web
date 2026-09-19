@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Radio, ArrowRight, Cpu, Activity, Globe, Truck } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import ammanImg from '../assets/hackathon_amman.png';
-import irbidImg from '../assets/hackathon_irbid.png';
-import petraImg from '../assets/hackathon_petra.png';
-import aquaImg from '../assets/hackathon_amman.png';
+import ammanImg from '../assets/cities/Amman.2076.png';
+import irbidImg from '../assets/cities/Irbid2076.png';
+import petraImg from '../assets/cities/Petra2076.png';
+import aquaImg from '../assets/cities/Aqaba.2076.png';
 
 interface TrackData {
   id: string;
@@ -37,7 +37,7 @@ export const HackathonSection: React.FC<HackathonSectionProps> = ({ onOpenMissio
       id="hackathon"
       style={{
         position: 'relative',
-        backgroundColor: '#0A0A0A',
+        backgroundColor: 'transparent',
         padding: 'clamp(3rem, 8vw, 7rem) 1rem clamp(3rem, 8vw, 8rem)',
         overflow: 'hidden',
       }}
@@ -60,7 +60,7 @@ export const HackathonSection: React.FC<HackathonSectionProps> = ({ onOpenMissio
         style={{
           position: 'relative',
           zIndex: 1,
-          maxWidth: '1380px',
+          maxWidth: '1600px',
           width: '100%',
           margin: '0 auto',
           padding: '0 clamp(1rem, 2.5vw, 2rem)',
@@ -75,7 +75,7 @@ export const HackathonSection: React.FC<HackathonSectionProps> = ({ onOpenMissio
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: clamp(0.5rem, 1.8vw, 1.8rem);
+            gap: clamp(0.75rem, 2vw, 2rem);
             margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
             flex-wrap: nowrap;
           }
@@ -104,7 +104,7 @@ export const HackathonSection: React.FC<HackathonSectionProps> = ({ onOpenMissio
                single column of posters big enough to actually read. */
             .netflix-track-row { gap: 2rem 0 !important; }
             .netflix-card-poster {
-              width: min(300px, 74vw) !important;
+              width: min(340px, 82vw) !important;
               height: auto !important;
               aspect-ratio: 3 / 4;
             }
@@ -163,7 +163,7 @@ export const HackathonSection: React.FC<HackathonSectionProps> = ({ onOpenMissio
           style={{
             fontSize: '1rem',
             color: '#B7B9BD',
-            fontFamily: 'var(--font-body)',
+            fontFamily: 'var(--font-orbitron)',
             textAlign: 'center',
             maxWidth: '640px',
             lineHeight: 1.6,
@@ -187,14 +187,14 @@ export const HackathonSection: React.FC<HackathonSectionProps> = ({ onOpenMissio
                 role="button"
                 tabIndex={0}
                 onKeyDown={(e) => { if (e.key === 'Enter') onOpenMission(); }}
-                style={{
-                  position: 'relative',
-                  display: 'flex',
-                  alignItems: 'flex-end',
-                  cursor: 'pointer',
-                  paddingLeft: 'clamp(36px, 3.8vw, 64px)',
-                  flexShrink: 0,
-                }}
+                  style={{
+                    position: 'relative',
+                    display: 'flex',
+                    alignItems: 'flex-end',
+                    cursor: 'pointer',
+                    paddingLeft: 'clamp(44px, 4.5vw, 78px)',
+                    flexShrink: 0,
+                  }}
               >
                 {/* Giant Stylized Ranking Number (Netflix/HBO Style) */}
                 <div
@@ -202,8 +202,8 @@ export const HackathonSection: React.FC<HackathonSectionProps> = ({ onOpenMissio
                     position: 'absolute',
                     left: 0,
                     bottom: 'clamp(0.4rem, 1.2vw, 1.2rem)',
-                    fontFamily: '"Montserrat", "Arial Black", "Impact", "Helvetica Neue", sans-serif',
-                    fontSize: 'clamp(6rem, 8.5vw, 10rem)',
+                    fontFamily: 'var(--font-orbitron)',
+                    fontSize: 'clamp(7rem, 10vw, 12rem)',
                     fontWeight: 900,
                     lineHeight: 0.8,
                     letterSpacing: '-0.06em',
@@ -227,8 +227,8 @@ export const HackathonSection: React.FC<HackathonSectionProps> = ({ onOpenMissio
                   style={{
                     position: 'relative',
                     zIndex: 2,
-                    width: 'clamp(165px, 16vw, 235px)',
-                    height: 'clamp(265px, 25vw, 365px)',
+                    width: 'clamp(215px, 19vw, 300px)',
+                    height: 'clamp(345px, 30vw, 465px)',
                     borderRadius: '12px',
                     overflow: 'hidden',
                     background: '#0B0F19',
@@ -351,7 +351,7 @@ export const HackathonSection: React.FC<HackathonSectionProps> = ({ onOpenMissio
                       style={{
                         fontSize: '0.78rem',
                         color: '#94A3B8',
-                        fontFamily: 'var(--font-body)',
+                        fontFamily: 'var(--font-orbitron)',
                         lineHeight: 1.45,
                         margin: '0.15rem 0 0 0',
                         display: '-webkit-box',

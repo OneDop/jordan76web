@@ -4,7 +4,7 @@ import type { Speaker } from '../types';
 import { X, ExternalLink, Download, ChevronLeft, ChevronRight, RefreshCw } from 'lucide-react';
 import './Speakers.css';
 
-const PANEL_SPEAKERS = SPEAKERS_DATA.filter((s) => s.session === 'panel');
+const PANEL_SPEAKERS = SPEAKERS_DATA.filter((s: Speaker) => s.session === 'panel');
 
 export const Speakers: React.FC = () => {
   const [selectedSpeaker, setSelectedSpeaker] = useState<Speaker | null>(null);
@@ -55,10 +55,10 @@ export const Speakers: React.FC = () => {
     setIsSwapping(true);
     setTimeout(() => {
       setDeck((prev) => {
-        const idx = prev.findIndex((s) => s.id === targetSpeaker.id);
+        const idx = prev.findIndex((s: Speaker) => s.id === targetSpeaker.id);
         if (idx === -1) return prev;
         const selected = prev[idx];
-        const rest = prev.filter((_, i) => i !== idx);
+        const rest = prev.filter((_: Speaker, i: number) => i !== idx);
         return [selected, ...rest];
       });
       setIsSwapping(false);
@@ -80,7 +80,7 @@ export const Speakers: React.FC = () => {
       setTimeout(() => {
         setDeck((prev) => {
           const selected = prev[index];
-          const rest = prev.filter((_, i) => i !== index);
+          const rest = prev.filter((_: Speaker, i: number) => i !== index);
           return [selected, ...rest];
         });
         setIsSwapping(false);
@@ -104,7 +104,7 @@ export const Speakers: React.FC = () => {
     touchStartX.current = null;
   };
 
-  const activeSpeakerIndex = PANEL_SPEAKERS.findIndex((s) => s.id === deck[0]?.id);
+  const activeSpeakerIndex = PANEL_SPEAKERS.findIndex((s: Speaker) => s.id === deck[0]?.id);
 
   return (
     <section id="speakers" className="rb-reactbits-section">
@@ -162,7 +162,7 @@ export const Speakers: React.FC = () => {
           onTouchEnd={handleTouchEnd}
         >
           <div className="rb-stack-stage-box">
-            {deck.map((speaker, index) => {
+            {deck.map((speaker: Speaker, index: number) => {
               const isTop = index === 0;
               const isAnimatingTop = isTop && isSwapping;
 
@@ -224,7 +224,7 @@ export const Speakers: React.FC = () => {
 
           {/* Interactive Dots Indicator */}
           <div className="rb-reactbits-dots">
-            {PANEL_SPEAKERS.map((speaker, i) => (
+            {PANEL_SPEAKERS.map((speaker: Speaker, i: number) => (
               <button
                 key={speaker.id}
                 type="button"

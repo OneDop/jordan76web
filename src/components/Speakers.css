@@ -4,7 +4,7 @@
   position: relative;
   width: 100%;
   padding: 6.5rem 2rem;
-  background-color: var(--color-bg-dark, #0A0A0A);
+  background-color: transparent;
   color: var(--color-off-white, #F5F7F8);
   overflow: hidden;
   background-image: 
@@ -21,7 +21,7 @@
   left: 0;
   right: 0;
   height: 90px;
-  background: linear-gradient(to bottom, var(--color-bg-dark, #0A0A0A) 0%, transparent 100%);
+  background: transparent;
   pointer-events: none;
   z-index: 1;
 }
@@ -33,7 +33,7 @@
   left: 0;
   right: 0;
   height: 90px;
-  background: linear-gradient(to top, var(--color-bg-dark, #0A0A0A) 0%, transparent 100%);
+  background: transparent;
   pointer-events: none;
   z-index: 1;
 }

@@ -1,11 +1,11 @@
 import type { HackathonTrack } from '../types';
-import ammanImg from '../assets/amman-evidence.jpg';
-import irbidImg from '../assets/irbid-evidence.jpg';
-import petraImg from '../assets/petra-evidence.jpg';
-import amman2 from '../assets/hackathon_amman.png';
+import ammanImg from '../assets/cities/Amman.2076.png';
+import irbidImg from '../assets/cities/Irbid2076.png';
+import petraImg from '../assets/cities/Petra2076.png';
+import aqabaImg from '../assets/cities/Aqaba.2076.png';
 export const HACKATHON_TRACKS: HackathonTrack[] = [
   { id: 'track-amman', number: '01', site: 'Amman', title: 'Innovation in Education Systems', tagline: 'AMMAN 2076', image: ammanImg, focus: '50% 55%', signalCode: 'AMM-2076', coordinates: '31.95°N 35.91°E', status: 'OPEN', briefing: 'Build solutions that reimagine how people learn, access education, engage with educational content, or experience learning systems.', deliverables: ['Learning access or engagement prototype', 'Problem-solution fit evidence', 'Working software demo'], prize: 'JOD 750 + incubation opportunity' },
   { id: 'track-irbid', number: '02', site: 'Irbid', title: 'Innovation in Healthcare Systems', tagline: 'IRBID 2076', image: irbidImg, focus: '50% 50%', signalCode: 'IRB-2076', coordinates: '32.55°N 35.84°E', status: 'OPEN', briefing: 'Build solutions that improve healthcare systems, access, patient experiences, processes, services, or outcomes.', deliverables: ['Healthcare prototype or flow', 'User journey validation', 'Software-based solution'], prize: 'JOD 750 + incubation opportunity' },
   { id: 'track-petra', number: '03', site: 'Petra', title: 'Innovation in Tourism & Cultural Systems', tagline: 'PETRA 2076', image: petraImg, focus: '50% 38%', signalCode: 'PET-2076', coordinates: '30.32°N 35.44°E', status: 'OPEN', briefing: 'Build solutions that strengthen tourism, cultural experiences, heritage engagement, visitor journeys, and interaction with Jordan’s cultural assets.', deliverables: ['Tourism/cultural experience prototype', 'Heritage engagement concept', 'Working demo'], prize: 'JOD 750 + incubation opportunity' },
-  { id: 'track-aqaba', number: '04', site: 'Aqaba', title: 'Innovation in Transportation — Powered by Petra Ride', tagline: 'AQABA 2076 · Powered by Petra Ride', image: amman2, focus: '50% 50%', signalCode: 'AQB-2076', coordinates: '29.53°N 35.00°E', status: 'OPEN', briefing: 'Build solutions that explore safer, smarter, and more effective transportation experiences and systems.', deliverables: ['Transportation prototype', 'Safety or efficiency model', 'Powered by Petra Ride integration concept'], prize: 'JOD 750 + incubation opportunity — Powered by Petra Ride' },
+  { id: 'track-aqaba', number: '04', site: 'Aqaba', title: 'Innovation in Transportation — Powered by Petra Ride', tagline: 'AQABA 2076 · Powered by Petra Ride', image: aqabaImg, focus: '50% 50%', signalCode: 'AQB-2076', coordinates: '29.53°N 35.00°E', status: 'OPEN', briefing: 'Build solutions that explore safer, smarter, and more effective transportation experiences and systems.', deliverables: ['Transportation prototype', 'Safety or efficiency model', 'Powered by Petra Ride integration concept'], prize: 'JOD 750 + incubation opportunity — Powered by Petra Ride' },
 ];
