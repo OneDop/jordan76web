@@ -1,6 +1,6 @@
 import type { Speaker } from '../types';
 import nidalPhoto from '../assets/Speakers/nidal-qanadilo.png';
-import mothannaPhoto from '../assets/Speakers/mothanna-gharaibeh.png';
+import mothannaPhoto from '../assets/Speakers/mothanna-gharaibeh.jpg';
 import lanaPhoto from '../assets/Speakers/lana-adaileh.jpeg';
 import hanaPhoto from '../assets/Speakers/hana-ziyad.jpeg';
 
