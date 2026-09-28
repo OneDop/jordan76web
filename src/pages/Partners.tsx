@@ -1,26 +1,29 @@
 import React, { useMemo, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import {
   ArrowUpRight,
-  Building2,
-  ExternalLink,
-  Handshake,
-  Layers,
+  Award,
+  Crown,
   ShieldCheck,
   Sparkles,
   Zap,
 } from 'lucide-react';
-import { PARTNERS, partnersByTier, type Partner, type PartnerTier } from '../data/partners';
-import { POTENTIAL_SPONSORS, type PotentialSponsor } from '../data/sponsors';
-import { PartnerLogo } from '../components/PartnersGrid';
+import {
+  PARTNERS,
+  PATRONAGE_PARTNERS,
+  STRATEGIC_PARTNERS,
+  type Partner,
+} from '../data/partners';
+import {
+  CONFIRMED_SPONSORS,
+  PLATINUM_SPONSOR,
+  GOLD_SPONSORS,
+  SILVER_SPONSORS,
+  BRONZE_SPONSORS,
+  type Sponsor,
+} from '../data/sponsors';
 import DriftWall from '../components/DriftWall';
 import './PartnersSponsors.css';
-
-/* ============================================================
-   Motion presets — one source of truth for the whole page.
-   `once: true` keeps scroll-in cheap; stagger keeps grids liquid.
-   ============================================================ */
 
 import type { Variants } from 'framer-motion';
 
@@ -29,22 +32,21 @@ const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 const container: Variants = {
   hidden: {},
   show: {
-    transition: { staggerChildren: 0.07, delayChildren: 0.08 },
+    transition: { staggerChildren: 0.06, delayChildren: 0.06 },
   },
 };
 
 const item: Variants = {
-  hidden: { opacity: 0, y: 26 },
+  hidden: { opacity: 0, y: 20 },
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, ease: EASE },
+    transition: { duration: 0.6, ease: EASE },
   },
 };
 
 /* ============================================================
-   Spotlight wrapper — React-Bits style glow that follows cursor.
-   Pure CSS vars (--mx / --my), zero re-renders on mousemove.
+   Spotlight Wrapper — Luxury Cursor Following Glow
    ============================================================ */
 
 interface SpotlightProps {
@@ -52,6 +54,7 @@ interface SpotlightProps {
   children: React.ReactNode;
   className?: string;
   'aria-label'?: string;
+  onClick?: () => void;
 }
 
 const Spotlight: React.FC<SpotlightProps> = ({ as = 'article', children, className = '', ...rest }) => {
@@ -65,81 +68,66 @@ const Spotlight: React.FC<SpotlightProps> = ({ as = 'article', children, classNa
     el.style.setProperty('--my', `${e.clientY - r.top}px`);
   };
 
-  if (as === 'div') {
-    return (
-      <motion.div
-        ref={ref as React.Ref<HTMLDivElement>}
-        onMouseMove={onMove}
-        variants={item}
-        whileHover={{ y: -4 }}
-        transition={{ duration: 0.35, ease: EASE }}
-        className={`ps-spot ${className}`}
-        {...rest}
-      >
-        <span className="ps-spot-glow" aria-hidden="true" />
-        <span className="ps-spot-sheen" aria-hidden="true" />
-        {children}
-      </motion.div>
-    );
-  }
+  const Component = as === 'div' ? motion.div : motion.article;
 
   return (
-    <motion.article
-      ref={ref as React.Ref<HTMLElement>}
+    <Component
+      ref={ref as any}
       onMouseMove={onMove}
       variants={item}
       whileHover={{ y: -4 }}
-      transition={{ duration: 0.35, ease: EASE }}
+      transition={{ duration: 0.3, ease: EASE }}
       className={`ps-spot ${className}`}
       {...rest}
     >
       <span className="ps-spot-glow" aria-hidden="true" />
       <span className="ps-spot-sheen" aria-hidden="true" />
       {children}
-    </motion.article>
+    </Component>
   );
 };
 
 /* ============================================================
-   PART 01 — Partner spotlight glass card
+   1.1 Patronage Card — 3 Grand Pillars with High-Contrast Plates
    ============================================================ */
 
-const PartnerCard: React.FC<{ partner: Partner; index: number }> = ({ partner, index }) => (
-  <Spotlight className="ps-card" aria-label={`${partner.name} — ${partner.role}`}>
-    <div className="ps-card-top">
-      <motion.div
-        className="ps-logo-well"
-        whileHover={{ scale: 1.05 }}
-        transition={{ duration: 0.35, ease: EASE }}
-      >
-        <PartnerLogo partner={partner} />
-      </motion.div>
-      <span className="ps-index" aria-hidden="true">
-        {String(index + 1).padStart(2, '0')}
-      </span>
-    </div>
-
-    <div className="ps-card-body">
-      <span className="ps-role">
-        <span className="ps-role-dot" aria-hidden="true" />
+const PatronageCard: React.FC<{ partner: Partner; index: number }> = ({ partner, index }) => (
+  <Spotlight className="ps-card ps-card--patronage" aria-label={`${partner.name} — ${partner.role}`}>
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      <span className="ps-tier-pill ps-tier-pill--silver" style={{ color: '#7EF3E8', borderColor: 'rgba(126,243,232,0.3)' }}>
+        <ShieldCheck size={12} aria-hidden="true" />
         {partner.role}
       </span>
-      <h4 className="ps-card-name">{partner.name}</h4>
-      {partner.blurb && <p className="ps-card-blurb">{partner.blurb}</p>}
+      <span style={{ fontFamily: 'var(--font-orbitron)', fontSize: '0.85rem', fontWeight: 800, color: 'rgba(126,243,232,0.5)' }}>
+        0{index + 1}
+      </span>
     </div>
 
-    <div className="ps-card-foot">
+    <div className="ps-logo-plate--patronage">
+      <img src={partner.logo} alt={partner.name} loading="lazy" />
+    </div>
+
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', flex: 1 }}>
+      <h3 className="ps-card-name--patronage">{partner.name}</h3>
+      {partner.blurb && (
+        <p style={{ fontFamily: 'var(--font-orbitron)', fontWeight: 300, fontSize: '0.88rem', lineHeight: 1.7, color: 'var(--ink-2)', margin: 0 }}>
+          {partner.blurb}
+        </p>
+      )}
+    </div>
+
+    <div style={{ paddingTop: '0.8rem', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
       {partner.href ? (
         <a
           className="ps-visit"
           href={partner.href}
           target="_blank"
           rel="noreferrer noopener"
-          aria-label={`Visit ${partner.name} website`}
+          aria-label={`Visit ${partner.name} portal`}
         >
-          <span>{partner.site ?? 'Visit website'}</span>
+          <span>{partner.site ?? 'Visit Official Portal'}</span>
           <span className="ps-visit-icon">
-            <ArrowUpRight size={14} aria-hidden="true" />
+            <ArrowUpRight size={13} aria-hidden="true" />
           </span>
         </a>
       ) : (
@@ -147,91 +135,219 @@ const PartnerCard: React.FC<{ partner: Partner; index: number }> = ({ partner, i
           <span>{partner.shortName}</span>
         </span>
       )}
-      {partner.href && <ExternalLink size={12} className="ps-ext" aria-hidden="true" />}
     </div>
   </Spotlight>
 );
 
 /* ============================================================
-   PART 02 — Sponsor bento tile
+   1.2 Strategic Partner Card — Clean Modern Bento
    ============================================================ */
 
-const SponsorTile: React.FC<{ sponsor: PotentialSponsor }> = ({ sponsor }) => {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const onMove = (e: React.MouseEvent) => {
-    const el = ref.current;
-    if (!el) return;
-    const r = el.getBoundingClientRect();
-    el.style.setProperty('--mx', `${e.clientX - r.left}px`);
-    el.style.setProperty('--my', `${e.clientY - r.top}px`);
-  };
+const StrategicPartnerCard: React.FC<{ partner: Partner; index: number }> = ({ partner, index }) => (
+  <Spotlight className="ps-bento-card" aria-label={`${partner.name} — Strategic Partner`}>
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      <span className="ps-tier-pill ps-tier-pill--silver" style={{ fontSize: '0.72rem' }}>
+        <Zap size={11} aria-hidden="true" />
+        Strategic Partner
+      </span>
+      <span style={{ fontFamily: 'var(--font-orbitron)', fontSize: '0.78rem', fontWeight: 800, color: 'rgba(183,185,189,0.35)' }}>
+        {String(index + 1).padStart(2, '0')}
+      </span>
+    </div>
 
-  return (
-    <motion.div
-      ref={ref}
-      onMouseMove={onMove}
-      variants={item}
-      whileHover={{ y: -3 }}
-      transition={{ duration: 0.3, ease: EASE }}
-      className="ps-spot ps-sponsor"
-    >
-      <span className="ps-spot-glow" aria-hidden="true" />
-      <Building2 size={15} className="ps-sponsor-icon" aria-hidden="true" />
-      <div className="ps-sponsor-name">{sponsor.name}</div>
-      {sponsor.note && <div className="ps-sponsor-note">{sponsor.note}</div>}
-    </motion.div>
-  );
-};
+    <div className={`ps-bento-logo ${partner.treatment === 'plate' ? 'ps-bento-logo--plate' : ''}`}>
+      <img src={partner.logo} alt={partner.name} loading="lazy" />
+    </div>
+
+    <h4 className="ps-bento-name">{partner.name}</h4>
+    {partner.blurb && <p className="ps-bento-blurb">{partner.blurb}</p>}
+
+    <div style={{ paddingTop: '0.6rem', marginTop: 'auto', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+      {partner.href && (
+        <a
+          className="ps-visit"
+          href={partner.href}
+          target="_blank"
+          rel="noreferrer noopener"
+          aria-label={`Visit ${partner.name} site`}
+          style={{ width: '100%', justifyContent: 'space-between' }}
+        >
+          <span>{partner.site ?? 'Official Website'}</span>
+          <span className="ps-visit-icon">
+            <ArrowUpRight size={13} aria-hidden="true" />
+          </span>
+        </a>
+      )}
+    </div>
+  </Spotlight>
+);
 
 /* ============================================================
-   Section metadata
+   2.1 Exclusive Platinum Sponsor (Hero Showcase)
    ============================================================ */
 
-interface PartnerSection {
-  tier: PartnerTier;
-  title: string;
-  copy: string;
-  icon: React.ReactNode;
-}
+const PlatinumHeroShowcase: React.FC<{ sponsor: Sponsor }> = ({ sponsor }) => (
+  <Spotlight className="ps-plat-card" aria-label={`${sponsor.name} — Exclusive Platinum Sponsor`}>
+    <div className="ps-plat-top-bar">
+      <span className="ps-tier-pill ps-tier-pill--platinum" style={{ fontSize: '0.85rem', padding: '0.35rem 0.9rem' }}>
+        <Crown size={15} aria-hidden="true" />
+        2.1 EXCLUSIVE PLATINUM SPONSOR
+      </span>
+      <span style={{ fontFamily: 'var(--font-rajdhani)', fontSize: '0.88rem', fontWeight: 700, color: 'rgba(255,217,122,0.8)', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
+        Official Mobility Partner · Jordan 2076
+      </span>
+    </div>
 
-const PARTNER_SECTIONS: PartnerSection[] = [
-  {
-    tier: 'strategic',
-    title: 'Strategic & Institutional',
-    copy: 'The institutions that host the congress and anchor national strategy.',
-    icon: <ShieldCheck size={15} aria-hidden="true" />,
-  },
-  {
-    tier: 'programme',
-    title: 'Track & Platform',
-    copy: 'Problem owners and build tooling — the tracks run on their rails.',
-    icon: <Zap size={15} aria-hidden="true" />,
-  },
-  {
-    tier: 'judging',
-    title: 'Judging & Incubation',
-    copy: 'Independent assessment on finals day, and a runway after it.',
-    icon: <Handshake size={15} aria-hidden="true" />,
-  },
-  {
-    tier: 'ecosystem',
-    title: 'Ecosystem Contributors',
-    copy: 'Builders across media, education and AI who amplify the program.',
-    icon: <Layers size={15} aria-hidden="true" />,
-  },
-];
+    <div className="ps-plat-grid">
+      {/* Unclipped, perfectly proportioned logo container */}
+      <div className="ps-plat-stage">
+        <img src={sponsor.logo} alt={sponsor.name} loading="lazy" />
+      </div>
+
+      <div className="ps-plat-info">
+        <h3 className="ps-plat-title">{sponsor.name}</h3>
+        <span className="ps-plat-sub">Jordan's Premier Smart Mobility &amp; Transit Network</span>
+        <p className="ps-plat-text">{sponsor.blurb}</p>
+
+        <div className="ps-plat-actions">
+          {sponsor.website && (
+            <a
+              href={sponsor.website}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ps-plat-cta"
+            >
+              <span>Visit Official Website</span>
+              <ArrowUpRight size={16} aria-hidden="true" />
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+  </Spotlight>
+);
+
+/* ============================================================
+   2.2 Gold Sponsor Card (Equal weight to Strategic Partners)
+   ============================================================ */
+
+const GoldSponsorCard: React.FC<{ sponsor: Sponsor; index: number }> = ({ sponsor, index }) => (
+  <Spotlight className="ps-bento-card ps-gold-card" aria-label={`${sponsor.name} — Gold Sponsor`}>
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      <span className="ps-tier-pill ps-tier-pill--gold" style={{ fontSize: '0.72rem' }}>
+        <Sparkles size={11} aria-hidden="true" />
+        Gold Sponsor
+      </span>
+      <span style={{ fontFamily: 'var(--font-orbitron)', fontSize: '0.78rem', fontWeight: 800, color: 'rgba(245,197,24,0.4)' }}>
+        0{index + 1}
+      </span>
+    </div>
+
+    <div className="ps-bento-logo">
+      <img src={sponsor.logo} alt={sponsor.name} loading="lazy" />
+    </div>
+
+    <h4 className="ps-bento-name">{sponsor.name}</h4>
+    {sponsor.blurb && <p className="ps-bento-blurb">{sponsor.blurb}</p>}
+
+    <div style={{ paddingTop: '0.6rem', marginTop: 'auto', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+      {sponsor.website && (
+        <a
+          className="ps-visit"
+          href={sponsor.website}
+          target="_blank"
+          rel="noreferrer noopener"
+          aria-label={`Visit ${sponsor.name} website`}
+          style={{ width: '100%', justifyContent: 'space-between' }}
+        >
+          <span>Visit Website</span>
+          <span className="ps-visit-icon">
+            <ArrowUpRight size={13} aria-hidden="true" />
+          </span>
+        </a>
+      )}
+    </div>
+  </Spotlight>
+);
+
+/* ============================================================
+   2.3 Silver Sponsor Card (No description, logo + name + link)
+   ============================================================ */
+
+const SilverSponsorCard: React.FC<{ sponsor: Sponsor }> = ({ sponsor }) => (
+  <Spotlight className="ps-silver-card" aria-label={`${sponsor.name} — Silver Sponsor`}>
+    <div className="ps-silver-logo-wrap">
+      <img src={sponsor.logo} alt={sponsor.name} loading="lazy" />
+    </div>
+
+    <div style={{ flex: 1, minWidth: 0 }}>
+      <span className="ps-tier-pill ps-tier-pill--silver" style={{ marginBottom: '0.35rem' }}>
+        Silver Sponsor
+      </span>
+      <h4 style={{ fontFamily: 'var(--font-orbitron)', fontWeight: 700, fontSize: '1.05rem', color: '#F5F7F8', margin: 0 }}>
+        {sponsor.name}
+      </h4>
+    </div>
+
+    {sponsor.website && (
+      <a
+        className="ps-visit"
+        href={sponsor.website}
+        target="_blank"
+        rel="noreferrer noopener"
+        aria-label={`Visit ${sponsor.name} site`}
+      >
+        <span>Visit Site</span>
+        <span className="ps-visit-icon">
+          <ArrowUpRight size={13} aria-hidden="true" />
+        </span>
+      </a>
+    )}
+  </Spotlight>
+);
+
+/* ============================================================
+   2.4 Bronze Sponsor Tile (Logo only)
+   ============================================================ */
+
+const BronzeSponsorTile: React.FC<{ sponsor: Sponsor }> = ({ sponsor }) => (
+  <motion.a
+    href={sponsor.website}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="ps-bronze-tile"
+    aria-label={`${sponsor.name} — Bronze Sponsor`}
+    variants={item}
+    whileHover={{ y: -3, scale: 1.02 }}
+    transition={{ duration: 0.25, ease: EASE }}
+  >
+    <img src={sponsor.logo} alt={sponsor.name} loading="lazy" />
+  </motion.a>
+);
 
 type TabId = 'partners' | 'sponsors';
 
 /* ============================================================
-   Page
+   Main Partners & Sponsors Page
    ============================================================ */
 
 export const Partners: React.FC = () => {
   const [activeTab, setActiveTab] = useState<TabId>('partners');
 
+  // DriftWall: ONLY the 19 confirmed partners and sponsors
   const driftItems = useMemo(
-    () => PARTNERS.map((p) => ({ image: p.logo, title: `${p.name} — ${p.role}`, href: p.href })),
+    () => [
+      ...PARTNERS.map((p) => ({
+        image: p.logo,
+        title: `${p.name} — ${p.role}`,
+        href: p.href,
+      })),
+      ...CONFIRMED_SPONSORS.map((s) => ({
+        image: s.logo,
+        title: `${s.name} — ${s.tagline ?? s.name}`,
+        href: s.website,
+      })),
+    ],
     []
   );
 
@@ -242,11 +358,11 @@ export const Partners: React.FC = () => {
 
   const tabs: { id: TabId; label: string; meta: string }[] = [
     { id: 'partners', label: 'Partners', meta: `${PARTNERS.length}` },
-    { id: 'sponsors', label: 'Sponsors', meta: `${POTENTIAL_SPONSORS.length}` },
+    { id: 'sponsors', label: 'Sponsors', meta: `${CONFIRMED_SPONSORS.length}` },
   ];
 
   return (
-    <div className="doc ps-page">
+    <div className="doc ps-page" style={{ paddingBottom: '8rem' }}>
       {/* ================= HERO ================= */}
       <motion.header
         className="ps-hero"
@@ -256,7 +372,7 @@ export const Partners: React.FC = () => {
       >
         <div className="ps-hero-badge">
           <Sparkles size={13} aria-hidden="true" />
-          <span>Jordan 2076 · Partners &amp; Sponsors network</span>
+          <span>Jordan 2076 · Partners &amp; Sponsors Network</span>
           <span className="ps-hero-badge-pulse" aria-hidden="true" />
         </div>
 
@@ -266,12 +382,12 @@ export const Partners: React.FC = () => {
         </h1>
 
         <p className="doc-lead ps-hero-lead">
-          Jordan 2076 is built with academic institutions, technology companies, and ecosystem
-          builders — our <strong>partners</strong> — alongside the companies that fund the
-          stage, the booths, and the broadcast — our <strong>sponsors</strong>.
+          Jordan 2076 is powered by academic institutions, ministries, and global tech platforms — our{' '}
+          <strong>partners</strong> — alongside the visionary companies backing the national summit — our{' '}
+          <strong>sponsors</strong>.
         </p>
 
-        {/* Animated segmented jump bar — layoutId sliding pill */}
+        {/* Tab switcher */}
         <nav className="ps-tabs" aria-label="Jump to section">
           {tabs.map((t, i) => {
             const isActive = activeTab === t.id;
@@ -299,14 +415,13 @@ export const Partners: React.FC = () => {
         </nav>
       </motion.header>
 
-      {/* ================= DRIFTWALL HERO =================
-          DriftWall is untouched — only its frame, masks and badge are new. */}
+      {/* ================= DRIFTWALL ANIMATION ================= */}
       <motion.section
         className="ps-drift-wrap"
         initial={{ opacity: 0, y: 36, scale: 0.985 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.9, delay: 0.15, ease: EASE }}
-        aria-label="Partner logo wall"
+        aria-label="Partner & Sponsor Logo Wall"
       >
         <span className="ps-noise" aria-hidden="true" />
         <div className="ps-drift-grid-bg" aria-hidden="true" />
@@ -321,187 +436,220 @@ export const Partners: React.FC = () => {
           fade={0.6}
         />
 
-        {/* radial vignettes melt the wall into the page */}
         <span className="ps-drift-fade ps-drift-fade--top" aria-hidden="true" />
         <span className="ps-drift-fade ps-drift-fade--bottom" aria-hidden="true" />
         <span className="ps-drift-ring" aria-hidden="true" />
-
-        
 
         <div className="ps-drift-hint" aria-hidden="true">
           <span>Hover a tile to lift it</span>
         </div>
       </motion.section>
 
-      {/* ================= PART 01 — PARTNERS ================= */}
+      {/* ================= 01 — PARTNERS ================= */}
       <div className="ps-part-label" id="partners">
-        <span className="ps-part-num">Part 01</span>
+        <span className="ps-part-num">01 — PARTNERS</span>
         <span className="ps-part-rule" aria-hidden="true" />
-        <span className="ps-part-tag">Institutions · platforms · judges · ecosystem</span>
+        <span className="ps-part-tag">Patronage · Strategic Partners</span>
       </div>
 
       <section className="sect ps-sect" aria-labelledby="partners-heading">
-        <motion.div
-          className="sect-head ps-sect-head"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.6, ease: EASE }}
-        >
-          <h2 className="sect-title" id="partners-heading">
-            Partners
-          </h2>
-          <span className="sect-note">Build with us — not cash for visibility</span>
-        </motion.div>
-        <motion.p
-          className="sect-intro"
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.6, ease: EASE }}
-        >
-          Partners contribute venues, problem statements, mentorship, judging, and incubation —
-          not cash for visibility. They are the organizations building the program with us.
-        </motion.p>
+        {/* 1.1 Patronage */}
+        <div className="ps-tier" aria-label="1.1 Patronage">
+          <div className="ps-tier-head">
+            <div className="ps-tier-head-left">
+              <span className="ps-tier-icon">
+                <ShieldCheck size={17} aria-hidden="true" />
+              </span>
+              <div>
+                <h3 className="ps-tier-title">1.1 Patronage</h3>
+                <p className="ps-tier-copy">
+                  Official national and academic patrons anchoring the summit and youth enablement.
+                </p>
+              </div>
+            </div>
+            <span className="ps-tier-count">0{PATRONAGE_PARTNERS.length}</span>
+          </div>
 
-        {PARTNER_SECTIONS.map((section) => {
-          const list = partnersByTier(section.tier);
-          if (!list.length) return null;
-          return (
-            <section
-              key={section.tier}
-              className="ps-tier"
-              aria-label={section.title}
-            >
-              <motion.div
-                className="ps-tier-head"
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-60px' }}
-                transition={{ duration: 0.55, ease: EASE }}
-              >
-                <span className="ps-tier-icon">{section.icon}</span>
-                <div>
-                  <h3 className="ps-tier-title">{section.title}</h3>
-                  <p className="ps-tier-copy">{section.copy}</p>
-                </div>
-                <span className="ps-tier-count">
-                  {String(list.length).padStart(2, '0')}
-                </span>
-              </motion.div>
+          <motion.div
+            className="ps-patronage-grid"
+            variants={container}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: '-60px' }}
+          >
+            {PATRONAGE_PARTNERS.map((partner, i) => (
+              <PatronageCard key={partner.id} partner={partner} index={i} />
+            ))}
+          </motion.div>
+        </div>
 
-              <motion.div
-                className="ps-partner-grid"
-                variants={container}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true, margin: '-60px' }}
-              >
-                {list.map((partner, i) => (
-                  <PartnerCard key={partner.id} partner={partner} index={i} />
-                ))}
-              </motion.div>
-            </section>
-          );
-        })}
+        {/* 1.2 Strategic Partners */}
+        <div className="ps-tier" aria-label="1.2 Strategic Partners">
+          <div className="ps-tier-head">
+            <div className="ps-tier-head-left">
+              <span className="ps-tier-icon">
+                <Zap size={17} aria-hidden="true" />
+              </span>
+              <div>
+                <h3 className="ps-tier-title">1.2 Strategic Partners</h3>
+                <p className="ps-tier-copy">
+                  Global platforms, foundations, and industry bodies delivering mentorship, judging, and technical tooling.
+                </p>
+              </div>
+            </div>
+            <span className="ps-tier-count">
+              {String(STRATEGIC_PARTNERS.length).padStart(2, '0')}
+            </span>
+          </div>
+
+          <motion.div
+            className="ps-bento-grid"
+            variants={container}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: '-60px' }}
+          >
+            {STRATEGIC_PARTNERS.map((partner, i) => (
+              <StrategicPartnerCard key={partner.id} partner={partner} index={i} />
+            ))}
+          </motion.div>
+        </div>
       </section>
 
-      {/* ================= PART 02 — SPONSORS ================= */}
+      {/* ================= 02 — SPONSORS ================= */}
       <div className="ps-part-label" id="sponsors">
-        <span className="ps-part-num">Part 02</span>
+        <span className="ps-part-num">02 — SPONSORS</span>
         <span className="ps-part-rule" aria-hidden="true" />
-        <span className="ps-part-tag">{POTENTIAL_SPONSORS.length} organizations approached</span>
+        <span className="ps-part-tag">Platinum · Gold · Silver · Bronze</span>
       </div>
 
-      <section className="sect ps-sect" aria-labelledby="potential-sponsors-heading">
-        <motion.div
-          className="sect-head ps-sect-head"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.6, ease: EASE }}
-        >
-          <h2 className="sect-title" id="potential-sponsors-heading">
-            Sponsors
-          </h2>
-          <span className="sect-note">The outreach board</span>
-        </motion.div>
-        <motion.p
-          className="sect-intro"
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.6, ease: EASE }}
-        >
-          The organizations on the outreach board — from national funds and ministries to
-          telcos, banks, and startup platforms. Join them as a confirmed sponsor.
-        </motion.p>
-
-        <motion.div
-          className="ps-bento"
-          variants={container}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: '-60px' }}
-        >
-          {POTENTIAL_SPONSORS.map((sponsor) => (
-            <SponsorTile key={sponsor.name} sponsor={sponsor} />
-          ))}
-
-          {/* CTA card — closes the bento grid */}
-          <motion.div variants={item} className="ps-cta-wrap">
-            <AnimatePresence>
-              <div className="ps-cta">
-                <span className="ps-cta-glow" aria-hidden="true" />
-                <span className="ps-noise" aria-hidden="true" />
-                <div className="ps-cta-badge">
-                  <Sparkles size={13} aria-hidden="true" />
-                  <span>Open slot · Congress + Hackathon</span>
-                </div>
-                <h3 className="ps-cta-title">
-                  Become a sponsor. <span className="ps-gradient-text">Join the board.</span>
+      <section className="sect ps-sect" aria-labelledby="sponsors-heading">
+        {/* 2.1 Exclusive Platinum Sponsor */}
+        <div className="ps-tier" aria-label="2.1 Exclusive Platinum Sponsor">
+          <div className="ps-tier-head">
+            <div className="ps-tier-head-left">
+              <span className="ps-tier-icon ps-tier-icon--platinum">
+                <Crown size={17} aria-hidden="true" />
+              </span>
+              <div>
+                <h3 className="ps-tier-title" style={{ color: '#FFD97A' }}>
+                  2.1 Exclusive Platinum Sponsor
                 </h3>
-                <p className="ps-cta-copy">
-                  Fund the stage, the booths, and the broadcast — and put your mark on the
-                  kingdom&rsquo;s 2076 story. Talk to the outreach team about tiers.
+                <p className="ps-tier-copy">
+                  Highest and most prominent sponsor level across all of Jordan 2076.
                 </p>
-                <div className="ps-cta-actions">
-                  <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
-                    <Link to="/contact" className="ps-cta-btn">
-                      <span>Become a sponsor</span>
-                      <ArrowUpRight size={15} aria-hidden="true" />
-                    </Link>
-                  </motion.div>
-                  <span className="ps-cta-note">Replies within 48h</span>
-                </div>
               </div>
-            </AnimatePresence>
-          </motion.div>
-        </motion.div>
-      </section>
+            </div>
+            <span className="ps-tier-count" style={{ WebkitTextStroke: '1px rgba(255,193,60,0.5)' }}>
+              01
+            </span>
+          </div>
 
-      {/* ================= Closing band ================= */}
-      <motion.div
-        className="band ps-band"
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-60px' }}
-        transition={{ duration: 0.65, ease: EASE }}
-      >
-        <div>
-          <div className="band-title">Building with us, not just funding us?</div>
-          <p className="band-text">
-            Venues, problem statements, mentorship, judging, incubation — if that&rsquo;s
-            your lane, you belong in Part 01.
-          </p>
+          <PlatinumHeroShowcase sponsor={PLATINUM_SPONSOR} />
         </div>
-        <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
-          <Link to="/contact" className="btn-cyber-outline">
-            Talk partnerships
-            <ArrowUpRight size={15} aria-hidden="true" />
-          </Link>
-        </motion.div>
-      </motion.div>
+
+        {/* 2.2 Gold Sponsors */}
+        <div className="ps-tier" aria-label="2.2 Gold Sponsors">
+          <div className="ps-tier-head">
+            <div className="ps-tier-head-left">
+              <span className="ps-tier-icon ps-tier-icon--gold">
+                <Award size={17} aria-hidden="true" />
+              </span>
+              <div>
+                <h3 className="ps-tier-title" style={{ color: '#F5C518' }}>
+                  2.2 Gold Sponsors
+                </h3>
+                <p className="ps-tier-copy">
+                  Key enterprise champions providing prime track support and summit acceleration.
+                </p>
+              </div>
+            </div>
+            <span className="ps-tier-count" style={{ WebkitTextStroke: '1px rgba(245,197,24,0.45)' }}>
+              0{GOLD_SPONSORS.length}
+            </span>
+          </div>
+
+          <motion.div
+            className="ps-gold-grid"
+            variants={container}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: '-60px' }}
+          >
+            {GOLD_SPONSORS.map((sponsor, i) => (
+              <GoldSponsorCard key={sponsor.id} sponsor={sponsor} index={i} />
+            ))}
+          </motion.div>
+        </div>
+
+        {/* 2.3 Silver Sponsors */}
+        <div className="ps-tier" aria-label="2.3 Silver Sponsors">
+          <div className="ps-tier-head">
+            <div className="ps-tier-head-left">
+              <span className="ps-tier-icon ps-tier-icon--silver">
+                <Sparkles size={17} aria-hidden="true" />
+              </span>
+              <div>
+                <h3 className="ps-tier-title" style={{ color: '#E2E8F0' }}>
+                  2.3 Silver Sponsors
+                </h3>
+                <p className="ps-tier-copy">
+                  Venture, advisory, and intelligence partners powering summit operations.
+                </p>
+              </div>
+            </div>
+            <span className="ps-tier-count" style={{ WebkitTextStroke: '1px rgba(226,232,240,0.35)' }}>
+              0{SILVER_SPONSORS.length}
+            </span>
+          </div>
+
+          <motion.div
+            className="ps-silver-grid"
+            variants={container}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: '-60px' }}
+          >
+            {SILVER_SPONSORS.map((sponsor) => (
+              <SilverSponsorCard key={sponsor.id} sponsor={sponsor} />
+            ))}
+          </motion.div>
+        </div>
+
+        {/* 2.4 Bronze Sponsors */}
+        <div className="ps-tier" aria-label="2.4 Bronze Sponsors">
+          <div className="ps-tier-head">
+            <div className="ps-tier-head-left">
+              <span className="ps-tier-icon ps-tier-icon--bronze">
+                <Award size={17} aria-hidden="true" />
+              </span>
+              <div>
+                <h3 className="ps-tier-title" style={{ color: '#E09A5A' }}>
+                  2.4 Bronze Sponsors
+                </h3>
+                <p className="ps-tier-copy">
+                  Official community, business center, and innovation alliance supporters.
+                </p>
+              </div>
+            </div>
+            <span className="ps-tier-count" style={{ WebkitTextStroke: '1px rgba(205,127,50,0.45)' }}>
+              0{BRONZE_SPONSORS.length}
+            </span>
+          </div>
+
+          <motion.div
+            className="ps-bronze-ribbon"
+            variants={container}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.05 }}
+          >
+            {BRONZE_SPONSORS.map((sponsor) => (
+              <BronzeSponsorTile key={sponsor.id} sponsor={sponsor} />
+            ))}
+          </motion.div>
+        </div>
+      </section>
     </div>
   );
 };

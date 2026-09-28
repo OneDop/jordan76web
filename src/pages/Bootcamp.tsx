@@ -1,7 +1,119 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, ChevronDown, Check, User } from 'lucide-react';
+import {
+  ArrowUpRight,
+  ChevronDown,
+  ChevronUp,
+  Check,
+  Sparkles,
+  Calendar,
+} from 'lucide-react';
 import { Reveal } from '../components/j76/J76';
+
+import abdullahImg from '../assets/speakers/Bootcamp/abdullah-alghwairi.jpg';
+import ahmadNasrallahImg from '../assets/speakers/Bootcamp/ahmad-nasrallah.jpg';
+import ahmadHattabImg from '../assets/speakers/Bootcamp/ahmad-hattab.jpg';
+import lunaImg from '../assets/speakers/Bootcamp/luna-kawash.png';
+import yazanImg from '../assets/speakers/Bootcamp/yazan-hatamleh.jpg';
+import moatazImg from '../assets/speakers/Bootcamp/moataz-mukhaimer.jpg';
+import ahmadMashallehImg from '../assets/speakers/Bootcamp/ahmad-mashalleh.jpg';
+
+interface BootcampSpeaker {
+  id: string;
+  day: number;
+  dayLabel: string;
+  name: string;
+  role: string;
+  organization: string;
+  topic: string;
+  bio: string;
+  avatar: string;
+}
+
+const BOOTCAMP_SPEAKERS: BootcampSpeaker[] = [
+  // DAY 1
+  {
+    id: 'spk-abdullah',
+    day: 1,
+    dayLabel: 'Day 01 · Sep 27',
+    name: 'Eng. Abdullah A. Alghwairi',
+    role: 'CEO',
+    organization: 'Kernel for AI & Innovation',
+    topic: 'AI-Native Product Development & Opportunity Validation',
+    bio: 'AI, product, and innovation leader with 10+ years of experience across technology, business strategy, and digital transformation in the MENA region. As CEO of Kernel for AI & Innovation (Falak Holding), he helps organizations transform AI and data into measurable business value. Abdullah has led 30+ AI consulting and product projects, co-founded three AI & EdTech startups, and holds a Master’s degree from The University of Texas at Austin.',
+    avatar: abdullahImg,
+  },
+  {
+    id: 'spk-nasrallah',
+    day: 1,
+    dayLabel: 'Day 01 · Sep 27',
+    name: 'Ahmad Nasrallah',
+    role: 'Tech & Venture Lead',
+    organization: 'mySTARTUPorg · Injaz',
+    topic: 'Problem Validation, Ideation & Value Proposition',
+    bio: 'Technology and entrepreneurship professional with deep expertise in startup selection, business development, digital transformation, and technical product leadership. Actively working with mySTARTUPorg and Injaz, guiding young founders and early-stage builders in validating real opportunities and turning ideas into sound venture concepts.',
+    avatar: ahmadNasrallahImg,
+  },
+
+  // DAY 2
+  {
+    id: 'spk-hattab',
+    day: 2,
+    dayLabel: 'Day 02 · Sep 28',
+    name: 'Ahmad Hattab',
+    role: 'Technology Manager & Founder',
+    organization: 'Revton Global · JIS',
+    topic: 'MVP Architecture, Engineering Leadership & Scalability',
+    bio: 'Technology Manager at Revton Global and Founder of Jordan Innovation Startups (JIS) with over 15 years of experience in software engineering and technology leadership. Operates at the intersection of AI, engineering culture, and startup scaling, with a strong focus on turning technology into practical, scalable production architectures.',
+    avatar: ahmadHattabImg,
+  },
+  {
+    id: 'spk-luna',
+    day: 2,
+    dayLabel: 'Day 02 · Sep 28',
+    name: 'Luna Kawash',
+    role: 'Marketing & Strategy Consultant',
+    organization: 'Commercial & Growth Advisory',
+    topic: 'Commercial Strategy, Market Fit & Pricing Models',
+    bio: 'With 15+ years of experience across Jordan, Egypt, and the MENA region, Luna is a Marketing & Strategy Consultant specializing in growth, pricing, digital strategy, and commercial effectiveness. She combines deep market expertise with a practical, data-driven approach to constructing business models and monetization strategies that generate measurable traction.',
+    avatar: lunaImg,
+  },
+
+  // DAY 3
+  {
+    id: 'spk-yazan',
+    day: 3,
+    dayLabel: 'Day 03 · Sep 29',
+    name: 'Dr. Yazan Hatamleh',
+    role: 'Serial Entrepreneur & GTM Strategist',
+    organization: 'Venture & Growth Advisory',
+    topic: 'Go-To-Market Execution & Customer Traction',
+    bio: 'Serial entrepreneur, Go-To-Market strategist, CEO, and professor with 30+ years of leadership experience supporting startups and SMEs across Jordan and MENA. He specializes in turning concepts into traction through market validation, customer acquisition, venture building, and high-impact growth frameworks.',
+    avatar: yazanImg,
+  },
+  {
+    id: 'spk-moataz',
+    day: 3,
+    dayLabel: 'Day 03 · Sep 29',
+    name: 'Moataz Mukhaimer',
+    role: 'Strategy & Finance Advisor',
+    organization: 'Strategic Financial Advisory',
+    topic: 'Financial Modeling, Valuation & Venture Viability',
+    bio: 'Strategy & Finance Advisor helping companies strengthen financial decision-making, secure investment funding, and transform strategic roadmaps into executable financial models. Mentors founders in constructing robust unit economics and investor-ready business cases.',
+    avatar: moatazImg,
+  },
+  {
+    id: 'spk-mashalleh',
+    day: 3,
+    dayLabel: 'Day 03 · Sep 29',
+    name: 'Ahmad Al-Mashaleh',
+    role: 'Innovation Hub Manager',
+    organization: 'Orange Jordan',
+    topic: 'Venture Pitching, Growth Scaling & Enterprise Partnerships',
+    bio: 'Innovation, entrepreneurship, and digital transformation professional with 18 years of experience. As Innovation Hub Manager at Orange Jordan, he has mentored more than 130 startups and delivered 85+ AI and innovation workshops to over 2,000 learners, empowering teams to pitch their solutions convincingly and scale toward commercial success.',
+    avatar: ahmadMashallehImg,
+  },
+];
 
 const DAYS = [
   {
@@ -32,6 +144,17 @@ const MAP = [
 
 export const Bootcamp: React.FC = () => {
   const [openDay, setOpenDay] = useState<string | null>('01');
+  const [selectedDayFilter, setSelectedDayFilter] = useState<number | 'all'>('all');
+  const [expandedBios, setExpandedBios] = useState<Record<string, boolean>>({});
+
+  const toggleBio = (id: string) => {
+    setExpandedBios((prev) => ({ ...prev, [id]: !prev[id] }));
+  };
+
+  const filteredSpeakers =
+    selectedDayFilter === 'all'
+      ? BOOTCAMP_SPEAKERS
+      : BOOTCAMP_SPEAKERS.filter((s) => s.day === selectedDayFilter);
 
   return (
     <div className="j76-page">
@@ -100,24 +223,106 @@ export const Bootcamp: React.FC = () => {
         </div>
       </section>
 
-      {/* TBA dossiers — shimmer file cards */}
+      {/* Guides — Mentors & Speakers Directory */}
       <section className="bc-sect">
         <div className="bc-label">
           <h2>Guides</h2>
-          <span>7 · TBA</span>
+          <span>7 Experts · 3 Days</span>
         </div>
+
+        {/* Day Filter Tabs */}
+        <div className="bc-filters">
+          <button
+            type="button"
+            className={`bc-filter-btn ${selectedDayFilter === 'all' ? 'is-active' : ''}`}
+            onClick={() => setSelectedDayFilter('all')}
+          >
+            All Guides (7)
+          </button>
+          <button
+            type="button"
+            className={`bc-filter-btn ${selectedDayFilter === 1 ? 'is-active' : ''}`}
+            onClick={() => setSelectedDayFilter(1)}
+          >
+            Day 01 · Validate (2)
+          </button>
+          <button
+            type="button"
+            className={`bc-filter-btn ${selectedDayFilter === 2 ? 'is-active' : ''}`}
+            onClick={() => setSelectedDayFilter(2)}
+          >
+            Day 02 · Model (2)
+          </button>
+          <button
+            type="button"
+            className={`bc-filter-btn ${selectedDayFilter === 3 ? 'is-active' : ''}`}
+            onClick={() => setSelectedDayFilter(3)}
+          >
+            Day 03 · Launch (3)
+          </button>
+        </div>
+
+        {/* Guides Grid */}
         <div className="bc-grid">
-          {Array.from({ length: 7 }, (_, i) => (
-            <Reveal key={i} delay={i * 45}>
-              <div className="bc-file" data-tab={`D0${(i % 3) + 1}`}>
-                <div className="bc-file-ring" aria-hidden="true">
-                  <User size={24} />
+          {filteredSpeakers.map((spk, i) => {
+            const isBioExpanded = !!expandedBios[spk.id];
+
+            return (
+              <Reveal key={spk.id} delay={i * 50}>
+                <div className="bc-guide-card">
+                  {/* Speaker Header with Photo */}
+                  <div className="bc-guide-header">
+                    <div className="bc-guide-avatar-wrap">
+                      <img
+                        src={spk.avatar}
+                        alt={spk.name}
+                        className="bc-guide-avatar"
+                        loading="lazy"
+                      />
+                    </div>
+                    <div className="bc-guide-meta">
+                      <span className="bc-guide-badge">
+                        <Calendar size={11} /> {spk.dayLabel}
+                      </span>
+                      <h3 className="bc-guide-name">{spk.name}</h3>
+                      <div className="bc-guide-role">
+                        <b>{spk.role}</b> · {spk.organization}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Topic Callout Box */}
+                  <div className="bc-guide-topic">
+                    <div className="bc-guide-topic-tag">
+                      <Sparkles size={11} /> Session Topic
+                    </div>
+                    <div className="bc-guide-topic-title">{spk.topic}</div>
+                  </div>
+
+                  {/* Bio & Read More */}
+                  <p className={`bc-guide-bio ${isBioExpanded ? 'is-expanded' : ''}`}>
+                    {spk.bio}
+                  </p>
+
+                  <button
+                    type="button"
+                    className="bc-guide-expand-btn"
+                    onClick={() => toggleBio(spk.id)}
+                  >
+                    {isBioExpanded ? (
+                      <>
+                        <span>Show Less</span> <ChevronUp size={13} />
+                      </>
+                    ) : (
+                      <>
+                        <span>Read Bio</span> <ChevronDown size={13} />
+                      </>
+                    )}
+                  </button>
                 </div>
-                <b>SEALED</b>
-                <span>Guide {(i % 3) + 1} · Day {(i % 3) + 1}</span>
-              </div>
-            </Reveal>
-          ))}
+              </Reveal>
+            );
+          })}
         </div>
       </section>
 

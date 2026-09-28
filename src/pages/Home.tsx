@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useOutletContext } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Crown } from 'lucide-react';
 import { Hero } from '../components/Hero';
 import { VisionPillars } from '../components/VisionPillars';
 import { SignalChatSection } from '../components/SignalChatSection';
@@ -13,6 +13,7 @@ import { BootScreen } from '../components/BootScreen';
 
 import { JourneySection } from '../components/JourneySection';
 import { PartnersGrid } from '../components/PartnersGrid';
+import { PLATINUM_SPONSOR } from '../data/sponsors';
 import { WebmasterSection } from '../components/WebmasterSection';
 
 export const Home: React.FC = () => {
@@ -43,14 +44,132 @@ export const Home: React.FC = () => {
       <KeynoteSpeakersSection />
       <FlowingMenu />
 
-      {/* Ecosystem Partners Highlight (Clean Typography Grid, No dashed placeholder boxes) */}
+      {/* Exclusive Platinum Sponsor & Official Patronage */}
       <section style={{ maxWidth: '1080px', margin: '0 auto', padding: '3rem 1.5rem 4rem' }}>
+        {/* Platinum Sponsor Highlight */}
+        <div style={{ marginBottom: '3.5rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.25rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+              <Crown size={18} color="#FFD97A" />
+              <h2 style={{ fontFamily: 'var(--font-orbitron)', fontSize: '1.25rem', color: '#FFD97A', margin: 0, textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                Exclusive Platinum Sponsor
+              </h2>
+            </div>
+            <span style={{ fontFamily: 'var(--font-rajdhani)', fontSize: '0.85rem', color: '#94A3B8', fontWeight: 600 }}>
+              Title Summit Sponsor
+            </span>
+          </div>
+
+          <div
+            style={{
+              background: 'linear-gradient(145deg, rgba(20, 26, 40, 0.85), rgba(10, 14, 22, 0.95))',
+              border: '1px solid rgba(255, 193, 60, 0.4)',
+              borderRadius: '20px',
+              padding: 'clamp(1.5rem, 3.5vw, 2.25rem)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              flexWrap: 'wrap',
+              gap: '2rem',
+              boxShadow: '0 14px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 193, 60, 0.12)',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1.75rem', flexWrap: 'wrap' }}>
+              <div
+                style={{
+                  width: '220px',
+                  height: '110px',
+                  background: 'rgba(12, 16, 26, 0.8)',
+                  border: '1px solid rgba(255, 193, 60, 0.35)',
+                  borderRadius: '16px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  padding: '12px 18px',
+                  boxShadow: '0 0 25px rgba(255, 193, 60, 0.15)',
+                }}
+              >
+                <img
+                  src={PLATINUM_SPONSOR.logo}
+                  alt={PLATINUM_SPONSOR.name}
+                  style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                />
+              </div>
+
+              <div style={{ maxWidth: '480px' }}>
+                <span
+                  style={{
+                    display: 'inline-block',
+                    fontFamily: 'var(--font-rajdhani)',
+                    fontSize: '0.82rem',
+                    fontWeight: 700,
+                    color: '#FFD97A',
+                    letterSpacing: '0.1em',
+                    textTransform: 'uppercase',
+                    marginBottom: '0.3rem',
+                  }}
+                >
+                  Petra Ride · Smart Mobility
+                </span>
+                <h3
+                  style={{
+                    fontFamily: 'var(--font-orbitron)',
+                    fontSize: '1.35rem',
+                    fontWeight: 800,
+                    color: '#F5F7F8',
+                    margin: '0 0 0.4rem',
+                  }}
+                >
+                  {PLATINUM_SPONSOR.name}
+                </h3>
+                <p
+                  style={{
+                    fontFamily: 'var(--font-orbitron)',
+                    fontSize: '0.88rem',
+                    lineHeight: 1.6,
+                    color: '#94A3B8',
+                    margin: 0,
+                  }}
+                >
+                  {PLATINUM_SPONSOR.blurb}
+                </p>
+              </div>
+            </div>
+
+            <a
+              href={PLATINUM_SPONSOR.website}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                fontFamily: 'var(--font-orbitron)',
+                fontSize: '0.85rem',
+                fontWeight: 700,
+                color: '#06121a',
+                background: 'linear-gradient(180deg, #FFD97A, #F5C518)',
+                padding: '0.8rem 1.4rem',
+                borderRadius: '10px',
+                textDecoration: 'none',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                boxShadow: '0 0 22px rgba(255, 193, 60, 0.4)',
+                textTransform: 'uppercase',
+                letterSpacing: '0.04em',
+              }}
+            >
+              <span>Visit Website</span>
+              <ArrowRight size={14} />
+            </a>
+          </div>
+        </div>
+
+        {/* Patronage */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap', gap: '1rem', marginBottom: '2rem', paddingBottom: '1rem', borderBottom: '1px solid rgba(255, 255, 255, 0.08)' }}>
-          <h2 style={{ fontFamily: 'var(--font-orbitron)', fontSize: '1.3rem', color: '#F5F7F8', margin: 0, textTransform: 'uppercase' }}>
-            Ecosystem Partners
+          <h2 style={{ fontFamily: 'var(--font-orbitron)', fontSize: '1.25rem', color: '#F5F7F8', margin: 0, textTransform: 'uppercase' }}>
+            Patronage
           </h2>
           <Link to="/partners" style={{ color: '#7EF3E8', textDecoration: 'none', fontFamily: 'var(--font-orbitron)', fontSize: '0.8rem', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '0.4rem', minHeight: '44px' }}>
-            View All Partners <ArrowRight size={13} />
+            View All Partners &amp; Sponsors <ArrowRight size={13} />
           </Link>
         </div>
 

@@ -85,15 +85,210 @@
   background: rgba(0, 27, 58, 0.55); border: 1px solid rgba(126, 243, 232, 0.25); border-radius: 8px; padding: 0.42rem 0.8rem; }
 .bc-stop svg { color: var(--color-neon-cyan); }
 
-/* ---------- TBA file (shimmer dossiers) ---------- */
-.bc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr)); gap: 0.85rem; }
-.bc-file { position: relative; overflow: hidden; border: 1px dashed rgba(126, 243, 232, 0.35); border-radius: 12px; background: rgba(8, 12, 18, 0.55); padding: 1.3rem 1rem; text-align: center; }
-.bc-file::before { content: attr(data-tab); position: absolute; top: 0; left: 50%; transform: translateX(-50%); font-family: var(--font-orbitron); font-weight: 800; font-size: 0.62rem; letter-spacing: 0.18em; color: #06121a; background: rgba(126,243,232,.85); border-radius: 0 0 8px 8px; padding: 0.2rem 0.7rem; }
-.bc-file::after { content: ""; position: absolute; inset: 0; background: linear-gradient(100deg, transparent 30%, rgba(126,243,232,.1) 50%, transparent 70%); animation: bc-shimmer 2.6s infinite; }
-@keyframes bc-shimmer { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
-.bc-file-ring { width: 58px; height: 58px; border-radius: 12px; margin: 0.6rem auto 0.7rem; border: 1px dashed rgba(126,243,232,.5); display: grid; place-items: center; color: var(--color-neon-cyan); background: rgba(126,243,232,.06); transform: rotate(3deg); }
-.bc-file b { font-family: var(--font-orbitron); font-size: 0.8rem; font-weight: 800; letter-spacing: 0.12em; }
-.bc-file span { display: block; font-family: var(--font-rajdhani); font-weight: 600; font-size: 0.8rem; color: var(--color-steel-gray); }
+/* ---------- Bootcamp Guides / Speakers Directory ---------- */
+.bc-filters {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.4rem;
+}
+.bc-filter-btn {
+  background: rgba(126, 243, 232, 0.06);
+  border: 1px solid rgba(126, 243, 232, 0.2);
+  color: var(--color-steel-gray);
+  padding: 0.45rem 0.95rem;
+  border-radius: 8px;
+  font-family: var(--font-rajdhani);
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.bc-filter-btn:hover {
+  color: #fff;
+  border-color: rgba(126, 243, 232, 0.5);
+  background: rgba(126, 243, 232, 0.12);
+}
+.bc-filter-btn.is-active {
+  background: var(--color-neon-cyan);
+  color: #070b12;
+  border-color: var(--color-neon-cyan);
+  box-shadow: 0 0 14px rgba(126, 243, 232, 0.4);
+  font-weight: 800;
+}
+
+.bc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 310px), 1fr));
+  gap: 1.25rem;
+}
+
+.bc-guide-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(126, 243, 232, 0.24);
+  border-radius: 16px;
+  background: linear-gradient(165deg, rgba(0, 32, 70, 0.45) 0%, rgba(7, 11, 18, 0.95) 60%);
+  padding: 1.35rem;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+}
+.bc-guide-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(126, 243, 232, 0.6);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.6), 0 0 25px rgba(126, 243, 232, 0.15);
+}
+.bc-guide-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 1.2rem;
+  right: 1.2rem;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--color-neon-cyan);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  box-shadow: 0 0 12px var(--color-neon-cyan);
+}
+.bc-guide-card:hover::before {
+  opacity: 1;
+}
+
+.bc-guide-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.bc-guide-avatar-wrap {
+  width: 72px;
+  height: 72px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1.5px solid rgba(126, 243, 232, 0.4);
+  background: #060b12;
+  flex-shrink: 0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+.bc-guide-avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.bc-guide-card:hover .bc-guide-avatar {
+  transform: scale(1.08);
+}
+.bc-guide-meta {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.bc-guide-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-rajdhani);
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-neon-cyan);
+  background: rgba(126, 243, 232, 0.1);
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  width: fit-content;
+  margin-bottom: 0.4rem;
+}
+.bc-guide-name {
+  font-family: var(--font-orbitron);
+  font-weight: 800;
+  font-size: 0.98rem;
+  color: #fff;
+  line-height: 1.3;
+  margin: 0;
+}
+.bc-guide-role {
+  font-family: var(--font-rajdhani);
+  font-weight: 600;
+  font-size: 0.84rem;
+  color: var(--color-steel-gray);
+  line-height: 1.35;
+  margin-top: 0.2rem;
+}
+.bc-guide-role b {
+  color: #c9d5e4;
+  font-weight: 700;
+}
+
+.bc-guide-topic {
+  background: rgba(0, 22, 48, 0.6);
+  border: 1px solid rgba(126, 243, 232, 0.25);
+  border-left: 3px solid var(--color-neon-cyan);
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+  margin-top: 1rem;
+}
+.bc-guide-topic-tag {
+  font-family: var(--font-rajdhani);
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-neon-cyan);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.bc-guide-topic-title {
+  font-family: var(--font-orbitron);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.4;
+  margin-top: 0.3rem;
+}
+
+.bc-guide-bio {
+  font-size: 0.83rem;
+  color: #a8bcd2;
+  line-height: 1.55;
+  margin-top: 0.9rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: all 0.25s ease;
+}
+.bc-guide-bio.is-expanded {
+  display: block;
+  -webkit-line-clamp: unset;
+}
+.bc-guide-expand-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-top: 0.5rem;
+  font-family: var(--font-rajdhani);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-neon-cyan);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: color 0.2s ease;
+}
+.bc-guide-expand-btn:hover {
+  color: #fff;
+}
 
 /* ---------- Route map (connected waypoints) ---------- */
 .bc-map { display: flex; align-items: stretch; gap: 0; border: 1px solid rgba(126,243,232,.18); border-radius: 16px; overflow: hidden; background: rgba(8,12,18,.6); }

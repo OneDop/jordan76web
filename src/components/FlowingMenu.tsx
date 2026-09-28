@@ -12,6 +12,7 @@ export interface MenuItemProps {
   link: string;
   text: string;
   image: string;
+  sessions?: string[];
 }
 
 export interface FlowingMenuProps {
@@ -19,10 +20,30 @@ export interface FlowingMenuProps {
 }
 
 const DEFAULT_ITEMS: MenuItemProps[] = [
-  { text: 'Artificial Intelligence', link: '/congress', image: aiTrackImg },
-  { text: 'Software Engineering', link: '/congress', image: softwareTrackImg },
-  { text: 'Innovation & Entrepreneurship', link: '/congress', image: innovationTrackImg },
-  { text: 'Emerging Technologies & Future Innovation', link: '/congress', image: emergingTrackImg },
+  {
+    text: 'Artificial Intelligence',
+    link: '/congress',
+    image: aiTrackImg,
+    sessions: ['AI Agents 101', 'AI Agents for Jordan 2076'],
+  },
+  {
+    text: 'Software Engineering',
+    link: '/congress',
+    image: softwareTrackImg,
+    sessions: ['The Software Engineering Mindset', 'Agentic Software Engineering'],
+  },
+  {
+    text: 'Innovation & Entrepreneurship',
+    link: '/congress',
+    image: innovationTrackImg,
+    sessions: ['Design Thinking Foundations', 'From Idea to Impact'],
+  },
+  {
+    text: 'Semiconductors',
+    link: '/congress',
+    image: emergingTrackImg,
+    sessions: ['Semiconductors'],
+  },
 ];
 
 export const FlowingMenu: React.FC<FlowingMenuProps> = ({ items = DEFAULT_ITEMS }) => {
@@ -41,7 +62,7 @@ export const FlowingMenu: React.FC<FlowingMenuProps> = ({ items = DEFAULT_ITEMS 
   );
 };
 
-const MenuItem: React.FC<MenuItemProps> = ({ link, text, image }) => {
+const MenuItem: React.FC<MenuItemProps> = ({ link, text, image, sessions }) => {
   const itemRef = useRef<HTMLDivElement>(null);
   const marqueeRef = useRef<HTMLDivElement>(null);
   const marqueeInnerRef = useRef<HTMLDivElement>(null);
@@ -87,7 +108,11 @@ const MenuItem: React.FC<MenuItemProps> = ({ link, text, image }) => {
     };
   }, []);
 
-  const repeats = Array(6).fill(text);
+  const sessionList = sessions && sessions.length > 0 ? sessions : [text];
+  // Build a seamless repeating list where the first half (0% to 50%) exactly matches the second half (50% to 100%)
+  const setsPerHalf = Math.max(3, Math.ceil(6 / sessionList.length));
+  const halfList = Array.from({ length: setsPerHalf }, () => sessionList).flat();
+  const fullList = [...halfList, ...halfList];
 
   return (
     <div className="menu__item" ref={itemRef}>
@@ -98,9 +123,9 @@ const MenuItem: React.FC<MenuItemProps> = ({ link, text, image }) => {
       <div className="marquee" ref={marqueeRef}>
         <div className="marquee__inner-wrap" ref={marqueeInnerRef}>
           <div className="marquee__inner" aria-hidden="true">
-            {repeats.map((repText, idx) => (
+            {fullList.map((sessionName, idx) => (
               <React.Fragment key={idx}>
-                <span className="marquee__text">{repText}</span>
+                <span className="marquee__text">{sessionName}</span>
                 <div
                   className="menu__item-img"
                   style={{ backgroundImage: `url(${image})` }}

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 80" width="240" height="80">
+  <defs>
+    <linearGradient id="estartaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#0284C7"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(10, 16)">
+    <circle cx="14" cy="24" r="7" fill="#00A3E0"/>
+    <circle cx="30" cy="12" r="4.5" fill="#38BDF8"/>
+    <circle cx="30" cy="36" r="4.5" fill="#38BDF8"/>
+    <line x1="14" y1="24" x2="30" y2="12" stroke="#00A3E0" stroke-width="2"/>
+    <line x1="14" y1="24" x2="30" y2="36" stroke="#00A3E0" stroke-width="2"/>
+    <text x="46" y="32" font-family="'Inter', system-ui, sans-serif" font-size="28" font-weight="900" fill="#FFFFFF" letter-spacing="1">estarta</text>
+    <text x="48" y="47" font-family="'Rajdhani', sans-serif" font-size="10.5" font-weight="700" fill="#38BDF8" letter-spacing="2">GLOBAL TECH SOLUTIONS</text>
+  </g>
+</svg>

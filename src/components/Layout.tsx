@@ -3,7 +3,7 @@ import { useCallback, useEffect } from 'react';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
 // import { HackathonModal } from './HackathonModal';
-import { REGISTRATION_URL } from '../data/registration';
+import { CONGRESS_REGISTRATION_URL, HACKATHON_REGISTRATION_URL } from '../data/registration';
 import { useSeo } from '../lib/seo';
 
 export const Layout: React.FC = () => {
@@ -11,8 +11,11 @@ export const Layout: React.FC = () => {
   useSeo();
 
   const openRegister = useCallback(() => {
-    window.open(REGISTRATION_URL, '_blank', 'noopener,noreferrer');
-  }, []);
+    const url = location.pathname.startsWith('/hackathon')
+      ? HACKATHON_REGISTRATION_URL
+      : CONGRESS_REGISTRATION_URL;
+    window.open(url, '_blank', 'noopener,noreferrer');
+  }, [location.pathname]);
 
   useEffect(() => {
     window.scrollTo(0, 0);

@@ -115,6 +115,7 @@ export const SignalChatSection: React.FC = () => {
     >
       {/* Sticky Viewport Stage */}
       <div
+        className="signal-stage"
         style={{
           position: 'sticky',
           top: 0,
@@ -125,18 +126,23 @@ export const SignalChatSection: React.FC = () => {
           alignItems: 'center',
           justifyContent: 'center',
           overflow: 'hidden',
-          padding: '2rem 1.5rem',
+          paddingTop: 'clamp(4.8rem, 8.5vh, 6.2rem)',
+          paddingBottom: 'clamp(3.5rem, 6vh, 5rem)',
+          paddingLeft: '1.5rem',
+          paddingRight: '1.5rem',
+          boxSizing: 'border-box',
         }}
       >
         {/* Central Chat Container - Stacked Vertically */}
         <div
+          className="signal-chat-container"
           style={{
             position: 'relative',
             width: '100%',
-            maxWidth: '820px',
+            maxWidth: '860px',
             display: 'flex',
             flexDirection: 'column',
-            gap: '1.4rem',
+            gap: 'clamp(0.65rem, 1.3vh, 1.1rem)',
             zIndex: 5,
           }}
         >
@@ -149,7 +155,7 @@ export const SignalChatSection: React.FC = () => {
                 key={msg.id}
                 style={{
                   width: '100%',
-                  maxWidth: '500px',
+                  maxWidth: 'min(550px, 92%)',
                   alignSelf: isLeft ? 'flex-start' : 'flex-end',
                   ...cardStyle,
                 }}
@@ -160,8 +166,8 @@ export const SignalChatSection: React.FC = () => {
                     position: 'relative',
                     background: 'rgba(12, 18, 28, 0.95)',
                     border: '1px solid rgba(126, 243, 232, 0.28)',
-                    borderRadius: isLeft ? '16px 16px 16px 2px' : '16px 16px 2px 16px',
-                    padding: '1.1rem 1.5rem 1.2rem 1.5rem',
+                    borderRadius: isLeft ? '14px 14px 14px 2px' : '14px 14px 2px 14px',
+                    padding: 'clamp(0.7rem, 1.2vh, 0.95rem) clamp(1.1rem, 1.8vw, 1.45rem)',
                     boxShadow: '0 12px 35px rgba(0, 0, 0, 0.8), 0 0 15px rgba(126, 243, 232, 0.08)',
                     backdropFilter: 'blur(16px)',
                     WebkitBackdropFilter: 'blur(16px)',
@@ -170,19 +176,19 @@ export const SignalChatSection: React.FC = () => {
                   {/* Highly Visible Chat Tail */}
                   {isLeft ? (
                     <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 18 18"
+                      width="16"
+                      height="14"
+                      viewBox="0 0 16 14"
                       style={{
                         position: 'absolute',
-                        bottom: '-14px',
-                        left: '18px',
+                        bottom: '-12px',
+                        left: '16px',
                         overflow: 'visible',
                         zIndex: 3,
                       }}
                     >
                       <polygon
-                        points="0,0 18,0 0,18"
+                        points="0,0 16,0 0,14"
                         fill="rgba(12, 18, 28, 0.95)"
                         stroke="rgba(126, 243, 232, 0.35)"
                         strokeWidth="1.5"
@@ -191,7 +197,7 @@ export const SignalChatSection: React.FC = () => {
                       <line
                         x1="0"
                         y1="0"
-                        x2="18"
+                        x2="16"
                         y2="0"
                         stroke="rgba(12, 18, 28, 0.95)"
                         strokeWidth="3"
@@ -199,19 +205,19 @@ export const SignalChatSection: React.FC = () => {
                     </svg>
                   ) : (
                     <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 18 18"
+                      width="16"
+                      height="14"
+                      viewBox="0 0 16 14"
                       style={{
                         position: 'absolute',
-                        bottom: '-14px',
-                        right: '18px',
+                        bottom: '-12px',
+                        right: '16px',
                         overflow: 'visible',
                         zIndex: 3,
                       }}
                     >
                       <polygon
-                        points="0,0 18,0 18,18"
+                        points="0,0 16,0 16,14"
                         fill="rgba(12, 18, 28, 0.95)"
                         stroke="rgba(126, 243, 232, 0.35)"
                         strokeWidth="1.5"
@@ -220,7 +226,7 @@ export const SignalChatSection: React.FC = () => {
                       <line
                         x1="0"
                         y1="0"
-                        x2="18"
+                        x2="16"
                         y2="0"
                         stroke="rgba(12, 18, 28, 0.95)"
                         strokeWidth="3"
@@ -234,15 +240,15 @@ export const SignalChatSection: React.FC = () => {
                       display: 'flex',
                       justifyContent: 'space-between',
                       alignItems: 'center',
-                      marginBottom: '0.4rem',
+                      marginBottom: '0.25rem',
                     }}
                   >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
-                      <Radio size={14} color="#7EF3E8" />
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                      <Radio size={13} color="#7EF3E8" />
                       <span
                         style={{
                           fontFamily: 'var(--font-orbitron)',
-                          fontSize: '0.75rem',
+                          fontSize: '0.72rem',
                           fontWeight: 700,
                           color: '#7EF3E8',
                           letterSpacing: '0.08em',
@@ -253,7 +259,7 @@ export const SignalChatSection: React.FC = () => {
                     </div>
                     <span
                       style={{
-                        fontSize: '0.78rem',
+                        fontSize: '0.74rem',
                         color: 'rgba(183, 185, 189, 0.6)',
                         fontFamily: 'var(--font-rajdhani)',
                         fontWeight: 600,
@@ -263,17 +269,18 @@ export const SignalChatSection: React.FC = () => {
                     </span>
                   </div>
 
-                  {/* Prominent Large Title */}
+                  {/* Prominent Title */}
                   <h3
                     style={{
                       fontFamily: 'var(--font-orbitron)',
-                      fontSize: '1.25rem',
+                      fontSize: 'clamp(0.96rem, 1.1vw, 1.12rem)',
                       fontWeight: 800,
                       color: '#F5F7F8',
-                      letterSpacing: '0.04em',
+                      letterSpacing: '0.03em',
                       textTransform: 'uppercase',
-                      margin: '0.3rem 0 0.5rem 0',
+                      margin: '0.15rem 0 0.35rem 0',
                       textShadow: '0 0 12px rgba(126, 243, 232, 0.25)',
+                      lineHeight: 1.25,
                     }}
                   >
                     {msg.title}
@@ -282,10 +289,10 @@ export const SignalChatSection: React.FC = () => {
                   {/* Message Body Text */}
                   <p
                     style={{
-                      fontSize: '0.94rem',
+                      fontSize: 'clamp(0.8rem, 0.9vw, 0.86rem)',
                       color: '#B7B9BD',
                       fontFamily: 'var(--font-orbitron)',
-                      lineHeight: 1.5,
+                      lineHeight: 1.45,
                       margin: 0,
                     }}
                   >
@@ -297,42 +304,41 @@ export const SignalChatSection: React.FC = () => {
           })}
         </div>
 
-        {/* Scroll Prompt — only meaningful while the reveal is
-            scroll-driven, and it is absolutely positioned, so on a
-            phone it would print straight over the last card. */}
+        {/* Scroll Prompt — only meaningful while the reveal is scroll-driven */}
         {!staticReveal && (
-        <div
-          style={{
-            position: 'absolute',
-            bottom: '2rem',
-            zIndex: 10,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '0.3rem',
-            opacity: scrollProgress > 0.9 ? 0.2 : 0.75,
-            transition: 'opacity 0.3s ease',
-          }}
-        >
-          <span
+          <div
             style={{
-              fontFamily: 'var(--font-orbitron)',
-              fontSize: '0.75rem',
-              fontWeight: 600,
-              color: '#B7B9BD',
-              letterSpacing: '0.12em',
+              position: 'absolute',
+              bottom: 'clamp(1rem, 2vh, 1.6rem)',
+              zIndex: 10,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '0.25rem',
+              pointerEvents: 'none',
+              opacity: scrollProgress > 0.82 ? Math.max(0, 1 - (scrollProgress - 0.82) / 0.12) * 0.75 : 0.75,
+              transition: 'opacity 0.25s ease',
             }}
           >
-            SCROLL TO DECODE SIGNALS
-          </span>
-          <ChevronDown
-            size={14}
-            color="#7EF3E8"
-            style={{
-              animation: 'bounce-subtle 1.8s ease-in-out infinite',
-            }}
-          />
-        </div>
+            <span
+              style={{
+                fontFamily: 'var(--font-orbitron)',
+                fontSize: '0.72rem',
+                fontWeight: 600,
+                color: '#B7B9BD',
+                letterSpacing: '0.12em',
+              }}
+            >
+              SCROLL TO DECODE SIGNALS
+            </span>
+            <ChevronDown
+              size={13}
+              color="#7EF3E8"
+              style={{
+                animation: 'bounce-subtle 1.8s ease-in-out infinite',
+              }}
+            />
+          </div>
         )}
       </div>
 
@@ -340,6 +346,15 @@ export const SignalChatSection: React.FC = () => {
         @keyframes bounce-subtle {
           0%, 100% { transform: translateY(0); }
           50% { transform: translateY(5px); }
+        }
+        @media (max-height: 720px) and (min-width: 769px) {
+          .signal-chat-container {
+            gap: 0.5rem !important;
+          }
+          .signal-stage {
+            padding-top: 4.5rem !important;
+            padding-bottom: 2.6rem !important;
+          }
         }
         @media (max-width: 768px) {
           /* height is set inline as 240vh for the scroll-driven

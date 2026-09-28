@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { SPEAKERS_DATA } from '../data/speakers';
 import type { Speaker } from '../types';
-import { X, ExternalLink, Download, ChevronLeft, ChevronRight, RefreshCw } from 'lucide-react';
+import { ExternalLink, ChevronLeft, ChevronRight, RefreshCw } from 'lucide-react';
+import { SpeakerBioModal } from './SpeakerBioModal';
 import './Speakers.css';
 
 const PANEL_SPEAKERS = SPEAKERS_DATA.filter((s: Speaker) => s.session === 'panel');
@@ -242,84 +243,10 @@ export const Speakers: React.FC = () => {
       </div>
 
       {/* Detailed Profile Dossier Modal */}
-      {selectedSpeaker && (
-        <div className="rb-modal-backdrop" onClick={() => setSelectedSpeaker(null)}>
-          <div className="rb-modal-card" onClick={(e) => e.stopPropagation()}>
-            <div className="rb-modal-header">
-              <div className="rb-modal-tag">
-                PANEL SPEAKER // {selectedSpeaker.track.toUpperCase()}
-              </div>
-              <button className="rb-modal-close" onClick={() => setSelectedSpeaker(null)}>
-                <X size={16} />
-              </button>
-            </div>
-
-            <div className="rb-modal-body">
-              <div className="rb-modal-hero">
-                <img
-                  src={selectedSpeaker.avatar}
-                  alt={selectedSpeaker.name}
-                  className="rb-modal-avatar"
-                />
-                <div className="rb-modal-hero-info">
-                  <h3 className="rb-modal-name">{selectedSpeaker.name}</h3>
-                  <div className="rb-modal-role">{selectedSpeaker.role}</div>
-                  <div className="rb-modal-org">{selectedSpeaker.organization}</div>
-                  <div className="rb-modal-session-type">
-                    <span className="rb-session-pill">
-                      PANEL DISCUSSION // ETHICS OF NEUROCHIPS
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="rb-modal-section">
-                <div className="rb-modal-label">BIOGRAPHY</div>
-                <p className="rb-modal-bio">{selectedSpeaker.bio}</p>
-              </div>
-
-              {selectedSpeaker.keynoteTitle && (
-                <div className="rb-modal-topic-box">
-                  <div className="rb-modal-label">PANEL TOPIC FOCUS</div>
-                  <div className="rb-modal-topic">"{selectedSpeaker.keynoteTitle}"</div>
-                </div>
-              )}
-
-              <div className="rb-modal-footer">
-                <div className="rb-modal-socials">
-                  {selectedSpeaker.socials?.twitter && (
-                    <a
-                      href={selectedSpeaker.socials.twitter}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="rb-social-link"
-                    >
-                      TWITTER <ExternalLink size={11} />
-                    </a>
-                  )}
-                  {selectedSpeaker.socials?.linkedin && (
-                    <a
-                      href={selectedSpeaker.socials.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="rb-social-link"
-                    >
-                      LINKEDIN <ExternalLink size={11} />
-                    </a>
-                  )}
-                </div>
-
-                <button
-                  className="rb-modal-download-btn"
-                  onClick={() => setSelectedSpeaker(null)}
-                >
-                  <Download size={13} /> CLOSE
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      <SpeakerBioModal
+        speaker={selectedSpeaker}
+        onClose={() => setSelectedSpeaker(null)}
+      />
     </section>
   );
 };

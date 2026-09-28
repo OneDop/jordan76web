@@ -60,13 +60,14 @@ export const HackathonSection: React.FC<HackathonSectionProps> = ({ onOpenMissio
         style={{
           position: 'relative',
           zIndex: 1,
-          maxWidth: '1600px',
+          maxWidth: '1540px',
           width: '100%',
           margin: '0 auto',
-          padding: '0 clamp(1rem, 2.5vw, 2rem)',
+          padding: '0 clamp(1rem, 2vw, 2rem)',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
+          boxSizing: 'border-box',
         }}
       >
         <style>{`
@@ -75,8 +76,8 @@ export const HackathonSection: React.FC<HackathonSectionProps> = ({ onOpenMissio
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: clamp(0.75rem, 2vw, 2rem);
-            margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
+            gap: clamp(0.6rem, 1.4vw, 1.4rem);
+            margin-bottom: clamp(2.5rem, 4.5vw, 3.8rem);
             flex-wrap: nowrap;
           }
           @media (max-width: 960px) {
@@ -89,14 +90,14 @@ export const HackathonSection: React.FC<HackathonSectionProps> = ({ onOpenMissio
              "TRANSPORTATION" at 1rem, so the title scales with the
              card and is allowed to break rather than spill out. */
           .netflix-card-title {
-            font-size: clamp(0.8rem, 3.4vw, 1rem);
+            font-size: clamp(0.8rem, 1.15vw, 0.98rem);
             overflow-wrap: anywhere;
           }
           .netflix-card-sub {
-            font-size: clamp(0.62rem, 2.6vw, 0.7rem);
+            font-size: clamp(0.62rem, 0.85vw, 0.7rem);
             overflow-wrap: anywhere;
           }
-          .netflix-card-city { font-size: clamp(0.72rem, 2.4vw, 0.78rem); }
+          .netflix-card-city { font-size: clamp(0.7rem, 0.9vw, 0.76rem); }
           @media (max-width: 560px) {
             /* Two 165px posters will not fit side by side on a phone,
                and shrinking them further breaks words like
@@ -192,7 +193,7 @@ export const HackathonSection: React.FC<HackathonSectionProps> = ({ onOpenMissio
                     display: 'flex',
                     alignItems: 'flex-end',
                     cursor: 'pointer',
-                    paddingLeft: 'clamp(44px, 4.5vw, 78px)',
+                    paddingLeft: 'clamp(40px, 4vw, 68px)',
                     flexShrink: 0,
                   }}
               >
@@ -201,9 +202,9 @@ export const HackathonSection: React.FC<HackathonSectionProps> = ({ onOpenMissio
                   style={{
                     position: 'absolute',
                     left: 0,
-                    bottom: 'clamp(0.4rem, 1.2vw, 1.2rem)',
+                    bottom: 'clamp(0.35rem, 1vw, 1rem)',
                     fontFamily: 'var(--font-orbitron)',
-                    fontSize: 'clamp(7rem, 10vw, 12rem)',
+                    fontSize: 'clamp(6.5rem, 9.2vw, 11rem)',
                     fontWeight: 900,
                     lineHeight: 0.8,
                     letterSpacing: '-0.06em',
@@ -227,8 +228,8 @@ export const HackathonSection: React.FC<HackathonSectionProps> = ({ onOpenMissio
                   style={{
                     position: 'relative',
                     zIndex: 2,
-                    width: 'clamp(215px, 19vw, 300px)',
-                    height: 'clamp(345px, 30vw, 465px)',
+                    width: 'clamp(205px, 17.5vw, 282px)',
+                    height: 'clamp(330px, 28vw, 440px)',
                     borderRadius: '12px',
                     overflow: 'hidden',
                     background: '#0B0F19',
@@ -314,7 +315,7 @@ export const HackathonSection: React.FC<HackathonSectionProps> = ({ onOpenMissio
                     style={{
                       position: 'relative',
                       zIndex: 3,
-                      padding: '1.1rem 1.1rem',
+                      padding: '1rem 1rem',
                       display: 'flex',
                       flexDirection: 'column',
                       gap: '0.35rem',

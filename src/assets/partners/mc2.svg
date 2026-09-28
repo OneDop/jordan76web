@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 80" width="240" height="80">
+  <defs>
+    <linearGradient id="mcGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00F2FE"/>
+      <stop offset="100%" stop-color="#4FACFE"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(15, 16)">
+    <polygon points="24,4 44,15 44,37 24,48 4,37 4,15" fill="rgba(0, 242, 254, 0.12)" stroke="url(#mcGrad)" stroke-width="2"/>
+    <circle cx="24" cy="26" r="6" fill="#FFFFFF"/>
+  </g>
+  <text x="75" y="52" font-family="'Orbitron', system-ui, sans-serif" font-size="38" font-weight="900" fill="#FFFFFF" letter-spacing="2">MC</text>
+  <text x="150" y="34" font-family="'Orbitron', system-ui, sans-serif" font-size="24" font-weight="900" fill="url(#mcGrad)">2</text>
+  <text x="76" y="70" font-family="'Rajdhani', system-ui, sans-serif" font-size="11.5" font-weight="700" fill="#7EF3E8" letter-spacing="2.5">INNOVATION &amp; TECH</text>
+</svg>

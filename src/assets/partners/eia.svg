@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" width="200" height="60">
+  <defs>
+    <linearGradient id="eiaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FBBF24"/>
+      <stop offset="100%" stop-color="#F59E0B"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(10, 8)">
+    <text x="10" y="34" font-family="'Orbitron', sans-serif" font-size="34" font-weight="900" fill="url(#eiaGrad)" letter-spacing="3">EIA</text>
+    <text x="12" y="47" font-family="'Rajdhani', sans-serif" font-size="9" font-weight="700" fill="#94A3B8" letter-spacing="1.5">ENTREPRENEURSHIP ALLIANCE</text>
+  </g>
+</svg>

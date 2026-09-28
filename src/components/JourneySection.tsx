@@ -109,7 +109,7 @@ export const JourneySection: React.FC = () => {
       action: 'Validate',
       name: 'Bootcamp',
       to: '/bootcamp',
-      description: 'A 4-day intensive refining market demand, customer discovery, unit economics, and investor narrative.',
+      description: 'A 3-day intensive refining market demand, customer discovery, unit economics, and investor narrative.',
     },
     {
       step: '03',

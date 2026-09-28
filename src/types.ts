@@ -4,15 +4,18 @@ export interface Speaker {
   role: string;
   organization: string;
   bio: string;
+  fullBio?: string;
+  arabicBio?: string;
   avatar: string;
   track: string;
   keynoteTitle: string;
   /** Which Congress Day slot they hold. Drives the roster grouping. */
-  session: 'keynote' | 'panel';
+  session: 'keynote' | 'panel' | 'moderator';
   targetId?: string;
   clearance?: string;
   matchScore?: string;
   cameraCode?: string;
+  timeSlot?: string;
   faceBox?: { top: string; left: string; width: string; height: string };
   socials?: {
     twitter?: string;
@@ -29,7 +32,7 @@ export interface AgendaItem {
   description: string;
   speakerId?: string;
   speakerName?: string;
-  track: 'Keynote' | 'Quantum Tech' | 'Bio-Cybernetics' | 'Space & Energy' | 'AI & Governance' | 'Artificial Intelligence' | 'Software Engineering' | 'Innovation & Entrepreneurship' | 'Emerging Technologies';
+  track: 'Keynote' | 'Quantum Tech' | 'Bio-Cybernetics' | 'Space & Energy' | 'AI & Governance' | 'Artificial Intelligence' | 'Software Engineering' | 'Innovation & Entrepreneurship' | 'Emerging Technologies' | 'Semiconductors' | 'Parallel Tracks' | string;
   location: string;
 }
 
@@ -51,6 +54,11 @@ export interface VisionPillar {
   stats: string;
 }
 
+export interface TrackSubTrackItem {
+  name: string;
+  focus: string;
+}
+
 export interface HackathonTrack {
   id: string;
   /** Zero-padded index shown on the evidence photo, e.g. "01". */
@@ -67,6 +75,11 @@ export interface HackathonTrack {
   briefing: string;
   deliverables: string[];
   prize: string;
+  fullTitle?: string;
+  description?: string;
+  explorationAreas?: string[];
+  subTracks?: TrackSubTrackItem[];
+  poweredBy?: string;
 }
 
 export interface FAQItem {

@@ -146,38 +146,38 @@ export const Hero: React.FC<HeroProps> = ({ onOpenRegister }) => {
   if (isMobile) {
     return (
       <>
-      <style>{`@media (min-width: 769px) { .mobile-intro-bg { display: none; } }`}</style>
-      <div className="mobile-intro-bg" aria-hidden="true" style={{ position: 'fixed', inset: 0, zIndex: 0, backgroundImage: `url(${introBg})`, backgroundSize: 'cover', backgroundPosition: 'center', opacity: introOpacity, pointerEvents: 'none', transition: 'opacity 0.15s linear', visibility: introOpacity <= 0 ? 'hidden' : 'visible', filter: 'brightness(1.1) contrast(1.02)' }} />
-      <div
-        style={{
-          position: 'relative',
-          zIndex: 1,
-          minHeight: '100dvh',
-          backgroundColor: 'transparent',
-          display: 'flex',
-          alignItems: 'center',
-          overflow: 'hidden',
-          padding: '6rem 1.25rem 3rem',
-        }}
-      >
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(0,27,58,0.42) 0%, rgba(0,20,38,0.22) 30%, rgba(10,10,10,0.38) 62%, rgba(7,11,18,0.82) 100%)' }} />
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, rgba(0,20,38,0.42) 0%, rgba(0,20,38,0.22) 45%, rgba(0,20,38,0.08) 70%, transparent 100%)' }} />
-        <div style={{ position: 'relative', zIndex: 2, maxWidth: '640px', width: '100%', margin: '0 auto', textAlign: 'left' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem', color: '#7EF3E8', fontFamily: 'var(--font-orbitron)', fontSize: 'clamp(0.76rem, 2.4vw, 0.8rem)', fontWeight: 700, letterSpacing: '0.1em', marginBottom: '1rem', textShadow: '0 2px 12px rgba(0,0,0,0.9)' }}>
-            <span style={{ width: '8px', height: '8px', backgroundColor: '#7EF3E8', display: 'inline-block', borderRadius: '50%', boxShadow: '0 0 12px rgba(126,243,232,0.9)' }} />
-            <span>JORDAN 2076 — FROM FOUNDATIONS TO THE FUTURE</span>
-          </div>
-          <h1 style={{ fontFamily: 'var(--font-orbitron)', fontSize: 'clamp(1.9rem, 8vw, 2.6rem)', fontWeight: 900, lineHeight: 1.05, letterSpacing: '0.03em', marginBottom: '1rem', textTransform: 'uppercase' }}>
-            <span className="hero-shimmer hero-shimmer--white">FROM FOUNDATIONS</span><br /><span className="hero-shimmer hero-shimmer--cyan">TO THE FUTURE</span>
-          </h1>
-          <p style={{ fontSize: '0.95rem', color: '#FFFFFF', fontWeight: 600, lineHeight: 1.6, marginBottom: '0.5rem', textShadow: '0 2px 12px rgba(0,0,0,0.95), 0 1px 3px rgba(0,0,0,0.95)' }}>What foundations must we build today to shape Jordan's future?</p>
-          <p style={{ fontSize: '0.88rem', color: '#F1F5F9', lineHeight: 1.6, marginBottom: '1.5rem', textShadow: '0 2px 12px rgba(0,0,0,0.95), 0 1px 3px rgba(0,0,0,0.95)' }}>A national technology and innovation initiative bringing together young builders, industry experts, innovators, companies and ecosystem partners.</p>
-          <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
-            <button onClick={onOpenRegister} style={{ background: '#7EF3E8', color: '#0A0A0A', border: 'none', padding: '0.85rem 1.6rem', fontFamily: 'var(--font-orbitron)', fontWeight: 800, fontSize: '0.82rem', letterSpacing: '0.06em', borderRadius: '4px', cursor: 'pointer', boxShadow: '0 0 20px rgba(126, 243, 232, 0.35)', flex: '1 1 160px' }}>Register Now</button>
-            <a href="/about" style={{ background: 'rgba(0, 27, 58, 0.5)', color: '#7EF3E8', border: '1px solid rgba(126, 243, 232, 0.5)', padding: '0.85rem 1.6rem', fontFamily: 'var(--font-orbitron)', fontWeight: 700, fontSize: '0.82rem', letterSpacing: '0.06em', borderRadius: '4px', textDecoration: 'none', backdropFilter: 'blur(8px)', textAlign: 'center', flex: '1 1 160px' }}>Explore Jordan 2076</a>
+        <style>{`@media (min-width: 769px) { .mobile-intro-bg { display: none; } }`}</style>
+        <div className="mobile-intro-bg" aria-hidden="true" style={{ position: 'fixed', inset: 0, zIndex: 0, backgroundImage: `url(${introBg})`, backgroundSize: 'cover', backgroundPosition: 'center', opacity: introOpacity, pointerEvents: 'none', transition: 'opacity 0.15s linear', visibility: introOpacity <= 0 ? 'hidden' : 'visible', filter: 'brightness(1.1) contrast(1.02)' }} />
+        <div
+          style={{
+            position: 'relative',
+            zIndex: 1,
+            minHeight: '100dvh',
+            backgroundColor: 'transparent',
+            display: 'flex',
+            alignItems: 'center',
+            overflow: 'hidden',
+            padding: '6rem 1.25rem 3rem',
+          }}
+        >
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(0,27,58,0.42) 0%, rgba(0,20,38,0.22) 30%, rgba(10,10,10,0.38) 62%, rgba(7,11,18,0.82) 100%)' }} />
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, rgba(0,20,38,0.42) 0%, rgba(0,20,38,0.22) 45%, rgba(0,20,38,0.08) 70%, transparent 100%)' }} />
+          <div style={{ position: 'relative', zIndex: 2, maxWidth: '640px', width: '100%', margin: '0 auto', textAlign: 'left' }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem', color: '#7EF3E8', fontFamily: 'var(--font-orbitron)', fontSize: 'clamp(0.76rem, 2.4vw, 0.8rem)', fontWeight: 700, letterSpacing: '0.1em', marginBottom: '1rem', textShadow: '0 2px 12px rgba(0,0,0,0.9)' }}>
+              <span style={{ width: '8px', height: '8px', backgroundColor: '#7EF3E8', display: 'inline-block', borderRadius: '50%', boxShadow: '0 0 12px rgba(126,243,232,0.9)' }} />
+              <span>JORDAN 2076 — FROM FOUNDATIONS TO THE FUTURE</span>
+            </div>
+            <h1 style={{ fontFamily: 'var(--font-orbitron)', fontSize: 'clamp(1.9rem, 8vw, 2.6rem)', fontWeight: 900, lineHeight: 1.05, letterSpacing: '0.03em', marginBottom: '1rem', textTransform: 'uppercase' }}>
+              <span className="hero-shimmer hero-shimmer--white">FROM FOUNDATIONS</span><br /><span className="hero-shimmer hero-shimmer--cyan">TO THE FUTURE</span>
+            </h1>
+            <p style={{ fontSize: '0.95rem', color: '#FFFFFF', fontWeight: 600, lineHeight: 1.6, marginBottom: '0.5rem', textShadow: '0 2px 12px rgba(0,0,0,0.95), 0 1px 3px rgba(0,0,0,0.95)' }}>What foundations must we build today to shape Jordan's future?</p>
+            <p style={{ fontSize: '0.88rem', color: '#F1F5F9', lineHeight: 1.6, marginBottom: '1.5rem', textShadow: '0 2px 12px rgba(0,0,0,0.95), 0 1px 3px rgba(0,0,0,0.95)' }}>A national technology and innovation initiative bringing together young builders, industry experts, innovators, companies and ecosystem partners.</p>
+            <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+              <button onClick={onOpenRegister} style={{ background: '#7EF3E8', color: '#0A0A0A', border: 'none', padding: '0.85rem 1.6rem', fontFamily: 'var(--font-orbitron)', fontWeight: 800, fontSize: '0.82rem', letterSpacing: '0.06em', borderRadius: '4px', cursor: 'pointer', boxShadow: '0 0 20px rgba(126, 243, 232, 0.35)', flex: '1 1 160px' }}>Register Now</button>
+              <a href="/about" style={{ background: 'rgba(0, 27, 58, 0.5)', color: '#7EF3E8', border: '1px solid rgba(126, 243, 232, 0.5)', padding: '0.85rem 1.6rem', fontFamily: 'var(--font-orbitron)', fontWeight: 700, fontSize: '0.82rem', letterSpacing: '0.06em', borderRadius: '4px', textDecoration: 'none', backdropFilter: 'blur(8px)', textAlign: 'center', flex: '1 1 160px' }}>Explore Jordan 2076</a>
+            </div>
           </div>
         </div>
-      </div>
       </>
     );
   }
@@ -313,7 +313,6 @@ export const Hero: React.FC<HeroProps> = ({ onOpenRegister }) => {
             THE SIGNAL<br /><span style={{ color: '#7EF3E8' }}>FOUND YOU</span>
           </h1>
           <p style={{ fontSize: '1.1rem', color: '#FFFFFF', fontFamily: 'var(--font-orbitron)', marginBottom: '0.6rem', textShadow: '0 2px 14px rgba(0,0,0,0.9)' }}>The future is not something we wait for. It is something we build.</p>
-          <p style={{ fontSize: '1.15rem', color: '#7EF3E8', fontFamily: 'var(--font-orbitron)', fontWeight: 600, direction: 'rtl' }}>إشارات من المستقبل</p>
         </div>
       </div>
 

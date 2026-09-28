@@ -12,6 +12,13 @@ dist
 dist-ssr
 *.local
 
+# Reference documents kept next to the project but not shipped with it.
+# Git stores every version of a binary forever, so a big PDF is paid for
+# by every clone, every pull, and every Netlify build.
+# Anything the site actually serves must live in public/ and be committed.
+*.pdf
+!public/**/*.pdf
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

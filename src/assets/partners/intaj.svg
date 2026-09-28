@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 120" width="320" height="120">
+  <defs>
+    <linearGradient id="intajBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284C7"/>
+      <stop offset="100%" stop-color="#0369A1"/>
+    </linearGradient>
+  </defs>
+  <rect width="320" height="120" rx="16" fill="#F8FAFC"/>
+  <rect x="1" y="1" width="318" height="118" rx="15" fill="none" stroke="#CBD5E1" stroke-width="1.5"/>
+
+  <!-- Logo Graphics -->
+  <g transform="translate(30, 26)">
+    <!-- int@j stylized -->
+    <text x="0" y="48" font-family="'Inter', system-ui, sans-serif" font-size="44" font-weight="900" fill="#0C4A6E" letter-spacing="-1">int</text>
+    <circle cx="68" cy="36" r="16" fill="#EA580C"/>
+    <text x="68" y="44" font-family="'Inter', system-ui, sans-serif" font-size="22" font-weight="900" fill="#FFFFFF" text-anchor="middle">@</text>
+    <text x="88" y="48" font-family="'Inter', system-ui, sans-serif" font-size="44" font-weight="900" fill="#0C4A6E" letter-spacing="-1">j</text>
+    
+    <!-- Subtitle -->
+    <text x="0" y="68" font-family="'Rajdhani', 'Inter', system-ui, sans-serif" font-size="10.5" font-weight="800" fill="#475569" letter-spacing="1.2">ICT ASSOCIATION OF JORDAN</text>
+    <text x="0" y="80" font-family="'Cairo', system-ui, sans-serif" font-size="9.5" font-weight="700" fill="#64748B">جمعية شركات تقنية المعلومات والاتصالات</text>
+  </g>
+</svg>

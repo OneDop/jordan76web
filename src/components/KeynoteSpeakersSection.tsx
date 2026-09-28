@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { SPEAKERS_DATA } from '../data/speakers';
 import type { Speaker } from '../types';
+import { SpeakerBioModal } from './SpeakerBioModal';
 import './KeynoteSpeakersSection.css';
 
 export const KeynoteSpeakersSection: React.FC = () => {
@@ -8,6 +9,7 @@ export const KeynoteSpeakersSection: React.FC = () => {
   const trackRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState<number>(0);
   const [maxTranslate, setMaxTranslate] = useState<number>(0);
+  const [selectedSpeaker, setSelectedSpeaker] = useState<Speaker | null>(null);
 
   // Filter top 2 keynote speakers
   const keynoteSpeakers = SPEAKERS_DATA.filter((s: Speaker) => s.session === 'keynote' || s.id === 'spk-1' || s.id === 'spk-2').slice(0, 2);
@@ -98,7 +100,12 @@ export const KeynoteSpeakersSection: React.FC = () => {
           </div>
 
           {/* CARD 1: Speaker 1 Image (UP) */}
-          <div className="keynote-card keynote-card--image keynote-card--up">
+          <div
+            className="keynote-card keynote-card--image keynote-card--up"
+            onClick={() => setSelectedSpeaker(spk1)}
+            style={{ cursor: 'pointer' }}
+            title={`Click to view ${spk1.name}'s biography`}
+          >
             <img src={spk1.avatar} alt={spk1.name} className="keynote-card-img" />
             <div className="keynote-image-overlay" />
             <div className="keynote-image-footer">
@@ -108,7 +115,12 @@ export const KeynoteSpeakersSection: React.FC = () => {
           </div>
 
           {/* CARD 2: Speaker 1 Info (DOWN) */}
-          <div className="keynote-card keynote-card--info keynote-card--down">
+          <div
+            className="keynote-card keynote-card--info keynote-card--down"
+            onClick={() => setSelectedSpeaker(spk1)}
+            style={{ cursor: 'pointer' }}
+            title={`Click to view ${spk1.name}'s biography`}
+          >
             <div className="keynote-info-header">
               <span className="keynote-pill">{spk1.track}</span>
               <span className="keynote-info-index">01 / 02</span>
@@ -123,7 +135,12 @@ export const KeynoteSpeakersSection: React.FC = () => {
           </div>
 
           {/* CARD 3: Speaker 2 Image (UP) */}
-          <div className="keynote-card keynote-card--image keynote-card--up">
+          <div
+            className="keynote-card keynote-card--image keynote-card--up"
+            onClick={() => setSelectedSpeaker(spk2)}
+            style={{ cursor: 'pointer' }}
+            title={`Click to view ${spk2.name}'s biography`}
+          >
             <img src={spk2.avatar} alt={spk2.name} className="keynote-card-img" />
             <div className="keynote-image-overlay" />
             <div className="keynote-image-footer">
@@ -133,7 +150,12 @@ export const KeynoteSpeakersSection: React.FC = () => {
           </div>
 
           {/* CARD 4: Speaker 2 Info (DOWN) */}
-          <div className="keynote-card keynote-card--info keynote-card--down">
+          <div
+            className="keynote-card keynote-card--info keynote-card--down"
+            onClick={() => setSelectedSpeaker(spk2)}
+            style={{ cursor: 'pointer' }}
+            title={`Click to view ${spk2.name}'s biography`}
+          >
             <div className="keynote-info-header">
               <span className="keynote-pill">{spk2.track}</span>
               <span className="keynote-info-index">02 / 02</span>
@@ -148,6 +170,12 @@ export const KeynoteSpeakersSection: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Speaker Biography Popup Modal */}
+      <SpeakerBioModal
+        speaker={selectedSpeaker}
+        onClose={() => setSelectedSpeaker(null)}
+      />
     </section>
   );
 };

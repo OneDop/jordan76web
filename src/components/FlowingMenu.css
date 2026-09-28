@@ -102,7 +102,7 @@
   align-items: center;
   height: 100%;
   width: max-content;
-  animation: flowing-marquee-scroll 24s linear infinite;
+  animation: flowing-marquee-scroll 26s linear infinite;
   will-change: transform;
 }
 
@@ -117,14 +117,14 @@
 
 .marquee__text {
   font-family: var(--font-orbitron);
-  font-weight: 900;
-  font-size: 2rem;
+  font-weight: 800;
+  font-size: clamp(1.35rem, 1.8vw, 1.75rem);
   text-transform: uppercase;
   white-space: nowrap;
-  padding: 0 1.5rem;
+  padding: 0 1.25rem;
   color: #FFFFFF;
-  letter-spacing: 0.05em;
-  text-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
+  letter-spacing: 0.04em;
+  text-shadow: 0 0 14px rgba(126, 243, 232, 0.45), 0 0 25px rgba(0, 0, 0, 0.9);
 }
 
 .menu__item-img {
