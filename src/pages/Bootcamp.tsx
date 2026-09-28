@@ -10,13 +10,13 @@ import {
 } from 'lucide-react';
 import { Reveal } from '../components/j76/J76';
 
-import abdullahImg from '../assets/speakers/Bootcamp/abdullah-alghwairi.jpg';
-import ahmadNasrallahImg from '../assets/speakers/Bootcamp/ahmad-nasrallah.jpg';
-import ahmadHattabImg from '../assets/speakers/Bootcamp/ahmad-hattab.jpg';
-import lunaImg from '../assets/speakers/Bootcamp/luna-kawash.png';
-import yazanImg from '../assets/speakers/Bootcamp/yazan-hatamleh.jpg';
-import moatazImg from '../assets/speakers/Bootcamp/moataz-mukhaimer.jpg';
-import ahmadMashallehImg from '../assets/speakers/Bootcamp/ahmad-mashalleh.jpg';
+import abdullahImg from '../assets/Speakers/Bootcamp/abdullah-alghwairi.jpg';
+import ahmadNasrallahImg from '../assets/Speakers/Bootcamp/ahmad-nasrallah.jpg';
+import ahmadHattabImg from '../assets/Speakers/Bootcamp/ahmad-hattab.jpg';
+import lunaImg from '../assets/Speakers/Bootcamp/luna-kawash.png';
+import yazanImg from '../assets/Speakers/Bootcamp/yazan-hatamleh.jpg';
+import moatazImg from '../assets/Speakers/Bootcamp/moataz-mukhaimer.jpg';
+import ahmadMashallehImg from '../assets/Speakers/Bootcamp/ahmad-mashalleh.jpg';
 
 interface BootcampSpeaker {
   id: string;

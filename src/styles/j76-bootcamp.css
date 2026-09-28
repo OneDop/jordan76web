@@ -165,8 +165,8 @@
   gap: 1rem;
 }
 .bc-guide-avatar-wrap {
-  width: 72px;
-  height: 72px;
+  width: 104px;
+  height: 104px;
   border-radius: 14px;
   overflow: hidden;
   border: 1.5px solid rgba(126, 243, 232, 0.4);
@@ -179,6 +179,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center 20%;
   transition: transform 0.4s ease;
 }
 .bc-guide-card:hover .bc-guide-avatar {
@@ -314,6 +315,11 @@
   .bc-route::before { display: none; }
   .bc-node { display: none; }
   .bc-cta .j76-btn { width: 100%; justify-content: center; }
+}
+
+@media (max-width: 480px) {
+  .bc-guide-header { align-items: flex-start; }
+  .bc-guide-avatar-wrap { width: 88px; height: 88px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -189,9 +189,15 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center 20%;
   filter: grayscale(0.4) contrast(1.08);
   display: block;
   transition: filter 0.35s ease, transform 0.4s ease;
+}
+/* Exclusive: Mothanna Gharaibeh (ag-1100 keynote) — face sits high in the
+   source portrait; pin crop toward the top so the face stays visible. */
+.cg-photo img[alt="Mothanna Gharaibeh"] {
+  object-position: 50% 12%;
 }
 .cg-photo--clickable:hover img {
   filter: grayscale(0) contrast(1.05);
