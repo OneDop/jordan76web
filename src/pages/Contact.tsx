@@ -38,8 +38,8 @@ export const Contact: React.FC = () => {
             <div className="row row--pair">
               <div className="row-kicker">Email</div>
               <div>
-                <a className="row-name" href="mailto:info@jordan2076.jo" style={{ textDecoration: 'none' }}>
-                  info@jordan2076.jo
+                <a className="row-name" href="mailto:ieee.cs.ju22@gmail.com" style={{ textDecoration: 'none' }}>
+                  ieee.cs.ju22@gmail.com
                 </a>
                 <p className="row-text">
                   The fastest route for anything about entries, judging, or sponsorship.
