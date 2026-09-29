@@ -2,10 +2,10 @@ import React, { useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import './FlowingMenu.css';
 
-import aiTrackImg from '../assets/ai_track.png';
-import softwareTrackImg from '../assets/software_engineering_track.png';
-import emergingTrackImg from '../assets/emerging_tech_track.png';
-import innovationTrackImg from '../assets/innovation_track.png';
+import aiTrackImg from '../assets/ai_track.jpg';
+import softwareTrackImg from '../assets/software_engineering_track.jpg';
+import emergingTrackImg from '../assets/semiconductors_track.jpg';
+import innovationTrackImg from '../assets/innovation_track.jpg';
 
 
 export interface MenuItemProps {

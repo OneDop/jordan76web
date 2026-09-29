@@ -17,6 +17,7 @@ import {
 import {
   CONFIRMED_SPONSORS,
   PLATINUM_SPONSOR,
+  ELITE_SPONSOR,
   GOLD_SPONSORS,
   SILVER_SPONSORS,
   BRONZE_SPONSORS,
@@ -37,11 +38,11 @@ const container: Variants = {
 };
 
 const item: Variants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 1, y: 0 },
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: EASE },
+    transition: { duration: 0.4, ease: EASE },
   },
 };
 
@@ -155,7 +156,7 @@ const StrategicPartnerCard: React.FC<{ partner: Partner; index: number }> = ({ p
       </span>
     </div>
 
-    <div className={`ps-bento-logo ${partner.treatment === 'plate' ? 'ps-bento-logo--plate' : ''}`}>
+    <div className="ps-bento-logo">
       <img src={partner.logo} alt={partner.name} loading="lazy" />
     </div>
 
@@ -228,7 +229,54 @@ const PlatinumHeroShowcase: React.FC<{ sponsor: Sponsor }> = ({ sponsor }) => (
 );
 
 /* ============================================================
-   2.2 Gold Sponsor Card (Equal weight to Strategic Partners)
+   2.2 Exclusive Elite Sponsor (Distinctive Executive Showcase)
+   ============================================================ */
+
+const EliteHeroShowcase: React.FC<{ sponsor: Sponsor }> = ({ sponsor }) => (
+  <Spotlight className="ps-elite-card" aria-label={`${sponsor.name} — Exclusive Elite Sponsor`}>
+    <div className="ps-elite-top-bar">
+      <span className="ps-tier-pill ps-tier-pill--elite">
+        <Sparkles size={13} aria-hidden="true" />
+        2.2 EXCLUSIVE ELITE
+      </span>
+      <span className="ps-elite-badge">
+        Anchor Infrastructure &amp; Digital Transformation Partner
+      </span>
+    </div>
+
+    <div className="ps-elite-grid">
+      <div className="ps-elite-stage">
+        <img src={sponsor.logo} alt={sponsor.name} loading="lazy" />
+      </div>
+
+      <div className="ps-elite-info">
+        <h3 className="ps-elite-name">{sponsor.name}</h3>
+        <span className="ps-elite-sub">
+          {sponsor.tagline || 'DRIVING INFRASTRUCTURE, DIGITAL TRANSFORMATION & SUSTAINABLE GROWTH'}
+        </span>
+        <p className="ps-elite-text">{sponsor.blurb}</p>
+
+        <div className="ps-elite-actions">
+          {sponsor.website && (
+            <a
+              href={sponsor.website}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ps-elite-cta"
+              aria-label={`Visit ${sponsor.name} website`}
+            >
+              <span>Visit Official Website</span>
+              <ArrowUpRight size={15} aria-hidden="true" />
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+  </Spotlight>
+);
+
+/* ============================================================
+   2.3 Gold Sponsor Card (Equal weight to Strategic Partners)
    ============================================================ */
 
 const GoldSponsorCard: React.FC<{ sponsor: Sponsor; index: number }> = ({ sponsor, index }) => (
@@ -334,18 +382,20 @@ type TabId = 'partners' | 'sponsors';
 export const Partners: React.FC = () => {
   const [activeTab, setActiveTab] = useState<TabId>('partners');
 
-  // DriftWall: ONLY the 19 confirmed partners and sponsors
+  // DriftWall: ONLY the confirmed partners and sponsors
   const driftItems = useMemo(
     () => [
       ...PARTNERS.map((p) => ({
         image: p.logo,
         title: `${p.name} — ${p.role}`,
         href: p.href,
+        treatment: p.treatment,
       })),
       ...CONFIRMED_SPONSORS.map((s) => ({
         image: s.logo,
         title: `${s.name} — ${s.tagline ?? s.name}`,
         href: s.website,
+        treatment: s.treatment ?? 'asIs',
       })),
     ],
     []
@@ -431,9 +481,9 @@ export const Partners: React.FC = () => {
           columns={5}
           tileWidth={200}
           tileHeight={132}
-          overlayColor="#060010"
-          dim={0.7}
-          fade={0.6}
+          overlayColor="transparent"
+          dim={0.92}
+          fade={0.5}
         />
 
         <span className="ps-drift-fade ps-drift-fade--top" aria-hidden="true" />
@@ -548,8 +598,32 @@ export const Partners: React.FC = () => {
           <PlatinumHeroShowcase sponsor={PLATINUM_SPONSOR} />
         </div>
 
-        {/* 2.2 Gold Sponsors */}
-        <div className="ps-tier" aria-label="2.2 Gold Sponsors">
+        {/* 2.2 Exclusive Elite */}
+        <div className="ps-tier" aria-label="2.2 Exclusive Elite">
+          <div className="ps-tier-head">
+            <div className="ps-tier-head-left">
+              <span className="ps-tier-icon ps-tier-icon--elite">
+                <Sparkles size={17} aria-hidden="true" />
+              </span>
+              <div>
+                <h3 className="ps-tier-title" style={{ color: '#00F0FF' }}>
+                  2.2 Exclusive Elite
+                </h3>
+                <p className="ps-tier-copy">
+                  Anchor champion driving large-scale digital transformation and infrastructure development.
+                </p>
+              </div>
+            </div>
+            <span className="ps-tier-count" style={{ WebkitTextStroke: '1px rgba(0,240,255,0.45)' }}>
+              01
+            </span>
+          </div>
+
+          <EliteHeroShowcase sponsor={ELITE_SPONSOR} />
+        </div>
+
+        {/* 2.3 Gold Sponsors */}
+        <div className="ps-tier" aria-label="2.3 Gold Sponsors">
           <div className="ps-tier-head">
             <div className="ps-tier-head-left">
               <span className="ps-tier-icon ps-tier-icon--gold">
@@ -557,7 +631,7 @@ export const Partners: React.FC = () => {
               </span>
               <div>
                 <h3 className="ps-tier-title" style={{ color: '#F5C518' }}>
-                  2.2 Gold Sponsors
+                  2.3 Gold Sponsors
                 </h3>
                 <p className="ps-tier-copy">
                   Key enterprise champions providing prime track support and summit acceleration.
@@ -569,21 +643,15 @@ export const Partners: React.FC = () => {
             </span>
           </div>
 
-          <motion.div
-            className="ps-gold-grid"
-            variants={container}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, margin: '-60px' }}
-          >
+          <div className="ps-gold-grid">
             {GOLD_SPONSORS.map((sponsor, i) => (
               <GoldSponsorCard key={sponsor.id} sponsor={sponsor} index={i} />
             ))}
-          </motion.div>
+          </div>
         </div>
 
-        {/* 2.3 Silver Sponsors */}
-        <div className="ps-tier" aria-label="2.3 Silver Sponsors">
+        {/* 2.4 Silver Sponsors */}
+        <div className="ps-tier ps-tier--silver" aria-label="2.4 Silver Sponsors">
           <div className="ps-tier-head">
             <div className="ps-tier-head-left">
               <span className="ps-tier-icon ps-tier-icon--silver">
@@ -591,7 +659,7 @@ export const Partners: React.FC = () => {
               </span>
               <div>
                 <h3 className="ps-tier-title" style={{ color: '#E2E8F0' }}>
-                  2.3 Silver Sponsors
+                  2.4 Silver Sponsors
                 </h3>
                 <p className="ps-tier-copy">
                   Venture, advisory, and intelligence partners powering summit operations.
@@ -603,21 +671,15 @@ export const Partners: React.FC = () => {
             </span>
           </div>
 
-          <motion.div
-            className="ps-silver-grid"
-            variants={container}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, margin: '-60px' }}
-          >
+          <div className="ps-silver-grid">
             {SILVER_SPONSORS.map((sponsor) => (
               <SilverSponsorCard key={sponsor.id} sponsor={sponsor} />
             ))}
-          </motion.div>
+          </div>
         </div>
 
-        {/* 2.4 Bronze Sponsors */}
-        <div className="ps-tier" aria-label="2.4 Bronze Sponsors">
+        {/* 2.5 Bronze Sponsors */}
+        <div className="ps-tier" aria-label="2.5 Bronze Sponsors">
           <div className="ps-tier-head">
             <div className="ps-tier-head-left">
               <span className="ps-tier-icon ps-tier-icon--bronze">
@@ -625,7 +687,7 @@ export const Partners: React.FC = () => {
               </span>
               <div>
                 <h3 className="ps-tier-title" style={{ color: '#E09A5A' }}>
-                  2.4 Bronze Sponsors
+                  2.5 Bronze Sponsors
                 </h3>
                 <p className="ps-tier-copy">
                   Official community, business center, and innovation alliance supporters.

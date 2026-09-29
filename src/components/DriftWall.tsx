@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import './DriftWall.css';
 
-interface DriftItem {
+export interface DriftItem {
   image: string;
   title?: string;
   href?: string;
+  treatment?: 'plate' | 'asIs' | 'knockout' | string;
 }
 
 interface DriftWallProps {
@@ -260,7 +261,6 @@ const DriftWall = ({
     const inner = (
       <span className="drift-wall__inner">
         <img src={item.image} alt={item.title ?? ''} loading="lazy" decoding="async" draggable={false} />
-        <span className="drift-wall__overlay" aria-hidden="true" />
       </span>
     );
     const commonProps = {

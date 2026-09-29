@@ -71,16 +71,13 @@
 /* True colour on a light plate — the default, because most of these
    files are colour emblems that a knockout would flatten. */
 .partner-logo--plate {
-  /* One plate size for every partner, so the wall reads as a grid of
-     equals rather than twelve differently shaped chips. */
   width: 100%;
   height: 56px;
   max-height: 56px;
   object-fit: contain;
-  background: var(--color-off-white);
-  border-radius: 8px;
-  padding: 6px 10px;
-  opacity: 0.92;
+  background: transparent;
+  padding: 4px;
+  opacity: 0.95;
 }
 
 /* Already light artwork; a plate would erase it. */

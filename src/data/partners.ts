@@ -1,12 +1,12 @@
-import universityOfJordan from '../assets/partners/university-of-jordan.webp';
+import universityOfJordan from '../assets/partners/university-of-jordan.png';
 import ujiec from '../assets/partners/ujiec.png';
-import ministryOfYouth from '../assets/partners/ministry-of-youth.jpg';
-import ey from '../assets/partners/ey.webp';
-import replit from '../assets/partners/replit.svg';
-import feynAi from '../assets/partners/feyn-ai.svg';
-import mc2 from '../assets/partners/mc2.svg';
+import ministryOfYouth from '../assets/partners/ministry-of-youth.png';
+import ey from '../assets/partners/ey.png';
+import replit from '../assets/partners/replit.png';
+import feynAi from '../assets/partners/feyn-ai.png';
+import mc2 from '../assets/partners/mc2.png';
 import injaz from '../assets/partners/injaz.png';
-import iyaf from '../assets/partners/iyaf.svg';
+import iyaf from '../assets/partners/iyaf.png';
 import shoman from '../assets/partners/shoman.svg';
 import intaj from '../assets/partners/intaj.svg';
 
@@ -36,7 +36,7 @@ export const PATRONAGE_PARTNERS: Partner[] = [
     role: 'Institutional Host & Patronage',
     tier: 'patronage',
     logo: universityOfJordan,
-    treatment: 'plate',
+    treatment: 'asIs',
     blurb:
       'Host of congress day and the historic national base for computing and engineering research in the Kingdom.',
     href: 'http://ju.edu.jo',
@@ -49,7 +49,7 @@ export const PATRONAGE_PARTNERS: Partner[] = [
     role: 'Innovation & Incubation Patronage',
     tier: 'patronage',
     logo: ujiec,
-    treatment: 'plate',
+    treatment: 'asIs',
     blurb:
       'The University of Jordan Innovation and Entrepreneurship Center, providing post-hackathon incubation and venture support.',
     href: 'http://ju.edu.jo',
@@ -62,7 +62,7 @@ export const PATRONAGE_PARTNERS: Partner[] = [
     role: 'Official National Patronage',
     tier: 'patronage',
     logo: ministryOfYouth,
-    treatment: 'plate',
+    treatment: 'asIs',
     blurb:
       'Official patron of the national initiative, empowering Jordanian youth in technological leadership and future building.',
     href: 'https://moy.gov.jo',
@@ -79,7 +79,7 @@ export const STRATEGIC_PARTNERS: Partner[] = [
     role: 'Strategic Partner',
     tier: 'strategic',
     logo: ey,
-    treatment: 'plate',
+    treatment: 'asIs',
     blurb:
       'Global assurance, strategy, and technology advisory providing independent evaluation and governance.',
     href: 'https://www.ey.com',
@@ -92,7 +92,7 @@ export const STRATEGIC_PARTNERS: Partner[] = [
     role: 'Strategic Partner',
     tier: 'strategic',
     logo: replit,
-    treatment: 'plate',
+    treatment: 'asIs',
     blurb:
       'Global platform powering modern software development and AI-assisted collaborative engineering.',
     href: 'https://replit.com',
@@ -131,7 +131,7 @@ export const STRATEGIC_PARTNERS: Partner[] = [
     role: 'Strategic Partner',
     tier: 'strategic',
     logo: injaz,
-    treatment: 'plate',
+    treatment: 'asIs',
     blurb:
       'Leading youth empowerment and economic enablement organization nurturing future entrepreneurs.',
     href: 'https://injaz.org.jo',
@@ -157,7 +157,7 @@ export const STRATEGIC_PARTNERS: Partner[] = [
     role: 'Strategic Partner',
     tier: 'strategic',
     logo: shoman,
-    treatment: 'plate',
+    treatment: 'asIs',
     blurb:
       'Arab Bank’s arm for cultural and social responsibility, championing scientific research and digital innovation.',
     href: 'https://shoman.org',

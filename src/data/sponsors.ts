@@ -1,19 +1,20 @@
-import petraRide from '../assets/partners/petra-ride.webp';
-import wamda from '../assets/partners/wamda.svg';
-import opensooq from '../assets/partners/opensooq.svg';
-import estarta from '../assets/partners/estarta.svg';
-import fifth from '../assets/partners/fifth.svg';
-import kernel from '../assets/partners/kernel.svg';
-import eia from '../assets/partners/eia.svg';
-import vbc from '../assets/partners/vbc.svg';
+import petraRide from '../assets/partners/petra-ride.png';
+import wamda from '../assets/partners/wamda.png';
+import opensooq from '../assets/partners/opensooq.png';
+import estarta from '../assets/partners/estarta.png';
+import fifth from '../assets/partners/fifth.png';
+import kernel from '../assets/partners/kernel.png';
+import eia from '../assets/partners/eia.png';
+import vbc from '../assets/partners/vbc.png';
+import kbwJordan from '../assets/partners/kbw-jordan.png';
 
-export type SponsorTier = 'platinum' | 'gold' | 'silver' | 'bronze';
+export type SponsorTier = 'platinum' | 'elite' | 'gold' | 'silver' | 'bronze';
 
-export const TIER_ORDER: SponsorTier[] = ['platinum', 'gold', 'silver', 'bronze'];
+export const TIER_ORDER: SponsorTier[] = ['platinum', 'elite', 'gold', 'silver', 'bronze'];
 
 export interface TierMeta {
   tier: SponsorTier;
-  level: 4 | 3 | 2 | 1;
+  level: number;
   label: string;
   tagline: string;
 }
@@ -21,9 +22,15 @@ export interface TierMeta {
 export const TIER_META: Record<SponsorTier, TierMeta> = {
   platinum: {
     tier: 'platinum',
-    level: 4,
+    level: 5,
     label: 'Exclusive Platinum Sponsor',
     tagline: 'Highest & most prominent sponsor level across Jordan 2076.',
+  },
+  elite: {
+    tier: 'elite',
+    level: 4,
+    label: 'Exclusive Elite',
+    tagline: 'Driving infrastructure, digital transformation & sustainable growth.',
   },
   gold: {
     tier: 'gold',
@@ -54,6 +61,7 @@ export interface Sponsor {
   blurb?: string;
   website?: string;
   videoUrl?: string;
+  treatment?: 'plate' | 'asIs' | 'knockout';
 }
 
 /** 2.1 Exclusive Platinum Sponsor */
@@ -63,12 +71,28 @@ export const PLATINUM_SPONSOR: Sponsor = {
   logo: petraRide,
   tier: 'platinum',
   tagline: 'Exclusive Platinum Sponsor',
+  treatment: 'asIs',
   blurb:
     'The Kingdom’s premier mobility network, powering Jordan 2076 as our Exclusive Platinum Sponsor with premier prominence and mobility leadership.',
   website: 'https://petraride.com',
 };
 
-/** 2.2 Gold Sponsors */
+/** 2.2 Exclusive Elite Sponsor */
+export const ELITE_SPONSOR: Sponsor = {
+  id: 'kbw-jordan',
+  name: 'KBW Investments Jordan',
+  logo: kbwJordan,
+  tier: 'elite',
+  tagline: 'DRIVING INFRASTRUCTURE, DIGITAL TRANSFORMATION & SUSTAINABLE GROWTH',
+  treatment: 'asIs',
+  blurb:
+    'As a cornerstone of regional development, KBW Investments Jordan joins Jordan 2076 to accelerate public-private partnerships, smart city infrastructure, and large-scale healthcare digitization, anchoring the Kingdom’s leap into the future.',
+  website: 'https://kbw-investments.com',
+};
+
+export const TITLE_SPONSOR = ELITE_SPONSOR;
+
+/** 2.3 Gold Sponsors */
 export const GOLD_SPONSORS: Sponsor[] = [
   {
     id: 'wamda',
@@ -76,6 +100,7 @@ export const GOLD_SPONSORS: Sponsor[] = [
     logo: wamda,
     tier: 'gold',
     tagline: 'Gold Sponsor',
+    treatment: 'asIs',
     blurb:
       'Leading entrepreneurship platform and venture catalyst accelerating MENA founders and investment ecosystems.',
     website: 'https://wamda.com',
@@ -86,6 +111,7 @@ export const GOLD_SPONSORS: Sponsor[] = [
     logo: opensooq,
     tier: 'gold',
     tagline: 'Gold Sponsor',
+    treatment: 'asIs',
     blurb:
       'The region’s premier classifieds and commerce platform empowering millions of daily digital transactions.',
     website: 'https://opensooq.com',
@@ -96,9 +122,10 @@ export const GOLD_SPONSORS: Sponsor[] = [
     logo: estarta,
     tier: 'gold',
     tagline: 'Gold Sponsor',
+    treatment: 'asIs',
     blurb:
       'Global ICT solutions and engineering leader delivering enterprise infrastructure and technical excellence.',
-    website: 'https://estartasolutions.com',
+    website: 'https://estarta.com',
   },
 ];
 
@@ -110,6 +137,7 @@ export const SILVER_SPONSORS: Sponsor[] = [
     logo: fifth,
     tier: 'silver',
     tagline: 'Silver Sponsor',
+    treatment: 'asIs',
     website: 'https://fifth.jo',
   },
   {
@@ -118,6 +146,7 @@ export const SILVER_SPONSORS: Sponsor[] = [
     logo: kernel,
     tier: 'silver',
     tagline: 'Silver Sponsor',
+    treatment: 'asIs',
     website: 'https://kernel.jo',
   },
 ];
@@ -126,10 +155,11 @@ export const SILVER_SPONSORS: Sponsor[] = [
 export const BRONZE_SPONSORS: Sponsor[] = [
   {
     id: 'eia',
-    name: 'EIA',
+    name: 'Al-Ettifaq International Academy (EIA)',
     logo: eia,
     tier: 'bronze',
     tagline: 'Bronze Sponsor',
+    treatment: 'asIs',
     website: 'https://inacademy.eu',
   },
   {
@@ -138,6 +168,7 @@ export const BRONZE_SPONSORS: Sponsor[] = [
     logo: vbc,
     tier: 'bronze',
     tagline: 'Bronze Sponsor',
+    treatment: 'asIs',
     website: 'https://vbc.jo',
   },
 ];
@@ -145,6 +176,7 @@ export const BRONZE_SPONSORS: Sponsor[] = [
 /** All confirmed sponsors */
 export const CONFIRMED_SPONSORS: Sponsor[] = [
   PLATINUM_SPONSOR,
+  TITLE_SPONSOR,
   ...GOLD_SPONSORS,
   ...SILVER_SPONSORS,
   ...BRONZE_SPONSORS,
@@ -152,3 +184,4 @@ export const CONFIRMED_SPONSORS: Sponsor[] = [
 
 export const sponsorsByTier = (tier: SponsorTier): Sponsor[] =>
   CONFIRMED_SPONSORS.filter((s) => s.tier === tier);
+

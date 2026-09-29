@@ -350,36 +350,43 @@ export const Congress: React.FC = () => {
                 <span className="cg-row-id">{panel.id}</span>
                 <div>
                   <h3>{panel.title}</h3>
-                  <small>
-                    <b>{panel.sub}</b> · {people.map((p: Speaker) => p.name).join(' · ')}
-                    {panel.moderator && <> · <span style={{ color: 'var(--color-neon-cyan)' }}>Mod: {panel.moderator}</span></>}
-                  </small>
-                </div>
-                <div className="cg-faces">
-                  {people.map((p: Speaker) => (
-                    <img
-                      key={p.id}
-                      src={p.avatar}
-                      alt={p.name}
-                      title={`${p.name} · ${p.organization} (Click for Bio)`}
-                      className="cg-face-clickable"
-                      onClick={() => setSelectedSpeaker(p)}
-                      loading="lazy"
-                    />
-                  ))}
-                  {mod && (
-                    <img
-                      key={mod.id}
-                      src={mod.avatar}
-                      alt={mod.name}
-                      title={`Moderator: ${mod.name} (Click for Bio)`}
-                      className="cg-face-clickable cg-face-mod"
-                      onClick={() => setSelectedSpeaker(mod)}
-                      style={{ outline: '2px solid var(--color-neon-cyan)', outlineOffset: '1px' }}
-                      loading="lazy"
-                    />
-                  )}
-                  <span>{people.length + (mod ? 1 : 0)} voices</span>
+                  <small>{panel.sub}</small>
+
+                  <div className="cg-speakers-list">
+                    {mod && (
+                      <div
+                        className="cg-speaker-card is-mod"
+                        onClick={() => setSelectedSpeaker(mod)}
+                        role="button"
+                        tabIndex={0}
+                        onKeyDown={(e) => e.key === 'Enter' && setSelectedSpeaker(mod)}
+                        title={`Moderator: ${mod.name} (Click for bio)`}
+                      >
+                        <img src={mod.avatar} alt={mod.name} loading="lazy" />
+                        <div className="cg-speaker-info">
+                          <span className="cg-speaker-role">Moderator</span>
+                          <span className="cg-speaker-name">{mod.name}</span>
+                        </div>
+                      </div>
+                    )}
+                    {people.map((p: Speaker) => (
+                      <div
+                        key={p.id}
+                        className="cg-speaker-card"
+                        onClick={() => setSelectedSpeaker(p)}
+                        role="button"
+                        tabIndex={0}
+                        onKeyDown={(e) => e.key === 'Enter' && setSelectedSpeaker(p)}
+                        title={`Panelist: ${p.name} (Click for bio)`}
+                      >
+                        <img src={p.avatar} alt={p.name} loading="lazy" />
+                        <div className="cg-speaker-info">
+                          <span className="cg-speaker-role">Panelist</span>
+                          <span className="cg-speaker-name">{p.name}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             );

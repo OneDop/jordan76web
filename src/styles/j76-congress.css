@@ -572,37 +572,135 @@
 .cg-moment .cg-live { position: static; align-self: flex-start; margin-bottom: auto; }
 
 /* ---------- Panel roster ---------- */
-.cg-roster { border-top: 1px solid rgba(126,243,232,.14); }
-.cg-row { display: grid; grid-template-columns: 3rem minmax(0, 1fr) auto; gap: 1rem; align-items: center; padding: 1rem 0; border-bottom: 1px solid rgba(126,243,232,.14); }
-.cg-row-id { font-family: var(--font-orbitron); font-weight: 900; color: rgba(126,243,232,.7); font-size: 0.95rem; }
-.cg-row h3 { font-family: var(--font-orbitron); font-size: 0.99rem; font-weight: 700; }
-.cg-row small { display: block; font-family: var(--font-rajdhani); font-weight: 600; font-size: 0.85rem; color: var(--color-steel-gray); }
-.cg-faces { display: flex; align-items: center; }
-.cg-faces img {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #0a0f16;
-  margin-left: -10px;
-  filter: grayscale(.35);
-  background: #0a0f16;
-  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), filter 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+.cg-roster {
+  border-top: 1px solid rgba(126, 243, 232, 0.14);
+}
+.cg-row {
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr);
+  gap: 1.25rem;
+  align-items: flex-start;
+  padding: 1.4rem 0;
+  border-bottom: 1px solid rgba(126, 243, 232, 0.14);
+}
+.cg-row-id {
+  font-family: var(--font-orbitron);
+  font-weight: 900;
+  color: rgba(126, 243, 232, 0.7);
+  font-size: 1rem;
+  padding-top: 0.15rem;
+}
+.cg-row h3 {
+  font-family: var(--font-orbitron);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+.cg-row small {
+  display: block;
+  font-family: var(--font-rajdhani);
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--color-steel-gray);
+  margin-top: 0.35rem;
+  margin-bottom: 0.95rem;
+}
+
+/* Minimalist speaker cards under the text */
+.cg-speakers-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.cg-speaker-card {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.35rem 0.85rem 0.35rem 0.35rem;
+  background: rgba(126, 243, 232, 0.03);
+  border: 1px solid rgba(126, 243, 232, 0.14);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+  user-select: none;
   position: relative;
 }
-.cg-faces img:first-child { margin-left: 0; }
-.cg-face-clickable {
-  cursor: pointer;
+
+.cg-speaker-card:hover {
+  background: rgba(126, 243, 232, 0.08);
+  border-color: rgba(126, 243, 232, 0.45);
+  z-index: 5;
 }
-.cg-face-clickable:hover {
-  transform: translateY(-4px) scale(1.22);
+
+.cg-speaker-card.is-mod {
+  background: rgba(126, 243, 232, 0.06);
+  border-color: rgba(126, 243, 232, 0.35);
+}
+
+.cg-speaker-card.is-mod:hover {
+  border-color: var(--color-neon-cyan);
+}
+
+.cg-speaker-card img {
+  width: 46px;
+  height: 46px;
+  border-radius: 6px;
+  object-fit: cover;
+  background: #080d14;
+  border: 1.5px solid rgba(126, 243, 232, 0.18);
+  filter: grayscale(0.25);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), filter 0.2s ease, border-color 0.2s ease, box-shadow 0.28s ease;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.cg-speaker-card:hover img {
   filter: grayscale(0);
-  border-color: var(--color-neon-cyan) !important;
-  box-shadow: 0 0 16px rgba(126, 243, 232, 0.65);
+  transform: scale(1.32) translateY(-2px);
+  border-color: var(--color-neon-cyan);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.75), 0 0 16px rgba(126, 243, 232, 0.6);
   z-index: 10;
 }
-.cg-faces span { margin-left: 0.7rem; font-family: var(--font-rajdhani); font-weight: 700; font-size: 0.86rem; color: var(--color-steel-gray); white-space: nowrap; }
-@media (max-width: 560px) { .cg-row { grid-template-columns: 2.2rem minmax(0, 1fr); } .cg-faces { grid-column: 2; } }
+
+.cg-speaker-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cg-speaker-role {
+  font-family: var(--font-rajdhani);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-steel-gray);
+  line-height: 1.1;
+}
+
+.cg-speaker-card.is-mod .cg-speaker-role {
+  color: var(--color-neon-cyan);
+}
+
+.cg-speaker-name {
+  font-family: var(--font-rajdhani);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #ffffff;
+  white-space: nowrap;
+  line-height: 1.2;
+}
+
+@media (max-width: 560px) {
+  .cg-row {
+    grid-template-columns: 2.2rem minmax(0, 1fr);
+    gap: 0.75rem;
+  }
+}
 
 /* ---------- Programme journey (Congress-only animated journey) ---------- */
 .cg-jmap { display: flex; align-items: stretch; gap: 0.55rem; }
