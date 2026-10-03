@@ -160,7 +160,7 @@ export const BRONZE_SPONSORS: Sponsor[] = [
     tier: 'bronze',
     tagline: 'Bronze Sponsor',
     treatment: 'asIs',
-    website: 'https://inacademy.eu',
+    website: 'https://alettifag.com/ar',
   },
   {
     id: 'vbc',

@@ -94,12 +94,12 @@ const Spotlight: React.FC<SpotlightProps> = ({ as = 'article', children, classNa
 
 const PatronageCard: React.FC<{ partner: Partner; index: number }> = ({ partner, index }) => (
   <Spotlight className="ps-card ps-card--patronage" aria-label={`${partner.name} — ${partner.role}`}>
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-      <span className="ps-tier-pill ps-tier-pill--silver" style={{ color: '#7EF3E8', borderColor: 'rgba(126,243,232,0.3)' }}>
+    <div className="ps-patronage-top">
+      <span className="ps-tier-pill ps-tier-pill--silver ps-tier-pill--patronage" style={{ color: '#7EF3E8', borderColor: 'rgba(126,243,232,0.3)' }}>
         <ShieldCheck size={12} aria-hidden="true" />
         {partner.role}
       </span>
-      <span style={{ fontFamily: 'var(--font-orbitron)', fontSize: '0.85rem', fontWeight: 800, color: 'rgba(126,243,232,0.5)' }}>
+      <span className="ps-patronage-num">
         0{index + 1}
       </span>
     </div>
@@ -146,12 +146,12 @@ const PatronageCard: React.FC<{ partner: Partner; index: number }> = ({ partner,
 
 const StrategicPartnerCard: React.FC<{ partner: Partner; index: number }> = ({ partner, index }) => (
   <Spotlight className="ps-bento-card" aria-label={`${partner.name} — Strategic Partner`}>
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-      <span className="ps-tier-pill ps-tier-pill--silver" style={{ fontSize: '0.72rem' }}>
-        <Zap size={11} aria-hidden="true" />
+    <div className="ps-bento-top">
+      <span className="ps-tier-pill ps-tier-pill--silver ps-tier-pill--compact">
+        <Zap size={10} aria-hidden="true" />
         Strategic Partner
       </span>
-      <span style={{ fontFamily: 'var(--font-orbitron)', fontSize: '0.78rem', fontWeight: 800, color: 'rgba(183,185,189,0.35)' }}>
+      <span className="ps-bento-num">
         {String(index + 1).padStart(2, '0')}
       </span>
     </div>
@@ -328,29 +328,28 @@ const SilverSponsorCard: React.FC<{ sponsor: Sponsor }> = ({ sponsor }) => (
       <img src={sponsor.logo} alt={sponsor.name} loading="lazy" />
     </div>
 
-    <div style={{ flex: 1, minWidth: 0 }}>
-      <span className="ps-tier-pill ps-tier-pill--silver" style={{ marginBottom: '0.35rem' }}>
+    <div className="ps-silver-body">
+      <span className="ps-tier-pill ps-tier-pill--silver ps-tier-pill--silver-tag">
         Silver Sponsor
       </span>
-      <h4 style={{ fontFamily: 'var(--font-orbitron)', fontWeight: 700, fontSize: '1.05rem', color: '#F5F7F8', margin: 0 }}>
+      <h4 className="ps-silver-name">
         {sponsor.name}
       </h4>
+      {sponsor.website && (
+        <a
+          className="ps-visit ps-silver-visit"
+          href={sponsor.website}
+          target="_blank"
+          rel="noreferrer noopener"
+          aria-label={`Visit ${sponsor.name} site`}
+        >
+          <span>Visit Site</span>
+          <span className="ps-visit-icon">
+            <ArrowUpRight size={13} aria-hidden="true" />
+          </span>
+        </a>
+      )}
     </div>
-
-    {sponsor.website && (
-      <a
-        className="ps-visit"
-        href={sponsor.website}
-        target="_blank"
-        rel="noreferrer noopener"
-        aria-label={`Visit ${sponsor.name} site`}
-      >
-        <span>Visit Site</span>
-        <span className="ps-visit-icon">
-          <ArrowUpRight size={13} aria-hidden="true" />
-        </span>
-      </a>
-    )}
   </Spotlight>
 );
 
@@ -570,7 +569,7 @@ export const Partners: React.FC = () => {
       <div className="ps-part-label" id="sponsors">
         <span className="ps-part-num">02 — SPONSORS</span>
         <span className="ps-part-rule" aria-hidden="true" />
-        <span className="ps-part-tag">Platinum · Gold · Silver · Bronze</span>
+        <span className="ps-part-tag">Platinum · Elite · Gold · Silver · Bronze</span>
       </div>
 
       <section className="sect ps-sect" aria-labelledby="sponsors-heading">

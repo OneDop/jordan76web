@@ -1,13 +1,11 @@
-import universityOfJordan from '../assets/partners/university-of-jordan.png';
+import universityOfJordan from '../assets/partners/university-of-jordan.webp';
 import ujiec from '../assets/partners/ujiec.png';
 import ministryOfYouth from '../assets/partners/ministry-of-youth.png';
 import ey from '../assets/partners/ey.png';
 import replit from '../assets/partners/replit.png';
-import feynAi from '../assets/partners/feyn-ai.png';
 import mc2 from '../assets/partners/mc2.png';
 import injaz from '../assets/partners/injaz.png';
 import iyaf from '../assets/partners/iyaf.png';
-import shoman from '../assets/partners/shoman.svg';
 import intaj from '../assets/partners/intaj.svg';
 
 export type LogoTreatment = 'plate' | 'asIs' | 'knockout';
@@ -99,19 +97,6 @@ export const STRATEGIC_PARTNERS: Partner[] = [
     site: 'replit.com',
   },
   {
-    id: 'feyn-ai',
-    name: 'Feyn AI',
-    shortName: 'Feyn AI',
-    role: 'Strategic Partner',
-    tier: 'strategic',
-    logo: feynAi,
-    treatment: 'asIs',
-    blurb:
-      'AI cognitive learning platform utilizing active explanation techniques and next-generation intelligence tools.',
-    href: 'https://feynsolutions.ai',
-    site: 'feynsolutions.ai',
-  },
-  {
     id: 'mc2',
     name: 'MC²',
     shortName: 'MC²',
@@ -149,19 +134,6 @@ export const STRATEGIC_PARTNERS: Partner[] = [
       'International Youth Ambassadors Foundation, empowering youth-led ventures, leadership, and community impact.',
     href: 'https://iyafglobal.com',
     site: 'iyafglobal.com',
-  },
-  {
-    id: 'shoman',
-    name: 'Abdul Hameed Shoman Foundation',
-    shortName: 'Shoman Foundation',
-    role: 'Strategic Partner',
-    tier: 'strategic',
-    logo: shoman,
-    treatment: 'asIs',
-    blurb:
-      'Arab Bank’s arm for cultural and social responsibility, championing scientific research and digital innovation.',
-    href: 'https://shoman.org',
-    site: 'shoman.org',
   },
   {
     id: 'intaj',

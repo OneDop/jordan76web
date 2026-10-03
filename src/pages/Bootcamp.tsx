@@ -118,21 +118,33 @@ const BOOTCAMP_SPEAKERS: BootcampSpeaker[] = [
 const DAYS = [
   {
     num: '01',
-    title: 'Real opportunity?',
+    title: 'Is this a real opportunity?',
     flag: 'Validate',
-    sessions: ['Problem validation', 'Discovery', 'Value prop', 'Assumptions'],
+    question: 'Day 1 — Is this a real opportunity?',
+    sub: 'Who has the problem, how important is it, and does the proposed solution create meaningful value?',
+    detail:
+      'Teams will focus on validating the problem, understanding their target customers/users, testing key assumptions, and refining their value proposition.',
+    sessions: ['Problem validation', 'Customers & users', 'Assumptions', 'Value proposition'],
   },
   {
     num: '02',
-    title: 'Viable venture?',
+    title: 'Can this become a viable venture?',
     flag: 'Model',
-    sessions: ['Market', 'Competitors', 'Business model', 'Pricing', 'Financials'],
+    question: 'Day 2 — Can this become a viable venture?',
+    sub: 'Is there a meaningful market, how does the solution compete, and can the business model make financial sense?',
+    detail:
+      'Teams will examine their market opportunity, competitors and alternatives, differentiation, revenue model, pricing, costs, and basic financial viability.',
+    sessions: ['Market opportunity', 'Competitors', 'Business model', 'Pricing & costs', 'Financial viability'],
   },
   {
     num: '03',
-    title: 'Take it to market?',
+    title: 'How do we take it to market?',
     flag: 'Launch',
-    sessions: ['Go-to-market', 'Acquisition', 'Early adopters', 'Roadmap', 'Business case'],
+    question: 'Day 3 — How do we take it to market and communicate the case?',
+    sub: 'Who do we reach first, how do we reach them, what happens next, and how do we communicate the complete business case?',
+    detail:
+      'Teams will develop their initial go-to-market approach, identify early adopters and acquisition channels, define their next execution milestones, and bring their work together into a clear and coherent business case.',
+    sessions: ['Go-to-market', 'Early adopters', 'Acquisition', 'Milestones', 'Business case'],
   },
 ];
 
@@ -168,7 +180,7 @@ export const Bootcamp: React.FC = () => {
           <h1 className="bc-title">
             <span className="stroke">Idea</span> → <span className="bc-u">venture.</span>
           </h1>
-          <p className="bc-lead">3 days. Turn prototypes into ventures.</p>
+          <p className="bc-lead">A three-day practical program to build the business case behind your Hackathon solution.</p>
           <div className="bc-pins">
             <span className="bc-pin"><i>01</i> Validate</span>
             <span className="bc-pin"><i>02</i> Model</span>
@@ -177,12 +189,39 @@ export const Bootcamp: React.FC = () => {
         </div>
       </header>
 
-      {/* Checkpoints — dashed route accordion */}
+      {/* Bootcamp Overview */}
       <section className="bc-sect">
         <div className="bc-label">
-          <h2>Checkpoints</h2>
+          <h2>Bootcamp Overview</h2>
+          <span>Sep 27–29 · 3 days</span>
+        </div>
+        <div className="bc-overview">
+          <p>
+            The Jordan 2076 Bootcamp is a three-day practical program designed to help participating teams
+            develop the business and entrepreneurial side of their Hackathon solutions.
+          </p>
+          <p>
+            Through focused learning sessions, expert guidance, and applied tasks, teams will move beyond the
+            technical development of their solutions to validate the opportunity behind them, assess their market
+            and business viability, and define how they could take their solutions to market.
+          </p>
+          <p>
+            Each day focuses on a key stage of this journey, with teams applying what they learn through a
+            structured post-day task. By the end of the Bootcamp, teams should be able to build a clearer,
+            evidence-based business case around their solution.
+          </p>
+        </div>
+      </section>
+
+      {/* The Bootcamp Journey — dashed route accordion */}
+      <section className="bc-sect">
+        <div className="bc-label">
+          <h2>The Bootcamp Journey</h2>
           <span>Tap to open</span>
         </div>
+        <p className="bc-journey-intro">
+          Across the three days, teams will work toward answering three key questions:
+        </p>
         <div className="bc-route">
           {DAYS.map((day) => {
             const isOpen = openDay === day.num;
@@ -199,13 +238,17 @@ export const Bootcamp: React.FC = () => {
                     >
                       <span className="bc-flag">{day.flag}</span>
                       <span>
-                        <b>{day.title}</b>
+                        <b>{day.question}</b>
                         <small>{day.sessions.length} stops</small>
                       </span>
                       <ChevronDown size={18} className="bc-chev" aria-hidden="true" />
                     </button>
                     <div className="bc-drop">
                       <div>
+                        <div className="bc-day-detail">
+                          <p className="bc-day-sub">{day.sub}</p>
+                          <p className="bc-day-text">{day.detail}</p>
+                        </div>
                         <div className="bc-stops">
                           {day.sessions.map((s) => (
                             <span key={s} className="bc-stop">
